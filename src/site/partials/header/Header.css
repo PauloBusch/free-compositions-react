@@ -1,0 +1,55 @@
+.site-header {
+  margin: 0;
+  padding: 5px var(--space-x);
+  background: linear-gradient(to right, var(--secondary), var(--primary));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-header .main a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.site-header .main img {
+  width: 60px;
+}
+
+.site-header .main h1 {
+  margin: 0;
+}
+
+.site-header .menu {
+  display: flex;
+  align-items: center;
+}
+
+.site-header .menu span {
+  color: white;
+}
+
+.site-header .menu a {
+  font-weight: bold;
+  text-decoration: none;
+  padding: 5px 15px;
+}
+
+.site-header .menu i {
+  padding: 10px;
+}
+
+.site-header .menu a,
+.site-header .menu i {
+  cursor: pointer;
+  font-size: 25px;
+  color: white;
+  transition: .2s;
+}
+
+.site-header .menu i:hover,
+.site-header .menu a:hover {
+  color: var(--hover-white);
+}
