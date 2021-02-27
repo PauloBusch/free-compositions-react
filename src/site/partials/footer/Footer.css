@@ -16,7 +16,7 @@ footer .details img {
 } 
 
 footer .details .card {
-  padding: 25px;
+  margin-top: 25px;
 }
 
 footer .details .card h2 {
@@ -57,7 +57,7 @@ footer .social {
 }
 
 footer .social .icons i {
-  font-size: 25px;
+  font-size: 30px;
   padding: 5px;
 }
 

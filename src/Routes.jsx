@@ -1,13 +1,19 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { hashHistory, IndexRoute, Route, Router } from 'react-router';
+import { createStore } from 'redux';
+
 import Layout from './site/Layout';
-
 import Home from './site/pages/home/Home';
+import Reducers from './site/reducers/Reducers';
 
+const store = createStore(Reducers);
 export default () => (
-  <Router history={ hashHistory }>
-    <Route path="/" component={ Layout }> 
-      <IndexRoute component={ Home }/>
-    </Route> 
-  </Router>
+  <Provider store={ store }>
+    <Router history={ hashHistory }>
+      <Route path="/" component={ Layout }> 
+        <IndexRoute component={ Home }/>
+      </Route> 
+    </Router>
+  </Provider>
 );

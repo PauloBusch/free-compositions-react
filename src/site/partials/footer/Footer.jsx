@@ -5,7 +5,9 @@ import React from 'react';
 export default props => (
   <footer>
     <div className="details">
-      <img src="images/free-compositions/logo-strong.png"/>
+      <a href="/">
+        <img src="images/free-compositions/logo-strong.png"/>
+      </a>
       <div className="card">
         <h2>Empresa</h2>
         <ul>
