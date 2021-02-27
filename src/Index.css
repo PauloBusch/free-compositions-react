@@ -1,8 +1,10 @@
 :root {
   --primary: #529cf3;
   --secondary: #71ddc9;
-  --hover-white: rgb(195, 255, 244);
+  --hover-white: #ddedff;
   --space-x: 5%;
+
+  --header-height: 65px;
 }
 
 html, body {

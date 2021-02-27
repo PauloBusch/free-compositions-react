@@ -1,10 +1,17 @@
 .site-header {
   margin: 0;
+  z-index: 10;
+  top: 0;
+  width: 100vw;
+  box-sizing: border-box;
+  position: fixed;
+  height: var(--header-height);
   padding: 5px var(--space-x);
   background: linear-gradient(to right, var(--secondary), var(--primary));
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 1px 5px rgb(0 0 0 / 32%);
 }
 
 .site-header .main a {

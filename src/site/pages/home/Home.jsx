@@ -1,9 +1,10 @@
 import './Home.css';
 
 import React from 'react';
+import MainSection from './sections/main-section/MainSection';
 
 export default props => (
-  <div>
-    <h1>Home</h1>
+  <div className="home">
+    <MainSection />
   </div>
 );

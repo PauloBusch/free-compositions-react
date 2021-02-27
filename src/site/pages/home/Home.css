@@ -1,0 +1,5 @@
+.home section:first-of-type {
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
+  padding: 0;
+}
