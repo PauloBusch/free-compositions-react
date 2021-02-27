@@ -2,7 +2,7 @@
   margin: 0;
   z-index: 10;
   top: 0;
-  width: 100vw;
+  width: 100%;
   box-sizing: border-box;
   position: fixed;
   height: var(--header-height);
@@ -12,6 +12,12 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 1px 5px rgb(0 0 0 / 32%);
+}
+
+.site-header .main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .site-header .main a {
@@ -29,34 +35,109 @@
   margin: 0;
 }
 
-.site-header .menu {
+.site-header #toggle-mobile {
+  display: none;
+  cursor: pointer;
+  font-size: 40px;
+  color: white;
+  padding: 20px 25px;
+}
+
+.site-header #toggle-mobile:hover,
+.site-header #toggle-mobile:active {
+  background-color: rgba(0, 0, 0, 0.096);
+}
+
+.site-header .menu-mobile {
+  display: none;  
+  transition: .2s;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.site-header .menu-mobile.show {
+  transform: scaleY(1);
+}
+
+.site-header .menu-mobile a {
+  display: block;
+  text-decoration: none;
+  background-color: white;
+  font-size: 25px;
+  color: var(--primary);
+  font-weight: bold;
+  text-align: center;
+  padding: 15px;
+  border-bottom: 1px solid var(--secondary);
+}
+
+.site-header .menu-desktop {
   display: flex;
   align-items: center;
 }
 
-.site-header .menu span {
+.site-header .menu-desktop span {
   color: white;
 }
 
-.site-header .menu a {
+.site-header .menu-desktop a {
   font-weight: bold;
   text-decoration: none;
   padding: 5px 15px;
 }
 
-.site-header .menu i {
+.site-header .menu-desktop i {
   padding: 10px;
 }
 
-.site-header .menu a,
-.site-header .menu i {
+.site-header .menu-desktop a,
+.site-header .menu-desktop i {
   cursor: pointer;
   font-size: 25px;
   color: white;
   transition: .2s;
 }
 
-.site-header .menu i:hover,
-.site-header .menu a:hover {
+.site-header .menu-desktop i:hover,
+.site-header .menu-desktop a:hover {
   color: var(--hover-white);
+}
+
+@media screen and (max-width: 800px) {
+  .site-header {
+    padding: 0 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .site-header .menu-desktop {
+    display: none;
+  }
+
+  .site-header #toggle-mobile,
+  .site-header .menu-mobile {
+    display: block;  
+  }
+
+  .site-header .main img {
+    padding: 0 15px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .site-header .main h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .site-header .main h1 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .site-header .main img {
+    padding: 0;
+  }
 }

@@ -61,4 +61,45 @@ footer .social .icons i {
   padding: 5px;
 }
 
+@media screen and (max-width: 1000px) {
+  footer .details img {
+    max-width: 165px;
+  } 
 
+  footer {
+    flex-direction: column;
+  }
+  
+  footer .social {
+    margin-top: 15px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  footer .social .icons i:first-of-type {
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  footer .details {
+    flex-wrap: wrap;
+  }
+  
+  footer .details .card {
+    flex-basis: 50%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  footer .details {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  footer .social {
+    flex-direction: column;
+  }
+}
