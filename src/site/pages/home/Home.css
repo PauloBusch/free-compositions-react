@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+.home section:last-of-type {
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+
 .home section:nth-child(odd) {
   background-color: var(--background);
 }

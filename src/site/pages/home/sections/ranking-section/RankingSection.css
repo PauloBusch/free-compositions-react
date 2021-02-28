@@ -1,0 +1,13 @@
+#ranking .head {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+}
+
+#ranking .head h2 {
+  margin: 0;
+}
+
+#ranking .head i {
+  padding: 5px;
+}

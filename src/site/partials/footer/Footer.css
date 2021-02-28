@@ -1,6 +1,7 @@
 footer {
   color: white;
   display: flex;
+  min-height: var(--footer-height);
   padding: 15px var(--space-x);
   background: linear-gradient(to right, var(--secondary), var(--primary));
 }
