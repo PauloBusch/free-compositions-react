@@ -17,3 +17,9 @@
 .player .music .actions > i {
   font-size: 60px;
 }
+
+@media screen and (max-width: 350px) {
+  .player .music .actions > i {
+    font-size: 50px;
+  }
+}

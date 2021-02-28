@@ -13,6 +13,11 @@ const INITIAL_STATE = [
     id: 3,
     image: 'images/artists/artist-3.jpg',
     name: 'Joana Antonio'
+  },
+  {
+    id: 4,
+    image: 'images/artists/artist-2.jpg',
+    name: 'Fbrício Brasílio'
   }
 ];
 

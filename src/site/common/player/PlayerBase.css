@@ -22,3 +22,16 @@
   z-index: 1;
   position: absolute;
 }
+
+@media screen and (max-width: 950px) {
+  .player .content {
+    width: 280px;
+  }
+}
+
+
+@media screen and (max-width: 350px) {
+  .player .content {
+    width: auto;
+  }
+}

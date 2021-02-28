@@ -45,3 +45,34 @@
 .player .card .actions i:hover {
   color: var(--primary-hover);
 }
+
+@media screen and (max-width: 1100px) {
+  .player .card {
+    margin: 0;
+  }
+
+  .player .card .img {
+    height: 250px;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .player .card {
+    margin: 0 15px;
+    transform: scale(1);
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .player .card .actions i {
+    font-size: 25px;
+  }
+
+  .player .card .img {
+    min-width: auto;
+  }
+
+  .player .card .actions {
+    justify-content: center;
+  }
+}

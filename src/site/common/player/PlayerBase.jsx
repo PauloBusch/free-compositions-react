@@ -1,15 +1,16 @@
 import './PlayerBase.css';
 
 import React, { Component } from 'react';
+import { DESKTOP, MOBILE } from './../consts/AppMode';
 
 const INITIAL_STATE = {
+  mode: DESKTOP,
   activeIndex: 0,
   prevDisabled: true,
   nextDisabled: false
 }; 
 
 export default class PlayerBase extends Component {
-
   constructor(props) {
     super(props);
 
@@ -17,17 +18,38 @@ export default class PlayerBase extends Component {
     this.init();
     this.prevCard = this.prevCard.bind(this);
     this.nextCard = this.nextCard.bind(this);
+    window.addEventListener('resize', this.updateMode.bind(this));
   }
 
   init() {
-    const index = this.props.cards.length >= 3 ? 1 : 0;
+    const index = this.initialIndex();
     const { isFirst, isLast } = this.stateButtons(index); 
     this.state = { 
       ...this.state, 
+      mode: this.getMode(),
       activeIndex: index,
       prevDisabled: isFirst,
       nextDisabled: isLast
     };
+  }
+
+  initialIndex() {
+    if (this.getMode() === MOBILE) return 0;
+    if (this.props.cards.length >= 3) return 1;
+    return 0;
+  }
+
+  updateMode() {
+    const mode = this.getMode();
+    if (this.state.mode === mode) return;
+    this.setState({
+      ...this.state,
+      mode: mode
+    });
+  }
+
+  getMode() {
+    return window.innerWidth < 950 ? MOBILE : DESKTOP;
   }
 
   prevCard() {
@@ -61,10 +83,11 @@ export default class PlayerBase extends Component {
   }
 
   listStyles() {
-    const k = 1 / 3;
-    return { 
+    const isMobile = this.state.mode === MOBILE;
+    const k = isMobile ? 1 : 1 / 3;
+    return {
       width: `${ this.props.cards.length * k * 100 }%`,
-      marginLeft: `${ this.state.activeIndex * k * -100 + k * 100 }%`
+      marginLeft: `${ this.state.activeIndex * k * -100 + (isMobile ? 0 : k * 100) }%`
     };
   }
 }
