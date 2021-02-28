@@ -7,6 +7,7 @@
 }
 
 .galery .card .play-hover {
+  z-index: 1;
   position: absolute;
   top: 0;
   border-radius: 25px;
@@ -22,7 +23,7 @@
   opacity: 1;
 }
 
-.galery .card i {
+.galery .card .play-hover i {
   font-size: 50px;
   color: white;
   position: absolute;

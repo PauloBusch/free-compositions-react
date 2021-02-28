@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import Section from '../../../../../common/section/Section';
 import GaleryGenre from './../../../../common/galery/galery-genre/GaleryGenre';
+import GaleryPlaylist from './../../../../common/galery/galery-playlist/GaleryPlaylist';
 
 class GalerySection extends Component {
   render() {
@@ -15,6 +16,12 @@ class GalerySection extends Component {
         <i className="fas fa-chevron-right"></i>
       </div>
       <GaleryGenre cards={ this.props.genres }/>
+      
+      <div className="head">
+        <h2>Playlists populares</h2>
+        <i className="fas fa-chevron-right"></i>
+      </div>
+      <GaleryPlaylist cards={ this.props.playlists }/>
     </Section>
     );
   }

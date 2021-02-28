@@ -1,9 +1,10 @@
 .galery .genre .detail {
   position: absolute;
+  width: 100%;
+  z-index: 0;
   top: 50%;
-  left: 50%;
   margin: 0;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
 }
 
 .galery .genre h1 {
