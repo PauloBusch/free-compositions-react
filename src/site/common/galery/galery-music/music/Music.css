@@ -28,3 +28,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+@media screen and (max-width: 1350px) {
+  .galery .music {
+    width: 180px;
+    height: 180px;
+  }
+}

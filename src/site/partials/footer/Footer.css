@@ -1,6 +1,7 @@
 footer {
   color: white;
   display: flex;
+  box-sizing: border-box;
   min-height: var(--footer-height);
   padding: 15px var(--space-x);
   background: linear-gradient(to right, var(--secondary), var(--primary));
@@ -94,6 +95,11 @@ footer .social .icons i {
 }
 
 @media screen and (max-width: 400px) {
+
+  footer {
+    min-height: calc(100vh - var(--header-height));
+  }
+
   footer .details {
     flex-direction: column;
     align-items: center;

@@ -8,7 +8,7 @@ import ButtonNext from '../../player/actions/button-next/ButtonNext';
 
 const INITIAL_STATE = {
   activePage: 0,
-  musicsPage: 4,
+  musicsTake: 4,
   prevDisabled: true,
   nextDisabled: false
 }; 
@@ -21,6 +21,7 @@ export default class GaleryMusic extends Component {
     this.init();
     this.prevMusic = this.prevMusic.bind(this);
     this.nextMusic = this.nextMusic.bind(this);
+    window.addEventListener('resize', this.updateTake.bind(this));
   }
 
   init() {
@@ -28,10 +29,32 @@ export default class GaleryMusic extends Component {
     const { isFirst, isLast } = this.stateButtons(page); 
     this.state = { 
       ...this.state, 
+      musicsTake: this.getTake(),
       activePage: page,
       prevDisabled: isFirst,
       nextDisabled: isLast
     };
+  }
+
+  updateTake() {
+    const page = 0;
+    const take = this.getTake();
+    if (this.state.musicsTake === take) return;
+    const { isFirst, isLast } = this.stateButtons(page); 
+    this.setState({
+      ...this.state,
+      activePage: page,
+      musicsTake: take,
+      prevDisabled: isFirst,
+      nextDisabled: isLast
+    });
+  }
+
+  getTake() {
+    if (window.innerWidth > 1000) return 4;
+    if (window.innerWidth > 800) return 3;
+    if (window.innerWidth > 580) return 2;
+    return 1;
   }
 
   prevMusic() {
@@ -60,16 +83,24 @@ export default class GaleryMusic extends Component {
 
   stateButtons(page) {
     const isFirst = page === 0;
-    const isLast = page === (Math.ceil(this.props.musics.length / this.state.musicsPage) - 1);
+    const isLast = page === (Math.ceil(this.props.musics.length / this.state.musicsTake) - 1);
     return { isFirst, isLast };
   }
 
   listStyles() {
-    const k = 1 / this.state.musicsPage;
+    const k = 1 / this.state.musicsTake;
     return {
+      transition: `${this.getTransition()}s`,
       width: `${ this.props.musics.length * k * 100 }%`,
       marginLeft: `${ this.state.activePage * -100 }%`
     };
+  }
+
+  getTransition() {
+    if (this.state.musicsTake === 4) return 1;
+    if (this.state.musicsTake === 3) return 0.8;
+    if (this.state.musicsTake === 2) return 0.6;
+    if (this.state.musicsTake === 1) return 0.5;
   }
 
   render() {

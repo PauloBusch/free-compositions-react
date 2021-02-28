@@ -16,4 +16,8 @@
   .home section:first-of-type {
     min-height: calc(100vw * 0.4995);
   }
+
+  .home section:last-of-type {
+    min-height: calc(100vh - var(--header-height));
+  }
 }
