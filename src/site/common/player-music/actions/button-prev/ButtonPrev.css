@@ -1,0 +1,28 @@
+.prev {
+  opacity: .8;
+  z-index: 1;
+  padding: 5px 10px;
+  position: absolute;
+  font-size: 50px;
+  left: 0;
+  transform: translateY(-50%);
+  color: white;
+  cursor: pointer;
+  outline: none;
+  transition: all .2s;
+  background-color: var(--primary);
+  border-radius: 15px;
+}
+
+.prev:hover {
+  opacity: 1;
+}
+
+.prev.disabled {
+  cursor: default;
+  opacity: .5;
+}
+
+.prev.disabled:hover {
+  opacity: .5;
+}

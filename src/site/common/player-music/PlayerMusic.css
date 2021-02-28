@@ -1,0 +1,24 @@
+.player-music {
+  position: relative;
+}
+
+.player-music .content {
+  padding: 15px 0;
+  width: calc(100% - 100px);
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.player-music .musics {
+  transition: .5s;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.player-music > .actions {
+  width: 100%;
+  top: 50%;
+  z-index: 1;
+  position: absolute;
+}

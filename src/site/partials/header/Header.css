@@ -100,7 +100,7 @@
 
 .site-header .menu-desktop i:hover,
 .site-header .menu-desktop a:hover {
-  color: var(--hover-white);
+  color: var(--white-hover);
 }
 
 @media screen and (max-width: 800px) {
