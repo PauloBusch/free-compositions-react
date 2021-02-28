@@ -1,0 +1,39 @@
+.galery .card {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 25px;
+}
+
+.galery .card .play-hover {
+  position: absolute;
+  top: 0;
+  border-radius: 25px;
+  display: block;
+  transition: .2s;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.199);
+}
+
+.galery .card .play-hover:hover {
+  opacity: 1;
+}
+
+.galery .card i {
+  font-size: 50px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 1350px) {
+  .galery .card {
+    width: 180px;
+    height: 180px;
+  }
+}

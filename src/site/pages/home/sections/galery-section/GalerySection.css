@@ -1,0 +1,13 @@
+#galery .head {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+}
+
+#galery .head h2 {
+  margin: 0;
+}
+
+#galery .head i {
+  padding: 5px;
+}

@@ -14,7 +14,7 @@ class RankingSection extends Component {
         <h2>Mais ouvidas</h2>
         <i className="fas fa-chevron-right"></i>
       </div>
-      <GaleryMusic musics={ this.props.ranking }/>
+      <GaleryMusic cards={ this.props.ranking }/>
     </Section>
     );
   }

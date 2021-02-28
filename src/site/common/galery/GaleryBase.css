@@ -10,7 +10,7 @@
   overflow: hidden;
 }
 
-.galery .musics {
+.galery .cards {
   display: flex;
   justify-content: space-around;
   align-items: center;
