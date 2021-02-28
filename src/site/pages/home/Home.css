@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+.home section:nth-child(odd) {
+  background-color: var(--background);
+}
+
 @media screen and (max-width: 800px) { 
   .home section:first-of-type {
     min-height: calc(100vw * 0.4995);
