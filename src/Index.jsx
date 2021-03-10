@@ -1,5 +1,5 @@
 import 'modules/@fortawesome/fontawesome-free/css/all.css';
-import './index.css';
+import './Index.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
