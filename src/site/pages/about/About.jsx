@@ -11,7 +11,7 @@ export default props => (
       Assim como os pequenos e grandes compositores terão suas canções partilhadas para 
       esses artistas.</p>
 
-    <h3>Nossa história</h3>
+    <h3>NOSSA HISTÓRIA</h3>
     <p>Alessandra Pimentel compõe a mais 10 anos, tendo em seu repertório canções 
       de cunho religioso e popularmente tratas como musicas “seculares” de 
       estilos variados, sertanejo , pop,. Infantil, cristã.</p>
