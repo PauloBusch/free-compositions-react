@@ -1,6 +1,7 @@
 import './Footer.css';
 
 import React from 'react';
+import { Link } from 'react-router'; 
 
 export default props => (
   <footer>
@@ -11,7 +12,7 @@ export default props => (
       <div className="card">
         <h2>Empresa</h2>
         <ul>
-          <li><a href="#">Quem somos</a></li>
+          <li><Link to="about">Quem somos</Link></li>
           <li><a href="#">Ajuda</a></li>
         </ul>
       </div>
