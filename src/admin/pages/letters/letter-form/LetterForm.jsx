@@ -30,6 +30,13 @@ class LetterForm extends FormBase {
     this.title = 'Letra';
   }
 
+  getTitle() {
+    if (this.id)
+      return `Edição da ${this.title}`;
+    
+    return `Cadastro de ${this.title}`;
+  }
+
   form() {
     const compositors = ['Fabrício Brasílio', 'Joana Antonio'];
     const genres = ['Pop', 'MPB', 'Rap', 'Rock', 'Sertanejo', 'Eletrônica'];

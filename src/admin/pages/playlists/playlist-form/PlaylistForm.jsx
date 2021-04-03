@@ -24,6 +24,13 @@ class PlaylistForm extends FormBase {
     this.title = 'Playlist';
   }
 
+  getTitle() {
+    if (this.id)
+      return `Edição da ${this.title}`;
+    
+    return `Cadastro da ${this.title}`;
+  }
+
   form() {
     const { handleSubmit } = this.props;
     return (
