@@ -20,6 +20,7 @@ import GenreList from './admin/pages/genres/genre-list/GenreList';
 import GenreForm from './admin/pages/genres/genre-form/GenreForm';
 import StyleList from './admin/pages/styles/style-list/StyleList';
 import StyleForm from './admin/pages/styles/style-form/StyleForm';
+import PlaylistList from './admin/pages/playlists/playlists-list/PlaylistList';
 
 const store = applyMiddleware(thunk)(createStore)(Reducers);
 export default () => (
@@ -45,6 +46,7 @@ export default () => (
         <Route path="styles" component={ StyleList }/>
         <Route path="styles/new" component={ StyleForm }/>
         <Route path="styles/edit/:id" component={ StyleForm }/>
+        <Route path="playlists" component={ PlaylistList }/>
         <Redirect exact from='*' to="/admin/musics" />
       </Route>
     </Router>

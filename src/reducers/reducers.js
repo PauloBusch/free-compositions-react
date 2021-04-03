@@ -6,7 +6,7 @@ import ContactReducer from '../site/reducers/contact/ContactReducer';
 import MusicsReducer from './musics/MusicsReducer';
 import ArtistsReducer from '../site/reducers/artists/ArtistsReducer';
 import RankingReducer from './musics/RankingReducer';
-import PlaylistReducer from '../site/reducers/playlist/PlaylistReducer';
+import PlaylistReducer from './playlists/PlaylistsReducer';
 import LetterReducer from './letters/LettersReducer';
 import UserReducer from './users/UsersReducer';
 import GenreReducer from './genres/GenresReducer';
