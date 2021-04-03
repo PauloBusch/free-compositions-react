@@ -1,0 +1,2 @@
+export const GENRE_FETCHED = 'GENRE_FETCHED';
+export const GENRE_DELETED = 'GENRE_DELETED';

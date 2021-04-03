@@ -6,10 +6,10 @@ import ContactReducer from '../site/reducers/contact/ContactReducer';
 import MusicsReducer from './musics/MusicsReducer';
 import ArtistsReducer from '../site/reducers/artists/ArtistsReducer';
 import RankingReducer from './musics/RankingReducer';
-import GenreReducer from '../site/reducers/genre/GenreReducer';
 import PlaylistReducer from '../site/reducers/playlist/PlaylistReducer';
 import LetterReducer from './letters/LettersReducer';
 import UserReducer from './users/UsersReducer';
+import GenreReducer from './genres/GenresReducer';
 
 const rootReducer = combineReducers({
   toastr: toastrReducer,
@@ -17,10 +17,10 @@ const rootReducer = combineReducers({
   musics: MusicsReducer,
   artists: ArtistsReducer,
   ranking: RankingReducer,
-  genres: GenreReducer,
   playlists: PlaylistReducer,
   letters: LetterReducer,
   users: UserReducer,
+  genres: GenreReducer,
   form: formReducer
 });
 
