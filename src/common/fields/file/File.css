@@ -1,0 +1,41 @@
+.file-input {
+  padding: 0;
+  display: flex;
+}
+
+.file-input label {
+  color: var(--gray);
+  padding: 10px;
+  font-size: 15px;
+}
+
+.file-input button {
+  outline: none;
+  font-size: 18px;
+  padding: 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  background-color: #0276cd;
+  transition: .2s;
+}
+
+.file-input button:active{
+  transform: scale(0.99);
+}
+
+.file-input button:hover {
+  background-color: #0059b9;
+}
+
+@media only screen and (max-width: 600px) {
+  .file-input button {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .file-input button {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,67 @@
+.form-field {
+  box-sizing: border-box;
+  padding: 10px;
+  width: auto;
+}
+
+.form-field>label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+  border: 1px solid rgb(194, 194, 194);
+  padding: 8px;
+  font-size: 18px;
+  outline: none;
+}
+
+.form-field .error-message {
+  color: red;
+  font-size: 15px;
+  margin-top: 5px;
+}
+
+.form-control.has-error,
+.form-control.has-error::placeholder {
+  color: red;
+}
+
+textarea.form-control {
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100px;
+  max-height: 300px;
+}
+
+.field-icon {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.field-icon .form-control {
+  padding-left: 40px;
+}
+
+.field-icon i.icon {
+  cursor: pointer;
+  position: absolute;
+  left: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+  .form-control {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .form-control {
+    font-size: 14px;
+  }
+}

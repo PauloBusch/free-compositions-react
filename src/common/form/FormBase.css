@@ -1,0 +1,9 @@
+.page-base-form h2 {
+  margin: 0;
+}
+
+.page-base-form .go-back {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 5px;
+}

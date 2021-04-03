@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as toastrReducer } from 'react-redux-toastr';
+import { reducer as formReducer } from 'redux-form';
 
 import ContactReducer from '../site/reducers/contact/ContactReducer';
 import MusicsReducer from './musics/MusicsReducer';
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   artists: ArtistsReducer,
   ranking: RankingReducer,
   genres: GenreReducer,
-  playlists: PlaylistReducer
+  playlists: PlaylistReducer,
+  form: formReducer
 });
 
 export default rootReducer;

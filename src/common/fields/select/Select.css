@@ -1,0 +1,15 @@
+.select-insert {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.select-insert input {
+  padding-right: 40px;
+}
+
+.select-insert i {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+}

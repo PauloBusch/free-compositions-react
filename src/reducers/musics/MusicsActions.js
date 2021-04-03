@@ -4,7 +4,6 @@ import { MUSIC_FETCHED, MUSIC_DELETED } from './MusicsActionsTypes';
 
 const formId = 'music-form';
 const list = [
-  
   {
     id: 1,
     image: 'images/artists/artist-1.jpg',
@@ -49,7 +48,7 @@ export function getAll() {
 
 export function loadForm(id) {
   return dispatch => {
-    const data = list.find(l => l.id === id);
+    const data = list.find(l => l.id == id);
     dispatch(initialize(formId, data));
   };
 }
@@ -74,6 +73,23 @@ export function remove(id) {
 
 function request(values, method) {
   return dispatch => {
+    if (method === 'post') {
+      values.id = getMaxId() + 1;
+      list.unshift(values);
+    }
+    if (method === 'put') {
+      const index = list.indexOf(l => l.id === values.id);
+      list[index] = values;
+    }
     dispatch(getAll());
   };
+}
+
+function getMaxId() {
+  let max = list[0].id;
+  for (const data of list) {
+    if (data.id > max)
+      max = data.id;
+  }
+  return max;
 }
