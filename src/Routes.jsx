@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { hashHistory, IndexRoute, Route, Router } from 'react-router';
+import { hashHistory, IndexRoute, Redirect, Route, Router } from 'react-router';
 import { createStore } from 'redux';
 
 import SiteLayout from './site/SiteLayout';
@@ -19,8 +19,8 @@ export default () => (
         <Route path="about" component={ About }/>
       </Route> 
       <Route exact path="/admin" component={ AdminLayout }>
-        <IndexRoute component={ MusicList }/>
         <Route path="musics" component={ MusicList }/>
+        <Redirect exact from='*' to="/admin/musics" />
       </Route>
     </Router>
   </Provider>
