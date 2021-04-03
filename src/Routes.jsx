@@ -15,6 +15,7 @@ import MusicForm from './admin/pages/musics/music-form/MusicForm';
 import LetterList from './admin/pages/letters/letter-list/LetterList';
 import LetterForm from './admin/pages/letters/letter-form/LetterForm';
 import UserList from './admin/pages/users/user-list/UserList';
+import UserForm from './admin/pages/users/user-form/UserForm';
 
 const store = applyMiddleware(thunk)(createStore)(Reducers);
 export default () => (
@@ -32,6 +33,8 @@ export default () => (
         <Route path="letters/new" component={ LetterForm }/>
         <Route path="letters/edit/:id" component={ LetterForm }/>
         <Route path="users" component={ UserList }/>
+        <Route path="users/new" component={ UserForm }/>
+        <Route path="users/edit/:id" component={ UserForm }/>
         <Redirect exact from='*' to="/admin/musics" />
       </Route>
     </Router>
