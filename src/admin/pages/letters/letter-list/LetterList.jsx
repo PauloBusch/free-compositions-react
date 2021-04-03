@@ -11,7 +11,7 @@ class LetterList extends ListBase {
     super(props);
 
     this.title = 'Letras';
-    this.className = 'page-music-list';
+    this.className = 'page-letter-list';
     this.configure();
   }
 

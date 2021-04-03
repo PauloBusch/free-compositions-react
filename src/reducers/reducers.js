@@ -9,6 +9,7 @@ import RankingReducer from './musics/RankingReducer';
 import GenreReducer from '../site/reducers/genre/GenreReducer';
 import PlaylistReducer from '../site/reducers/playlist/PlaylistReducer';
 import LetterReducer from './letters/LettersReducer';
+import UserReducer from './users/UsersReducer';
 
 const rootReducer = combineReducers({
   toastr: toastrReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   genres: GenreReducer,
   playlists: PlaylistReducer,
   letters: LetterReducer,
+  users: UserReducer,
   form: formReducer
 });
 
