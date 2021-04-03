@@ -1,0 +1,2 @@
+export const STYLE_FETCHED = 'STYLE_FETCHED';
+export const STYLE_DELETED = 'STYLE_DELETED';

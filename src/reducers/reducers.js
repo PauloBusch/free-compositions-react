@@ -10,6 +10,7 @@ import PlaylistReducer from '../site/reducers/playlist/PlaylistReducer';
 import LetterReducer from './letters/LettersReducer';
 import UserReducer from './users/UsersReducer';
 import GenreReducer from './genres/GenresReducer';
+import StyleReducer from './styles/StylesReducer';
 
 const rootReducer = combineReducers({
   toastr: toastrReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   letters: LetterReducer,
   users: UserReducer,
   genres: GenreReducer,
+  styles: StyleReducer,
   form: formReducer
 });
 
