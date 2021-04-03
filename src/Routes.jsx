@@ -20,6 +20,7 @@ export default () => (
       </Route> 
       <Route exact path="/admin" component={ AdminLayout }>
         <IndexRoute component={ MusicList }/>
+        <Route path="musics" component={ MusicList }/>
       </Route>
     </Router>
   </Provider>

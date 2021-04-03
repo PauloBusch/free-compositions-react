@@ -1,0 +1,70 @@
+.submit-container {
+  margin: 5px 0;
+  position: relative;
+}
+
+.container-spinner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.438);
+}
+
+.submit-container .spinner {
+  font-size: 25px;
+  color: white;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: calc(50% - 25px / 2);
+  left: calc(50% - 25px / 2);
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button[type="submit"] {
+  margin: 0;
+  outline: none;
+  font-size: 18px;
+  padding: 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  background-color: #0276cd;
+  transition: .2s;
+}
+
+button[type="submit"]:active{
+  transform: scale(0.99);
+}
+
+button[type="submit"]:hover {
+  background-color: #0059b9;
+}
+
+button[type="submit"][disabled] {
+  cursor: default;
+  background-color: #dddddd;
+  color: #aaaaaa;
+}
+
+@media only screen and (max-width: 600px) {
+  button[type="submit"] {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  button[type="submit"] {
+    font-size: 14px;
+  }
+}

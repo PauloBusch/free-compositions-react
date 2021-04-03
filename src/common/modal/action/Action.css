@@ -1,0 +1,33 @@
+button.modal-action {
+  outline: none;
+  font-size: 18px;
+  margin: 0 15px;
+  padding: 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  background-color: #0276cd;
+  opacity: .8;
+  transition: .2s;
+}
+
+button.modal-action:active {
+  opacity: 1;
+  transform: scale(0.99);
+}
+
+button.modal-action:hover {
+  opacity: 1;
+}
+
+@media only screen and (max-width: 600px) {
+  button.modal-action {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  button.modal-action {
+    font-size: 14px;
+  }
+}

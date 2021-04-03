@@ -2,9 +2,9 @@ import { combineReducers } from 'redux';
 import { reducer as toastrReducer } from 'react-redux-toastr';
 
 import ContactReducer from '../site/reducers/contact/ContactReducer';
-import MusicsReducer from '../site/reducers/musics/MusicsReducer';
+import MusicsReducer from './musics/MusicsReducer';
 import ArtistsReducer from '../site/reducers/artists/ArtistsReducer';
-import RankingReducer from '../site/reducers/musics/RankingReducer';
+import RankingReducer from './musics/RankingReducer';
 import GenreReducer from '../site/reducers/genre/GenreReducer';
 import PlaylistReducer from '../site/reducers/playlist/PlaylistReducer';
 

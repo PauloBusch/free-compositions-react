@@ -1,0 +1,13 @@
+.table-empty {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: .5;
+}
+
+.table-empty i {
+  opacity: .4;
+  font-size: 30px;
+  padding: 15px;
+}

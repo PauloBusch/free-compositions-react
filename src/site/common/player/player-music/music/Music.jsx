@@ -9,7 +9,7 @@ export default props => {
   return (
     <div className={ `card music ${ props.active ? 'active' : '' }` }>
       <div className="img" style={ { backgroundImage: `url('${data.image}')` } }></div>
-      <h2>{ data.author }</h2>
+      <h2>{ data.compositor }</h2>
       <h3>{ data.name }</h3>
       <div className="actions">
         <div>

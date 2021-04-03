@@ -7,7 +7,7 @@ import MenuItem from './menu-item/MenuItem';
 export default props => (
   <div className="sidenav">
     <Menu>
-      <MenuItem href="admin" name="Músicas" icon="fa-images"/>
+      <MenuItem href="admin/musics" name="Músicas" icon="fa-images"/>
       <MenuItem href="admin/letters" name="Letras" icon="fa-house-user"/>
       <MenuItem href="admin/users" name="Usuários" icon="fa-house-user"/>
       <MenuItem href="admin/genres" name="Gêneros" icon="fa-house-user"/>
