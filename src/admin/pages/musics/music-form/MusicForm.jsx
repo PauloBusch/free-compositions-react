@@ -34,6 +34,7 @@ class MusicForm extends FormBase {
     const compositors = ['Fabrício Brasílio', 'Joana Antonio'];
     const genres = ['Pop', 'MPB', 'Rap', 'Rock', 'Sertanejo', 'Eletrônica'];
     const styles = ['Estilo 1', 'Estilo 2'];
+    const playlists = ['Top 50 Sertanejo', 'Beat trap funk', 'Gospel', 'Eletrónica'];
     const { handleSubmit } = this.props;
     return (
       <Form onSubmit={ handleSubmit(this.submit) }>
@@ -46,16 +47,19 @@ class MusicForm extends FormBase {
           <Field name="name" type="text" label="Nome" placeholder="Informe o nome"
             flex="25" component={ Input } validate={ required }
           />
-          <Field name="compositor" label="Compositor" placeholder="Informe o compositor"
+          <Field name="compositor" label="Compositor"
             flex="25" component={ Select } options={ compositors } validate={ required }
           />
-          <Field name="genre" label="Gênero" placeholder="Informe o gênero"
+          <Field name="genre" label="Gênero"
             flex="25" component={ Select } options={ genres } validate={ required }
           />
         </Row>
         <Row justify="flex-start">
-          <Field name="style" label="Estilo" placeholder="Informe o estilo"
+          <Field name="style" label="Estilo"
             flex="25" component={ Select } options={ styles } validate={ required }
+          />
+          <Field name="playlist" label="Playlist"
+            flex="25" component={ Select } options={ playlists }
           />
         </Row>
       </Form>

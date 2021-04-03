@@ -9,19 +9,19 @@ import required from './../../../../common/validators/required';
 import Row from '../../../../common/row/Row';
 import FormBase from './../../../../common/form/FormBase';
 import Input from './../../../../common/fields/input/Input';
-import { create, update, loadForm, submitForm } from './../../../../reducers/genres/GenresActions';
+import { create, update, loadForm, submitForm } from './../../../../reducers/styles/StylesActions';
 
 const DEFAULT_STATE = {
   name: ''
 };
 
-class GenreForm extends FormBase { 
+class StyleForm extends FormBase { 
   constructor(props) {
     super(props);
     if (!this.id) {
       this.props.initialize(DEFAULT_STATE);
     }
-    this.title = 'Gênero';
+    this.title = 'Estilo';
   }
 
   form() {
@@ -38,6 +38,6 @@ class GenreForm extends FormBase {
   }
 }
 
-const genreForm = reduxForm({ form: 'genre-form' })(withRouter(GenreForm));
+const styleForm = reduxForm({ form: 'style-form' })(withRouter(StyleForm));
 const mapDispatchToProps = dispatch => bindActionCreators({ create, update, submitForm, loadForm }, dispatch);
-export default connect(null, mapDispatchToProps)(genreForm);
+export default connect(null, mapDispatchToProps)(styleForm);
