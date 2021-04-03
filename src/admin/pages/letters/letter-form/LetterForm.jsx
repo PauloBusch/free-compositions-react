@@ -8,26 +8,26 @@ import { bindActionCreators } from 'redux';
 import required from './../../../../common/validators/required';
 import Select from './../../../../common/fields/select/Select';
 import Row from '../../../../common/row/Row';
-import File from './../../../../common/fields/file/File';
 import FormBase from './../../../../common/form/FormBase';
 import Input from './../../../../common/fields/input/Input';
-import { create, update, loadForm, submitForm } from './../../../../reducers/musics/MusicsActions';
+import TextArea from './../../../../common/fields/textarea/TextArea';
+import { create, update, loadForm, submitForm } from './../../../../reducers/letters/LettersActions';
 
 const DEFAULT_STATE = {
-  image: '',
-  compositor: '',
-  genre: '',
-  style: '',
-  name: ''
+  name: '',
+  style: null,
+  genre: null,
+  compositor: null,
+  letter: ''
 };
 
-class MusicForm extends FormBase { 
+class LetterForm extends FormBase { 
   constructor(props) {
     super(props);
     if (!this.id) {
       this.props.initialize(DEFAULT_STATE);
     }
-    this.title = 'Música';
+    this.title = 'Letra';
   }
 
   form() {
@@ -38,11 +38,6 @@ class MusicForm extends FormBase {
     return (
       <Form onSubmit={ handleSubmit(this.submit) }>
         <Row justify="flex-start">
-          <Field name="image" className="image-field" label="Imagem de Capa" 
-            accept="image/*"
-            button="Selecionar" placeholder="Selecione uma imagem"
-            flex="25" component={ File } validate={ required }
-          />
           <Field name="name" type="text" label="Nome" placeholder="Informe o nome"
             flex="25" component={ Input } validate={ required }
           />
@@ -52,10 +47,13 @@ class MusicForm extends FormBase {
           <Field name="genre" label="Gênero" placeholder="Informe o gênero"
             flex="25" component={ Select } options={ genres } validate={ required }
           />
-        </Row>
-        <Row justify="flex-start">
           <Field name="style" label="Estilo" placeholder="Informe o estilo"
             flex="25" component={ Select } options={ styles } validate={ required }
+          />
+        </Row>
+        <Row justify="flex-start">
+          <Field name="letter" label="Letra" placeholder="Informe a letra"
+            flex="100" rows="10" component={ TextArea } validate={ required }
           />
         </Row>
       </Form>
@@ -63,6 +61,6 @@ class MusicForm extends FormBase {
   }
 }
 
-const musicForm = reduxForm({ form: 'music-form' })(withRouter(MusicForm));
+const letterForm = reduxForm({ form: 'letter-form' })(withRouter(LetterForm));
 const mapDispatchToProps = dispatch => bindActionCreators({ create, update, submitForm, loadForm }, dispatch);
-export default connect(null, mapDispatchToProps)(musicForm);
+export default connect(null, mapDispatchToProps)(letterForm);

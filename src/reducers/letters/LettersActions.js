@@ -7,6 +7,7 @@ const list = [
   {
     id: 1,
     genre: 'Pop',
+    style: 'Estilo 2',
     name: 'Mi dama',
     compositor: '$r L1l.',
     letter: `Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
@@ -19,6 +20,7 @@ const list = [
   {
     id: 2,
     genre: 'Eletrônica',
+    style: 'Estilo 1',
     name: 'Chernobil',
     compositor: 'Fbrício Brasílio',
     letter: `Ut sit amet turpis felis. Praesent pharetra congue massa, sed ornare erat imperdiet ut. 
@@ -32,6 +34,7 @@ const list = [
   {
     id: 3,
     name: 'Eis me aqui',
+    style: 'Estilo 2',
     genre: 'MPB',
     compositor: 'Joana Antonio',
     letter: `Aliquam erat volutpat. Aenean eget sodales felis. Nullam neque magna, pulvinar a lectus sit amet, 

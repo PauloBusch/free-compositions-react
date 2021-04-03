@@ -13,6 +13,7 @@ import AdminLayout from './admin/AdminLayout';
 import MusicList from './admin/pages/musics/music-list/MusicList';
 import MusicForm from './admin/pages/musics/music-form/MusicForm';
 import LetterList from './admin/pages/letters/letter-list/LetterList';
+import LetterForm from './admin/pages/letters/letter-form/LetterForm';
 
 const store = applyMiddleware(thunk)(createStore)(Reducers);
 export default () => (
@@ -27,6 +28,8 @@ export default () => (
         <Route path="musics/new" component={ MusicForm }/>
         <Route path="musics/edit/:id" component={ MusicForm }/>
         <Route path="letters" component={ LetterList }/>
+        <Route path="letters/new" component={ LetterForm }/>
+        <Route path="letters/edit/:id" component={ LetterForm }/>
         <Redirect exact from='*' to="/admin/musics" />
       </Route>
     </Router>
