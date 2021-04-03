@@ -1,0 +1,8 @@
+ul.menu-admin {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 100%;
+  box-shadow: 5px 5px 5px #e4e4e4;
+  background-color: white;
+}

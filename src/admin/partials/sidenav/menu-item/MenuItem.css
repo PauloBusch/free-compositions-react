@@ -1,0 +1,27 @@
+li.menu-item a {
+  display: block;
+  text-decoration: none;
+  padding: 15px 0;
+  color: black;
+  cursor: pointer;
+  font-size: 25px;
+  transition: .2s;
+  border-left: 7px solid var(--secondary);
+}
+
+li.menu-item i {
+  padding: 0 15px;
+}
+
+li.menu-item a.active {
+  border-left: 7px solid var(--primary);
+  background-color: #bddaff;
+}
+
+li.menu-item a:hover {
+  background-color: rgb(235, 235, 235);
+}
+
+li.menu-item a.active:hover {
+  background-color: #9dc7ff;
+}

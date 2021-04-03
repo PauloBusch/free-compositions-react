@@ -1,0 +1,28 @@
+.header-admin {
+  width: 100%;
+  color: white;
+  background: linear-gradient(to right, var(--secondary), var(--primary));
+  padding: 10px 0 10px 10px;
+  height: var(--admin-menu-height);
+  box-sizing: border-box;
+  box-shadow: 0 5px 5px #0000002d;
+  z-index: 1;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.header-admin .title > * {
+  display: inline-block;
+}
+
+.header-admin i {
+  padding: 0 15px;
+  font-size: 2rem;
+}
+
+.header-admin h1 {
+  margin: 0 10px;
+}
