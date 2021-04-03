@@ -7,7 +7,7 @@ export default function SliderReducer(state = INITIAL_STATE, action) {
     case MUSIC_FETCHED: 
       return action.payload;
     case MUSIC_DELETED:
-      return state.filter(i => i._id !== action.payload);
+      return state.filter(i => i.id !== action.payload);
     default: 
       return state;
   }

@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 
 import image from '../../../../common/image/Image';
 import { getAll, remove } from '../../../../reducers/musics/MusicsActions';
-import ListBase from '../../../partials/list/ListBase';
+import ListBase from '../../../partials/list-base/ListBase';
 
 class MusicList extends ListBase {
   constructor(props) {

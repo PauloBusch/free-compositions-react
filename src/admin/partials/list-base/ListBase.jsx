@@ -27,7 +27,7 @@ export default class ListBase extends Component {
   }
 
   confirmRemove() {
-    this.props.remove(this.state.selected._id);
+    this.props.remove(this.state.selected.id);
     this.setState({ ...this.state, 
       selected: null,
       showConfirmRemove: false 
