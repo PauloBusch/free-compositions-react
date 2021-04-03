@@ -2,12 +2,20 @@ import './GalerySection.css';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Section from '../../../../../common/section/Section';
 import GaleryGenre from './../../../../common/galery/galery-genre/GaleryGenre';
 import GaleryPlaylist from './../../../../common/galery/galery-playlist/GaleryPlaylist';
+import { getAll as getGendersAll } from '../../../../../reducers/genres/GenresActions';
+import { getAll as getPlaylistsAll } from '../../../../../reducers/playlists/PlaylistsActions';
 
 class GalerySection extends Component {
+  componentWillMount() {
+    this.props.getGendersAll();
+    this.props.getPlaylistsAll();
+  }
+
   render() {
     return (
     <Section id="galery">
@@ -28,4 +36,5 @@ class GalerySection extends Component {
 }
 
 const mapStateToProps = state => ({ genres: state.genres, playlists: state.playlists });
-export default connect(mapStateToProps)(GalerySection);
+const mapDispatchToProps = dispatch => bindActionCreators({ getGendersAll, getPlaylistsAll }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(GalerySection);
