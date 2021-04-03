@@ -8,36 +8,48 @@ const list = [
     id: 1,
     image: 'images/artists/artist-1.jpg',
     compositor: '$r L1l.',
+    genre: 'Pop',
+    style: 'Estilo 1',
     name: 'Mi dama'
   },
   {
     id: 2,
     image: 'images/artists/artist-2.jpg',
     compositor: 'Fbrício Brasílio',
+    genre: 'MPB',
+    style: 'Estilo 1',
     name: 'Chernobil'
   },
   {
     id: 3,
     image: 'images/artists/artist-3.jpg',
     compositor: 'Joana Antonio',
+    genre: 'Eletrônica',
+    style: 'Estilo 2',
     name: 'Eis me aqui'
   },
   {
     id: 4,
     image: 'images/artists/artist-1.jpg',
     compositor: '$r L1l.',
+    genre: 'Rock',
+    style: 'Estilo 1',
     name: 'Mi dama'
   },
   {
     id: 5,
     image: 'images/artists/artist-2.jpg',
     compositor: 'Fbrício Brasílio',
+    genre: 'MPB',
+    style: 'Estilo 2',
     name: 'Chernobil'
   },
   {
     id: 6,
     image: 'images/artists/artist-3.jpg',
     compositor: 'Joana Antonio',
+    genre: 'Pop',
+    style: 'Estilo 1',
     name: 'Eis me aqui'
   }
 ];

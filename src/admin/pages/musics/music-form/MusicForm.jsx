@@ -1,6 +1,4 @@
 
-import './MusicForm.css';
-
 import React from 'react';
 import { withRouter } from 'react-router';
 import { Field, Form, reduxForm } from 'redux-form';
@@ -32,6 +30,8 @@ class MusicForm extends FormBase {
 
   form() {
     const compositors = ['Fabrício Brasílio', 'Joana Antonio'];
+    const genres = ['Pop', 'MPB', 'Rap', 'Rock', 'Sertanejo', 'Eletrônica'];
+    const styles = ['Estilo 1', 'Estilo 2'];
     const { handleSubmit } = this.props;
     return (
       <Form onSubmit={ handleSubmit(this.submit) }>
@@ -45,7 +45,15 @@ class MusicForm extends FormBase {
             flex="25" component={ Input } validate={ required }
           />
           <Field name="compositor" label="Compositor" placeholder="Informe o compositor"
-            flex="25" component={ Select } options={ compositors } insert validate={ required }
+            flex="25" component={ Select } options={ compositors } validate={ required }
+          />
+          <Field name="genre" label="Gênero" placeholder="Informe o gênero"
+            flex="25" component={ Select } options={ genres } validate={ required }
+          />
+        </Row>
+        <Row justify="flex-start">
+          <Field name="style" label="Estilo" placeholder="Informe o estilo"
+            flex="25" component={ Select } options={ styles } validate={ required }
           />
         </Row>
       </Form>

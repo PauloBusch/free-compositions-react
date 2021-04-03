@@ -12,6 +12,7 @@ import Reducers from './reducers/reducers';
 import AdminLayout from './admin/AdminLayout';
 import MusicList from './admin/pages/musics/music-list/MusicList';
 import MusicForm from './admin/pages/musics/music-form/MusicForm';
+import LetterList from './admin/pages/letters/letter-list/LetterList';
 
 const store = applyMiddleware(thunk)(createStore)(Reducers);
 export default () => (
@@ -25,6 +26,7 @@ export default () => (
         <Route path="musics" component={ MusicList }/>
         <Route path="musics/new" component={ MusicForm }/>
         <Route path="musics/edit/:id" component={ MusicForm }/>
+        <Route path="letters" component={ LetterList }/>
         <Redirect exact from='*' to="/admin/musics" />
       </Route>
     </Router>

@@ -1,0 +1,2 @@
+export const LETTER_FETCHED = 'LETTER_FETCHED';
+export const LETTER_DELETED = 'LETTER_DELETED';

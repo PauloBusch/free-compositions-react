@@ -1,5 +1,3 @@
-import './MusicList.css';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
@@ -23,10 +21,11 @@ class MusicList extends ListBase {
     ];
     this.tableColumns = [
       { prop: 'image', label: 'Capa', flex: 5, template: image },
-      { prop: 'name', label: 'Nome', flex: 40 },
-      { prop: 'compositor', label: 'Compositor', flex: 40 }
+      { prop: 'name', label: 'Nome', flex: 30 },
+      { prop: 'compositor', label: 'Compositor', flex: 30 },
+      { prop: 'genre', label: 'Gênero', flex: 30 }
     ];
-    this. tablePallet = {
+    this.tablePallet = {
       text: 'black',
       fill: '#007bff57'
     };
