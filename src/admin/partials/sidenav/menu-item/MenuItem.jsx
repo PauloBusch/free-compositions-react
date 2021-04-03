@@ -13,7 +13,7 @@ export default props => {
   return (
     <li className="menu-item">
       <Link to={ props.href } className={ `${ isActive(props) ? 'active' : '' }` }>
-        <i className={ `fas ${props.icon}` }></i>
+        <i className={ `fas fa-${props.icon}` }></i>
         { props.name }
       </Link>
     </li>

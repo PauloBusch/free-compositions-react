@@ -16,12 +16,12 @@ export default props => {
   return (
     <div className="sidenav">
       <Menu>
-        <MenuItem href="admin/musics" name="Músicas" icon="fa-images"/>
-        <MenuItem href="admin/letters" name="Letras" icon="fa-house-user"/>
-        <MenuItem href="admin/users" name="Usuários" icon="fa-house-user"/>
-        <MenuItem href="admin/genres" name="Gêneros" icon="fa-house-user"/>
-        <MenuItem href="admin/styles" name="Estilos" icon="fa-house-user"/>
-        <MenuItem href="admin/playlists" name="Playlists" icon="fa-house-user"/>
+        <MenuItem href="admin/musics" name="Músicas" icon="music"/>
+        <MenuItem href="admin/letters" name="Letras" icon="align-justify"/>
+        <MenuItem href="admin/users" name="Usuários" icon="user"/>
+        <MenuItem href="admin/genres" name="Gêneros" icon="microphone"/>
+        <MenuItem href="admin/styles" name="Estilos" icon="guitar"/>
+        <MenuItem href="admin/playlists" name="Playlists" icon="play-circle"/>
       </Menu>
     </div>
   );
