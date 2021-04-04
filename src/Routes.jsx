@@ -20,7 +20,7 @@ import GenreList from './admin/pages/genres/genre-list/GenreList';
 import GenreForm from './admin/pages/genres/genre-form/GenreForm';
 import StyleList from './admin/pages/styles/style-list/StyleList';
 import StyleForm from './admin/pages/styles/style-form/StyleForm';
-import PlaylistList from './admin/pages/playlists/playlists-list/PlaylistList';
+import PlaylistList from './admin/pages/playlists/playlist-list/PlaylistList';
 import PlaylistForm from './admin/pages/playlists/playlist-form/PlaylistForm';
 
 const store = applyMiddleware(thunk)(createStore)(Reducers);

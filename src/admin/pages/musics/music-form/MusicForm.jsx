@@ -12,9 +12,11 @@ import File from './../../../../common/fields/file/File';
 import FormBase from './../../../../common/form/FormBase';
 import Input from './../../../../common/fields/input/Input';
 import { create, update, loadForm, submitForm } from './../../../../reducers/musics/MusicsActions';
+import url from './../../../../common/validators/url';
 
 const DEFAULT_STATE = {
   image: '',
+  url: '',
   compositor: '',
   genre: '',
   style: '',
@@ -51,17 +53,20 @@ class MusicForm extends FormBase {
             button="Selecionar" placeholder="Selecione uma imagem"
             flex="25" component={ File } validate={ required }
           />
+          <Field name="url" type="text" label="Url do Audio/Vídeo" placeholder="Informe a url"
+            flex="25" component={ Input } validate={ [required, url] }
+          />
           <Field name="name" type="text" label="Nome" placeholder="Informe o nome"
             flex="25" component={ Input } validate={ required }
           />
           <Field name="compositor" label="Compositor"
             flex="25" component={ Select } options={ compositors } validate={ required }
           />
+        </Row>
+        <Row justify="flex-start">
           <Field name="genre" label="Gênero"
             flex="25" component={ Select } options={ genres } validate={ required }
           />
-        </Row>
-        <Row justify="flex-start">
           <Field name="style" label="Estilo"
             flex="25" component={ Select } options={ styles } validate={ required }
           />
