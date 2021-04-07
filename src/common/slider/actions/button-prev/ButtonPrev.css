@@ -1,0 +1,32 @@
+.prev-slide {
+  z-index: 1;
+  padding: 15px;
+  position: absolute;
+  font-size: 50px;
+  margin-left: 130px;
+  left: 0;
+  transform: translateY(-50%);
+  color: rgba(126, 126, 126, 0.603);
+  cursor: pointer;
+  outline: none;
+  transition: all .2s;
+}
+
+.prev-slide:hover {
+  color: rgb(68, 68, 68);
+}
+
+.prev-slide.disabled {
+  cursor: default;
+}
+
+.prev-slide.disabled:hover {
+  color: rgba(126, 126, 126, 0.603);
+}
+
+@media only screen and (max-width: 700px) { 
+  .prev-slide { 
+    margin-left: 15px;
+    left: 0; 
+  }
+}

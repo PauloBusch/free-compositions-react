@@ -1,0 +1,12 @@
+.slide {
+  position: relative;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.slide .image {
+  padding: 0;
+  height: calc(100vh - 80px);
+  background-position: top center;
+  background-size: cover;
+}

@@ -1,0 +1,16 @@
+.indicator {
+  margin: 5px;
+  display: inline-block;
+  background-color: white;
+  opacity: .5;
+  border: 1px solid rgb(90, 90, 90);
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  outline: none;
+}
+
+.indicator.active {
+  opacity: 1;
+}

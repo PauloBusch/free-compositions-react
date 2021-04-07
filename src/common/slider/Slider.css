@@ -1,0 +1,38 @@
+.slider {
+  position: relative;
+  overflow: hidden;
+  height: calc(100vh - 80px);
+}
+
+.slider ol,
+.slider ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slider .slides {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  transition: all .8s;
+  transition-timing-function: ease-out;
+}
+
+.slider .indicators {
+  position: absolute;
+  padding: 0;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.slider .actions {
+  width: 100%;
+  top: 50%;
+  z-index: 1;
+  position: absolute;
+}
