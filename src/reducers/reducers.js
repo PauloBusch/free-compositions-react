@@ -12,10 +12,12 @@ import UserReducer from './users/UsersReducer';
 import GenreReducer from './genres/GenresReducer';
 import StyleReducer from './styles/StylesReducer';
 import SlidesReducer from './slides/SlidesReducer';
+import authReducer from '../admin/reducers/auth/AuthReducer';
 
 const rootReducer = combineReducers({
   toastr: toastrReducer,
   contact: ContactReducer,
+  auth: authReducer,
   slides: SlidesReducer,
   musics: MusicsReducer,
   artists: ArtistsReducer,

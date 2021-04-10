@@ -6,9 +6,15 @@ import ArtistsSection from './sections/artists-section/ArtistsSection';
 import RankingSection from './sections/ranking-section/RankingSection';
 import GalerySection from './sections/galery-section/GalerySection';
 import Slider from './../../../common/slider/Slider';
+import { getAll as getAllSlides } from '../../.../../../reducers/slides/SlidesActions';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 class Home extends Component {
+  componentWillMount() {
+    this.props.getAllSlides();
+  }
+
   render() {
     const { slides } = this.props;
     return (
@@ -26,4 +32,5 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({ slides: state.slides });
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = dispatch => bindActionCreators({ getAllSlides }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

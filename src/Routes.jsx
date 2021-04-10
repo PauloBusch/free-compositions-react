@@ -22,6 +22,9 @@ import StyleList from './admin/pages/styles/style-list/StyleList';
 import StyleForm from './admin/pages/styles/style-form/StyleForm';
 import PlaylistList from './admin/pages/playlists/playlist-list/PlaylistList';
 import PlaylistForm from './admin/pages/playlists/playlist-form/PlaylistForm';
+import AuthOrApp from './admin/AuthOrApp';
+import SlideList from './admin/pages/slides/slide-list/SlideList';
+import SlideForm from './admin/pages/slides/slide-form/SlideForm';
 
 const store = applyMiddleware(thunk)(createStore)(Reducers);
 export default () => (
@@ -32,6 +35,9 @@ export default () => (
         <Route path="about" component={ About }/>
       </Route> 
       <Route exact path="/admin" component={ AdminLayout }>
+        <Route path="slides" component={ SlideList }/>
+        <Route path="slides/new" component={ SlideForm }/>
+        <Route path="slides/edit/:id" component={ SlideForm }/>
         <Route path="musics" component={ MusicList }/>
         <Route path="musics/new" component={ MusicForm }/>
         <Route path="musics/edit/:id" component={ MusicForm }/>
@@ -50,7 +56,7 @@ export default () => (
         <Route path="playlists" component={ PlaylistList }/>
         <Route path="playlists/new" component={ PlaylistForm }/>
         <Route path="playlists/edit/:id" component={ PlaylistForm }/>
-        <Redirect exact from='*' to="/admin/musics" />
+        <Redirect exact from='*' to="/admin/slides" />
       </Route>
     </Router>
   </Provider>

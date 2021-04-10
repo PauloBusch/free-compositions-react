@@ -1,0 +1,40 @@
+.background-login {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+}
+
+#form-login {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 10px rgb(178 178 178);
+  padding: 25px;
+  box-sizing: border-box;
+  background-color: var(--grey);
+}
+
+#form-login h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+#form-login .form-field {
+  padding: 10px 0;
+}
+
+#form-login button {
+  margin-top: 10px;
+}
+
+.link-forgot-password {
+  margin-top: 15px;
+  display: block;
+  transition: .2s;
+  color: var(--blue);
+}
+
+.link-forgot-password:hover {
+  opacity: .8;
+}

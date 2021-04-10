@@ -7,7 +7,7 @@ import MenuItem from './menu-item/MenuItem';
 function redirectDefault() {
   const currentHref = location.hash.substr(2);
   if (currentHref === 'admin')
-    location.href = '/#/admin/musics';
+    location.href = '/#/admin/slides';
 }
 
 export default props => {
@@ -16,6 +16,7 @@ export default props => {
   return (
     <div className="sidenav">
       <Menu>
+        <MenuItem href="admin/slides" name="Slides" icon="images"/>
         <MenuItem href="admin/musics" name="Músicas" icon="music"/>
         <MenuItem href="admin/letters" name="Letras" icon="align-justify"/>
         <MenuItem href="admin/users" name="Usuários" icon="user"/>
