@@ -1,7 +1,7 @@
 import { initialize, submit } from 'redux-form';
 
-import { toastr } from 'react-redux-toastr';
 import { GENRE_FETCHED, GENRE_DELETED } from './GenresActionsTypes';
+import { toastr } from 'react-redux-toastr';
 import firebaseInstance from './../../firebase/index';
 import 'firebase/firestore';
 
