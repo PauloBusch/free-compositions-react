@@ -1,49 +1,31 @@
 import { initialize, submit } from 'redux-form';
 
+import { toastr } from 'react-redux-toastr';
 import { GENRE_FETCHED, GENRE_DELETED } from './GenresActionsTypes';
+import firebaseInstance from './../../firebase/index';
+import 'firebase/firestore';
 
+const type = 'gênero';
 const formId = 'genre-form';
-const list = [
-  {
-    id: 1,
-    name: 'Gospel',
-    color: '#ffaa00'
-  },
-  {
-    id: 2,
-    name: 'Rap',
-    color: '#00ffb1'
-  },
-  {
-    id: 3,
-    name: 'Música eletrônica',
-    color: '#00d3ff'
-  },
-  {
-    id: 4,
-    name: 'Pop',
-    color: '#f700ff'
-  },
-  {
-    id: 5,
-    name: 'Gospel',
-    color: '#ffaa00'
-  },
-  {
-    id: 6,
-    name: 'Rap',
-    color: '#00ffb1'
-  }
-];
+const collection = firebaseInstance.firestore().collection('genres');
 
 export function getAll() {
-  return { type: GENRE_FETCHED, payload: list };
+  return dispatch => {
+    collection.get().then(result => {
+      const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => b.createdAt - a.createdAt);
+      dispatch({ type: GENRE_FETCHED, payload: list });
+    })
+    .catch(() => toastr.error('Erro', `Falha ao carregar ${type}s!`));
+  };
 }
 
 export function loadForm(id) {
   return dispatch => {
-    const data = list.find(l => l.id == id);
-    dispatch(initialize(formId, data));
+    collection.doc(id).get().then(doc => {
+      dispatch(initialize(formId, { id: doc.id, ...doc.data() }));
+    })
+    .catch(() => toastr.error('Erro', `Falha ao carregar ${type}!`));
   };
 }
 
@@ -51,39 +33,46 @@ export function submitForm() {
   return submit(formId);
 }
 
-export function create(values) {
-  return request(values, 'post');
-}
-
-export function update(values) {
-  return request(values, 'put');
-}
-
-export function remove(id) {
+export function create(values, completed) {
   return dispatch => {
-    dispatch({ type: GENRE_DELETED, payload: id });
+    values.createdAt = new Date();
+    collection.add(values)
+    .then(() => {
+      toastr.success('Sucesso', `Gênero cadastrado com sucesso!`);
+      dispatch(getAll());
+      completed(true);
+    })
+    .catch(() => {
+      toastr.error('Erro', `Falha ao criar ${type}!`);
+      completed(false);
+    });
   };
 }
 
-function request(values, method) {
+export function update(values, completed) {
   return dispatch => {
-    if (method === 'post') {
-      values.id = getMaxId() + 1;
-      list.unshift(values);
-    }
-    if (method === 'put') {
-      const index = list.indexOf(l => l.id === values.id);
-      list[index] = values;
-    }
-    dispatch(getAll());
+    collection.doc(values.id).update(values)
+    .then(() => {
+      toastr.success('Sucesso', `Gênero atualizado com sucesso!`);
+      dispatch(getAll());
+      completed(true);
+    })
+    .catch(() => {
+      toastr.error('Erro', `Falha ao atualizar ${type}!`);
+      completed(false);
+    });
   };
 }
 
-function getMaxId() {
-  let max = list[0].id;
-  for (const data of list) {
-    if (data.id > max)
-      max = data.id;
-  }
-  return max;
+export function remove(id, completed) {
+  return dispatch => {
+    collection.doc(id).delete().then(doc => {
+      dispatch({ type: GENRE_DELETED, payload: id });
+      completed(true);
+    })
+    .catch(() => {
+      toastr.error('Erro', `Falha ao remover ${type}!`);
+      completed(false);
+    });
+  };
 }

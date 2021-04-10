@@ -20,7 +20,7 @@ export function getAll() {
           list[index].imageRef = list[index].image;
           list[index].image = urlResults[index];
         }
-        slides = list.sort((a, b) => a.order - b.order);
+        slides = list.sort((a, b) => b.order - a.order);
         dispatch({ type: SLIDE_FETCHED, payload: list });
       });
     })
