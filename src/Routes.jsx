@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { hashHistory, IndexRoute, Redirect, Route, Router } from 'react-router';
 import { applyMiddleware, createStore } from 'redux';
 
+import promise from 'redux-promise';
 import thunk from 'redux-thunk';
 
 import SiteLayout from './site/SiteLayout';
@@ -26,7 +27,7 @@ import AuthOrApp from './admin/AuthOrApp';
 import SlideList from './admin/pages/slides/slide-list/SlideList';
 import SlideForm from './admin/pages/slides/slide-form/SlideForm';
 
-const store = applyMiddleware(thunk)(createStore)(Reducers);
+const store = applyMiddleware(thunk, promise)(createStore)(Reducers);
 export default () => (
   <Provider store={ store }>
     <Router history={ hashHistory }>
@@ -34,7 +35,7 @@ export default () => (
         <IndexRoute component={ Home }/>
         <Route path="about" component={ About }/>
       </Route> 
-      <Route exact path="/admin" component={ AdminLayout }>
+      <Route exact path="/admin" component={ AuthOrApp }>
         <Route path="slides" component={ SlideList }/>
         <Route path="slides/new" component={ SlideForm }/>
         <Route path="slides/edit/:id" component={ SlideForm }/>
