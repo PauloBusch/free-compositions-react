@@ -9,7 +9,7 @@ export default function Header() {
     <header className="header-admin">
       <div className="title">
         <i className="fas fa-user-cog"></i>
-        <h1>Painel Administrativo - { WEBSITE_NAME || 'Website' }</h1>
+        <h2>Painel Administrativo - { WEBSITE_NAME || 'Website' }</h2>
       </div>
     </header>
   );
