@@ -1,0 +1,2 @@
+export const SLIDE_FETCHED = 'SLIDE_FETCHED';
+export const SLIDE_DELETED = 'SLIDE_DELETED';

@@ -11,10 +11,12 @@ import LetterReducer from './letters/LettersReducer';
 import UserReducer from './users/UsersReducer';
 import GenreReducer from './genres/GenresReducer';
 import StyleReducer from './styles/StylesReducer';
+import SlidesReducer from './slides/SlidesReducer';
 
 const rootReducer = combineReducers({
   toastr: toastrReducer,
   contact: ContactReducer,
+  slides: SlidesReducer,
   musics: MusicsReducer,
   artists: ArtistsReducer,
   ranking: RankingReducer,
