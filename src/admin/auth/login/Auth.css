@@ -5,6 +5,7 @@
 }
 
 #form-login {
+  min-width: 380px;
   position: absolute;
   top: 40%;
   left: 50%;

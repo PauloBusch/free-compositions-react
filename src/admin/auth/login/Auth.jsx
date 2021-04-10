@@ -29,7 +29,7 @@ class Auth extends Component {
             placeholder="E-mail" icon="user"/>
           <Field component={ Input } type="password" name="password"
             placeholder="Senha" icon="envelope"/>
-          <Link className="link-forgot-password" to="/">Esqueci minha senha</Link>
+            <Link className="link-forgot-password" to={ (`/admin/forgot-password/${email ? encodeURIComponent(email) : ''}`) }>Esqueci minha senha</Link>
           <SubmitButton disabled={ !this.isValid() } fill padding="10px" text="Entrar"/>
         </Form>
         <Toastr />

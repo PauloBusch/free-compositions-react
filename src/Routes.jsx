@@ -26,6 +26,7 @@ import PlaylistForm from './admin/pages/playlists/playlist-form/PlaylistForm';
 import AuthOrApp from './admin/AuthOrApp';
 import SlideList from './admin/pages/slides/slide-list/SlideList';
 import SlideForm from './admin/pages/slides/slide-form/SlideForm';
+import ForgotPasswordForm from './admin/auth/forgot-password/ForgotPasswordForm';
 
 const store = applyMiddleware(thunk, promise)(createStore)(Reducers);
 export default () => (
@@ -35,6 +36,8 @@ export default () => (
         <IndexRoute component={ Home }/>
         <Route path="about" component={ About }/>
       </Route> 
+      <Route exact path="/admin/forgot-password" component={ ForgotPasswordForm } />
+      <Route exact path="/admin/forgot-password/:email" component={ ForgotPasswordForm } />
       <Route exact path="/admin" component={ AuthOrApp }>
         <Route path="slides" component={ SlideList }/>
         <Route path="slides/new" component={ SlideForm }/>
