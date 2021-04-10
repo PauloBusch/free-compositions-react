@@ -20,6 +20,7 @@ export default props => {
             { buttons.map(b => 
               <Action key={ b.text } 
                 onClick={ b.click } 
+                loading={ b.loading } 
                 pallet={ b.pallet } 
                 text={ b.text }
               />

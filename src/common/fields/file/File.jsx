@@ -21,26 +21,10 @@ export default class File extends FieldBase {
     const { input: { onChange }, fileFormat } = this.props;
     const [file] = e.target.files;
     if (file) this.setState({ ...this.state, name: file.name });
-    if (fileFormat === 'blob') 
-      onChange(e);
-    else 
+    if (fileFormat === 'base64') 
       this.toBase64(file, base64 => onChange(base64));
-  }
-
-  toBase64(file, fn) {
-    if (!file) {
-      fn(null);
-      return; 
-    }
-    
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      fn(reader.result)
-    };
-    reader.onerror = function (error) {
-        console.log('Error: ', error);
-    };
+    else 
+      onChange(file);
   }
 
   field() {

@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
@@ -14,6 +13,11 @@ class SlideList extends ListBase {
     this.title = 'Slides';
     this.className = 'page-slide-list';
     this.configure();
+  }
+
+  confirmRemove() {
+    this.toggleLoadingRemove(true);
+    this.props.remove(this.state.selected, this.afterRemove);
   }
 
   getPositionX(raw) {

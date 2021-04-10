@@ -1,7 +1,30 @@
+.action-container {
+  margin: 0 15px;
+  position: relative;
+}
+
+.container-spinner {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.438);
+}
+
+.action-container .spinner {
+  font-size: 25px;
+  color: white;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: calc(50% - 25px / 2);
+  left: calc(50% - 25px / 2);
+  animation: rotate 1s linear infinite;
+}
+
 button.modal-action {
   outline: none;
   font-size: 18px;
-  margin: 0 15px;
   padding: 10px;
   color: white;
   border: none;

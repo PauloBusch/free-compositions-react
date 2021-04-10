@@ -11,8 +11,10 @@ export default class FormBase extends Component {
   constructor(props) {
     super(props);
 
+    this.state = { loading: false };
     this.submit = this.submit.bind(this);
     this.goBack = this.goBack.bind(this);
+    this.afterSubmit = this.afterSubmit.bind(this);
     this.id = this.getId();
     if (this.id) {
       this.data = this.getData(this.id);
@@ -42,12 +44,23 @@ export default class FormBase extends Component {
   }
 
   submit(values) {
+    this.toggleLoading(true);
     if (this.id)
-      this.props.update(values);
+      this.props.update(values, this.afterSubmit);
     else
-      this.props.create(values);
+      this.props.create(values, this.afterSubmit);
+  }
+    
+  afterSubmit(success) {
+    this.toggleLoading(false);
+    if (success) this.goBack();
+  }
 
-    this.goBack();
+  toggleLoading(loading) {
+    this.setState({ 
+      ...this.state, 
+      loading: loading
+    });
   }
 
   goBack() {
@@ -69,7 +82,7 @@ export default class FormBase extends Component {
             { this.form() }
           </CardContent>
           <CardFooter>
-            <SubmitButton text="SALVAR" onClick={ this.props.submitForm }/>
+            <SubmitButton text="SALVAR" loading={ this.state.loading } onClick={ this.props.submitForm }/>
           </CardFooter>
         </Card>
       </div>

@@ -1,6 +1,7 @@
 import './Action.css';
 
 import React from 'react';
+import If from '../../operators/If';
 
 function getStyle(props) {
   const { pallet } = props;
@@ -12,10 +13,18 @@ function getStyle(props) {
 }
 
 export default props => (
-  <button className="modal-action"
-    onClick={ props.onClick } 
-    style={ getStyle(props) }
-  >
-    { props.text }
-  </button>
+  <div className="action-button action-container" >
+    <If test={ props.loading }>
+      <div className="container-spinner">
+        <i  className="spinner fas fa-spinner"></i>
+      </div>
+    </If>
+
+    <button className="modal-action"
+      onClick={ props.onClick } 
+      style={ getStyle(props) }
+    >
+      { props.text }
+    </button>
+  </div>
 );

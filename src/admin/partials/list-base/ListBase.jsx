@@ -10,7 +10,7 @@ import Table from './../../../common/table/Table';
 import Modal from '../../../common/modal/Modal';
 import FixedButton from '../../../common/buttons/fixed/FixedButton';
 
-const INITIAL_STATE = { selected: null, showConfirmRemove: false };
+const INITIAL_STATE = { loadingRemove: false, selected: null, showConfirmRemove: false };
 
 export default class ListBase extends Component {
   constructor(props) {
@@ -18,6 +18,7 @@ export default class ListBase extends Component {
 
     this.state = INITIAL_STATE;
     this.closeModal = this.closeModal.bind(this);
+    this.afterRemove = this.afterRemove.bind(this);
     this.goEdit = this.goEdit.bind(this);
     this.goNew = this.goNew.bind(this);
   }
@@ -27,10 +28,25 @@ export default class ListBase extends Component {
   }
 
   confirmRemove() {
-    this.props.remove(this.state.selected.id);
-    this.setState({ ...this.state, 
-      selected: null,
-      showConfirmRemove: false 
+    this.toggleLoadingRemove(true);
+    this.props.remove(this.state.selected.id, this.afterRemove);
+  }
+  
+  afterRemove(success) {
+    this.toggleLoadingRemove(false);
+    if (success) {
+      this.setState({ 
+        ...this.state, 
+        selected: null,
+        showConfirmRemove: false 
+      });
+    }
+  }
+
+  toggleLoadingRemove(loading) {
+    this.setState({ 
+      ...this.state, 
+      loadingRemove: loading
     });
   }
 
@@ -66,7 +82,7 @@ export default class ListBase extends Component {
     const list = this.getList();
     const modalActions = [
       { text: 'CANCELAR', pallet: { fill: '#c8c8c8', text: 'black' }, click: this.closeModal.bind(this) },
-      { text: 'REMOVER', pallet: { fill: 'red', text: 'white' }, click: this.confirmRemove.bind(this) }
+      { text: 'REMOVER', pallet: { fill: 'red', text: 'white' }, loading: this.state.loadingRemove, click: this.confirmRemove.bind(this) }
     ];
     return (
       <div className={ `list ${this.className ? this.className : ''}` }>
