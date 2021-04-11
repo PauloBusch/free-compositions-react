@@ -8,19 +8,18 @@ const type = 'slide';
 const formId = 'slide-form';
 const storage = firebaseInstance.storage();
 const collection = firebaseInstance.firestore().collection('slides');
-var slides = [];
 
 export function getAll(completed) {
   return dispatch => {
     collection.get().then(result => {
-      const list = result.docs.map(d => ({ id: d.id, ...d.data() }));
+      const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => b.createdAt - a.createdAt);
       const urlTasks = list.map(slide => firebaseInstance.storage().ref(slide.image).getDownloadURL());
       Promise.all(urlTasks).then(urlResults => {
         for (const index in list){
           list[index].imageRef = list[index].image;
           list[index].image = urlResults[index];
         }
-        slides = list.sort((a, b) => b.order - a.order);
         dispatch({ type: SLIDE_FETCHED, payload: list });
         if (completed) completed(true);
       });
@@ -56,8 +55,8 @@ export function create(values, completed) {
     const pathSlide = `images/slides/${values.image.name}`;
     storage.ref(pathSlide).put(values.image).then(() => {
       const slide = Object.assign(new Object(), values);
+      slide.createdAt = new Date();
       slide.image = pathSlide;
-      slide.order = getMaxOrder() + 1;
       collection.add(slide)
       .then(() => {
         toastr.success('Sucesso', `Slide cadastrado com sucesso!`);
@@ -117,12 +116,4 @@ export function remove(slide, completed) {
       if (completed) completed(false);
     });
   };
-}
-
-function getMaxOrder() {
-  if (!slides || slides.length === 0) return 0;
-  let max = slides[0].order;
-  for (const slide of slides)
-    if (slide.order > max) max = slide.order;
-  return max;
 }
