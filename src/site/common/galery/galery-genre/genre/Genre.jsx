@@ -8,13 +8,13 @@ export default props => {
 
   return (
     <div className="card genre" style={ 
-      { backgroundColor: data.color }
+      { backgroundColor: data.backgroundColor }
     }>
       <div className="play-hover">
         <i className="far fa-play-circle"></i>
       </div>
       <div className="detail">
-        <h1>{ data.name }</h1>
+        <h1 style={ { color: data.contrastColor } }>{ data.name }</h1>
       </div>
     </div>
   );  

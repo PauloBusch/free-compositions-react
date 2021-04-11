@@ -44,6 +44,8 @@ export function submitForm() {
 export function create(values, completed) {
   return dispatch => {
     values.createdAt = new Date();
+    values.backgroundColor = randBackgroundColor();
+    values.contrastColor = getContrastColor(values.backgroundColor);
     collection.add(values)
     .then(() => {
       toastr.success('Sucesso', `Gênero cadastrado com sucesso!`);
@@ -83,4 +85,18 @@ export function remove(id, completed) {
       if (completed) completed(false);
     });
   };
+}
+
+function randBackgroundColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+function getContrastColor(bgColor) {
+  if (!bgColor) return null;
+  return (parseInt(bgColor.replace('#', ''), 16) > 0xffffff / 2) ? '#000' : '#fff';
 }

@@ -14,6 +14,7 @@ export default class GaleryBase extends Component {
   constructor(props) {
     super(props);
 
+    this.length = 0;
     this.state = INITIAL_STATE;
     this.init();
     this.prevCard = this.prevCard.bind(this);
