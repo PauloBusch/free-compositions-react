@@ -1,21 +1,37 @@
 import './MenuItem.css';
 
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';        
 
-function isActive(props) {
-  const currentHref = location.hash.substr(2);
-  if (props.exact) return props.href === currentHref;
-  return currentHref.startsWith(props.href);
-}
+export default class MenuItem extends Component {
+  constructor(props) {
+    super(props);
 
-export default props => {
-  return (
-    <li className="menu-item">
-      <Link to={ props.href } className={ `${ isActive(props) ? 'active' : '' }` }>
-        <i className={ `fas fa-${props.icon}` }></i>
-        { props.name }
-      </Link>
-    </li>
-  );
+    this.state = { active: this.isActive() };
+    this.routeChanged = this.routeChanged.bind(this);
+    window.addEventListener('popstate', this.routeChanged);
+  }
+
+  routeChanged() {
+    this.setState({ ...this.state, active: this.isActive() });
+  }
+
+  isActive() {
+    const { exact, href } = this.props;
+    const currentHref = location.hash.substr(2);
+    if (exact) return href === currentHref;
+    return currentHref.startsWith(href);
+  }
+ 
+  render() {
+    const { name, icon, href } = this.props;
+    return (
+      <li className="menu-item">
+        <Link to={ href } className={ `${ this.state.active ? 'active' : '' }` }>
+          <i className={ `fas fa-${icon}` }></i>
+          { name }
+        </Link>
+      </li>
+    );
+  }
 }

@@ -1,4 +1,4 @@
-.spinner {
+.loading-spinner {
   padding: 15px;
   display: flex;
   justify-content: center;
@@ -6,7 +6,7 @@
   opacity: .5;
 }
 
-.spinner i {
+.loading-spinner i {
   opacity: .6;
   font-size: 30px;
   padding: 15px;

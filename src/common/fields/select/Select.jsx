@@ -57,8 +57,10 @@ export default class Select extends FieldBase {
       );
     }
 
+    const { input, readOnly } = this.props;
     return (
-      <select { ...this.props.input } 
+      <select { ...input }
+        disabled={ readOnly } 
         className="form-control" 
         onChange={ this.onChange }
         placeholder={ this.props.placeholder }>

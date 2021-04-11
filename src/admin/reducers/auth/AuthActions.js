@@ -13,9 +13,18 @@ export function listenSessionChanged() {
   return dispatch => {
     dispatch({ type: LOADING });
     firebaseInstance.auth().onAuthStateChanged(user => {
-        if (user)
-          dispatch({ type: LOGIN, payload: { id: user.uid, email: user.email } }); 
-        else {
+        if (user) {
+          firebaseInstance.firestore().collection('users').where('accountId', '==', user.uid).get().then(result => {
+            const [doc] = result.docs;
+            if (!doc) {
+              dispatch({ type: LOGOUT });
+              window.location.href = '/#/admin';
+              toastr.error('Erro', 'O usuário foi removido!');
+              return;
+            }
+            dispatch({ type: LOGIN, payload: { id: doc.id, ...doc.data() } }); 
+          });
+        } else {
           dispatch({ type: LOGOUT });
           window.location.href = '/#/admin';
         }        

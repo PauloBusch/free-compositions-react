@@ -6,6 +6,7 @@ export default class Input extends FieldBase {
     return (
       <input { ...this.props.input } 
         className="form-control" 
+        readOnly={ this.props.readOnly }
         type={ this.props.type } 
         placeholder={ this.props.placeholder }>
       </input>

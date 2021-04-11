@@ -1,43 +1,39 @@
 import { initialize, submit } from 'redux-form';
 
 import { USER_FETCHED, USER_DELETED } from './UsersActionsTypes';
+import { toastr } from 'react-redux-toastr';
+import firebaseInstance from './../../firebase/index';
+import 'firebase/firestore';
 
+const type = 'usuário';
 const formId = 'user-form';
-const list = [
-  {
-    id: 1,
-    name: 'Paulo',
-    email: 'paulo@email.com',
-    role: 'Admin'
-  },
-  {
-    id: 2,
-    name: 'Glauber',
-    email: 'glauber@email.com',
-    role: 'Admin'
-  },
-  {
-    id: 3,
-    name: 'Pedro',
-    email: 'pedro@email.com',
-    role: 'Compositor'
-  },
-  {
-    id: 4,
-    name: 'Marcos',
-    email: 'marcos@email.com',
-    role: 'Compositor'
-  }
-];
+const collection = firebaseInstance.firestore().collection('users');
 
-export function getAll() {
-  return { type: USER_FETCHED, payload: list };
+export function getAll(completed) {
+  return dispatch => {
+    collection.get().then(result => {
+      const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => b.createdAt - a.createdAt);
+      dispatch({ type: USER_FETCHED, payload: list });
+      if (completed) completed(true);
+    })
+    .catch(() => {
+      toastr.error('Erro', `Falha ao carregar ${type}s!`);
+      if (completed) completed(false);
+    });
+  };
 }
 
-export function loadForm(id) {
+export function loadForm(id, completed) {
   return dispatch => {
-    const data = list.find(l => l.id == id);
-    dispatch(initialize(formId, data));
+    collection.doc(id).get().then(doc => {
+      dispatch(initialize(formId, { id: doc.id, ...doc.data() }));
+      if (completed) completed(true);
+    })
+    .catch(() => { 
+      toastr.error('Erro', `Falha ao carregar ${type}!`); 
+      if (completed) completed(false);
+    });
   };
 }
 
@@ -45,39 +41,61 @@ export function submitForm() {
   return submit(formId);
 }
 
-export function create(values) {
-  return request(values, 'post');
-}
-
-export function update(values) {
-  return request(values, 'put');
-}
-
-export function remove(id) {
+export function create(values, completed) {
   return dispatch => {
-    dispatch({ type: USER_DELETED, payload: id });
+    firebaseInstance.auth().createUserWithEmailAndPassword(values.email, values.password).then(result => {
+      values.createdAt = new Date();
+      values.accountId = result.user.uid;
+      delete values.password;
+      collection.add(values)
+      .then(() => {
+        toastr.success('Sucesso', `Usuário cadastrado com sucesso!`);
+        dispatch(getAll());
+        if (completed) completed(true);
+      })
+      .catch(() => {
+        toastr.error('Erro', `Falha ao criar ${type}!`);
+        if (completed) completed(false);
+      });
+    })
+    .catch(error => {
+      switch(error.code) {
+        case 'auth/email-already-in-use':
+          toastr.error('Erro', `Este email já está sendo usado por outra conta!`);
+          break;
+        default:
+          toastr.error('Erro', `Falha ao criar ${type}!`);
+          break;
+      }
+      if (completed) completed(false);
+    });
   };
 }
 
-function request(values, method) {
+export function update(values, completed) {
   return dispatch => {
-    if (method === 'post') {
-      values.id = getMaxId() + 1;
-      list.unshift(values);
-    }
-    if (method === 'put') {
-      const index = list.indexOf(l => l.id === values.id);
-      list[index] = values;
-    }
-    dispatch(getAll());
+    collection.doc(values.id).update(values)
+    .then(() => {
+      toastr.success('Sucesso', `Usuário atualizado com sucesso!`);
+      dispatch(getAll());
+      if (completed) completed(true);
+    })
+    .catch(() => {
+      toastr.error('Erro', `Falha ao atualizar ${type}!`);
+      if (completed) completed(false);
+    });
   };
 }
 
-function getMaxId() {
-  let max = list[0].id;
-  for (const data of list) {
-    if (data.id > max)
-      max = data.id;
-  }
-  return max;
+export function remove(id, completed) {
+  return dispatch => {
+    collection.doc(id).delete().then(doc => {
+      dispatch({ type: USER_DELETED, payload: id });
+      if (completed) completed(true);
+    })
+    .catch(() => {
+      toastr.error('Erro', `Falha ao remover ${type}!`);
+      if (completed) completed(false);
+    });
+  };
 }

@@ -20,6 +20,11 @@
   outline: none;
 }
 
+.form-control[readonly] {
+  border: 1px solid rgb(204, 204, 204);
+  color: rgb(189, 189, 189);
+}
+
 .form-field .error-message {
   color: red;
   font-size: 15px;

@@ -12,7 +12,7 @@ export default class FormBase extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { loading: true, saveLoading: false };
+    this.state = { loading: false, saveLoading: false };
     this.submit = this.submit.bind(this);
     this.goBack = this.goBack.bind(this);
     this.afterLoad = this.afterLoad.bind(this);

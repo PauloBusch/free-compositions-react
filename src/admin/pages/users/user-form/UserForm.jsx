@@ -12,6 +12,8 @@ import FormBase from './../../../../common/form/FormBase';
 import Input from './../../../../common/fields/input/Input';
 import email from './../../../../common/validators/email';
 import { create, update, loadForm, submitForm } from './../../../../reducers/users/UsersActions';
+import password from './../../../../common/validators/password';
+import If from '../../../../common/operators/If';
 
 const DEFAULT_STATE = {
   name: '',
@@ -38,11 +40,16 @@ class UserForm extends FormBase {
             flex="25" component={ Input } validate={ required }
           />
           <Field name="email" type="email" label="Email" placeholder="Informe o email"
-            flex="25" component={ Input } validate={ [required, email] }
+            flex="25" component={ Input } readOnly={ !!this.id } validate={ [required, email] }
           />
           <Field name="role" label="Papel" placeholder="Informe o papel"
             flex="25" component={ Select } options={ roles } validate={ required }
           />
+          <If test={ !this.id }>
+            <Field name="password" type="password" label="Senha" placeholder="Informe a senha"
+              flex="25" component={ Input } validate={ [required, password] }
+            />
+          </If>
         </Row>
       </Form>
     );
