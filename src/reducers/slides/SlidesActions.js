@@ -22,24 +22,28 @@ export function getAll(completed) {
         }
         slides = list.sort((a, b) => b.order - a.order);
         dispatch({ type: SLIDE_FETCHED, payload: list });
-        completed(true);
+        if (completed) completed(true);
       });
     })
     .catch(() => {
       toastr.error('Erro', `Falha ao carregar ${type}s!`);
-      completed(false);
+      if (completed) completed(false);
     });
   };
 }
 
-export function loadForm(id) {
+export function loadForm(id, completed) {
   return dispatch => {
     collection.doc(id).get().then(doc => {
       const slide = { id: doc.id, ...doc.data() };
       slide.image = null;
       dispatch(initialize(formId, slide));
+      if (completed) completed(true);
     })
-    .catch(() => toastr.error('Erro', `Falha ao carregar ${type}!`));
+    .catch(() => { 
+      toastr.error('Erro', `Falha ao carregar ${type}!`); 
+      if (completed) completed(false);
+    });
   };
 }
 
@@ -58,16 +62,16 @@ export function create(values, completed) {
       .then(() => {
         toastr.success('Sucesso', `Slide cadastrado com sucesso!`);
         dispatch(getAll());
-        completed(true);
+        if (completed) completed(true);
       })
       .catch(() => {
         toastr.error('Erro', `Falha ao criar ${type}!`);
-        completed(false);
+        if (completed) completed(false);
       });
     })
     .catch(() => {
       toastr.error('Erro', `Falha ao enviar ${type}!`);
-      completed(false);
+      if (completed) completed(false);
     });
   };
 }
@@ -82,16 +86,16 @@ export function update(values, completed) {
       .then(() => {
         toastr.success('Sucesso', `Slide atualizado com sucesso!`);
         dispatch(getAll());
-        completed(true);
+        if (completed) completed(true);
       })
       .catch(() => {
         toastr.error('Erro', `Falha ao atualizar ${type}!`);
-        completed(false);
+        if (completed) completed(false);
       });
     })
     .catch(() => {
       toastr.error('Erro', `Falha ao enviar imagem!`);
-      completed(false);
+      if (completed) completed(false);
     });
   };
 }
@@ -101,16 +105,16 @@ export function remove(slide, completed) {
     storage.ref(slide.imageRef).delete().then(() => {
       collection.doc(slide.id).delete().then(doc => {
         dispatch({ type: SLIDE_DELETED, payload: slide.id });
-        completed(true);
+        if (completed) completed(true);
       })
       .catch(() => {
         toastr.error('Erro', `Falha ao remover ${type}!`);
-        completed(false);
+        if (completed) completed(false);
       });
     })
     .catch(() => {
       toastr.error('Erro', `Falha ao remover imagem!`);
-      completed(false);
+      if (completed) completed(false);
     });
   };
 }

@@ -16,21 +16,25 @@ export function getAll(completed) {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
         .sort((a, b) => b.createdAt - a.createdAt);
       dispatch({ type: STYLE_FETCHED, payload: list });
-      completed(true);
+      if (completed) completed(true);
     })
     .catch(() => {
       toastr.error('Erro', `Falha ao carregar ${type}s!`);
-      completed(false);
+      if (completed) completed(false);
     });
   };
 }
 
-export function loadForm(id) {
+export function loadForm(id, completed) {
   return dispatch => {
     collection.doc(id).get().then(doc => {
       dispatch(initialize(formId, { id: doc.id, ...doc.data() }));
+      if (completed) completed(true);
     })
-    .catch(() => toastr.error('Erro', `Falha ao carregar ${type}!`));
+    .catch(() => { 
+      toastr.error('Erro', `Falha ao carregar ${type}!`); 
+      if (completed) completed(false);
+    });
   };
 }
 
@@ -45,11 +49,11 @@ export function create(values, completed) {
     .then(() => {
       toastr.success('Sucesso', `Estilo cadastrado com sucesso!`);
       dispatch(getAll());
-      completed(true);
+      if (completed) completed(true);
     })
     .catch(() => {
       toastr.error('Erro', `Falha ao criar ${type}!`);
-      completed(false);
+      if (completed) completed(false);
     });
   };
 }
@@ -60,11 +64,11 @@ export function update(values, completed) {
     .then(() => {
       toastr.success('Sucesso', `Estilo atualizado com sucesso!`);
       dispatch(getAll());
-      completed(true);
+      if (completed) completed(true);
     })
     .catch(() => {
       toastr.error('Erro', `Falha ao atualizar ${type}!`);
-      completed(false);
+      if (completed) completed(false);
     });
   };
 }
@@ -73,11 +77,11 @@ export function remove(id, completed) {
   return dispatch => {
     collection.doc(id).delete().then(doc => {
       dispatch({ type: STYLE_DELETED, payload: id });
-      completed(true);
+      if (completed) completed(true);
     })
     .catch(() => {
       toastr.error('Erro', `Falha ao remover ${type}!`);
-      completed(false);
+      if (completed) completed(false);
     });
   };
 }

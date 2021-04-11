@@ -25,6 +25,7 @@ export default class ListBase extends Component {
   }
 
   componentWillMount() {
+    this.toggleLoading(true);
     this.props.getAll(this.afterLoad);
   }
 

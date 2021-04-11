@@ -3,7 +3,7 @@ import './Table.css';
 import React, { Component } from 'react';
 import Action from './action/Action';
 import Message from './message/Message';
-import Loading from './loading/Loading';
+import Loading from '../loading/Loading';
 
 export default class Table extends Component {
   getColumnHeaders() {
