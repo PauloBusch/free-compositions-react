@@ -1,49 +1,35 @@
 import { initialize, submit } from 'redux-form';
 
 import { PLAYLIST_FETCHED, PLAYLIST_DELETED } from './PlaylistsActionsTypes';
+import { toastr } from 'react-redux-toastr';
+import firebaseInstance from './../../firebase/index';
+import 'firebase/firestore';
 
+const type = 'playlist';
 const formId = 'playlist-form';
-const list = [
-  {
-    id: 1,
-    name: 'TOP 50 SERTANEJO',
-    image: 'images/playlist/sertanejo.jpg'
-  },
-  {
-    id: 2,
-    name: 'BEAT TRAP FUNK',
-    image: 'images/playlist/funk.jpg'
-  },
-  {
-    id: 3,
-    name: 'GOSPEL',
-    image: 'images/playlist/gospel.jpg'
-  },
-  {
-    id: 4,
-    name: 'ELETRÕNICA',
-    image: 'images/playlist/eletronic.jpg'
-  },
-  {
-    id: 5,
-    name: 'TOP 50 SERTANEJO',
-    image: 'images/playlist/sertanejo.jpg'
-  },
-  {
-    id: 6,
-    name: 'BEAT TRAP FUNK',
-    image: 'images/playlist/funk.jpg'
-  }
-];
+const collection = firebaseInstance.firestore().collection('playlists');
 
-export function getAll() {
-  return { type: PLAYLIST_FETCHED, payload: list };
+export function getAll(completed) {
+  return dispatch => {
+    collection.get().then(result => {
+      const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => b.createdAt - a.createdAt);
+      dispatch({ type: PLAYLIST_FETCHED, payload: list });
+      completed(true);
+    })
+    .catch(() => {
+      toastr.error('Erro', `Falha ao carregar ${type}s!`);
+      completed(false);
+    });
+  };
 }
 
 export function loadForm(id) {
   return dispatch => {
-    const data = list.find(l => l.id == id);
-    dispatch(initialize(formId, data));
+    collection.doc(id).get().then(doc => {
+      dispatch(initialize(formId, { id: doc.id, ...doc.data() }));
+    })
+    .catch(() => toastr.error('Erro', `Falha ao carregar ${type}!`));
   };
 }
 
@@ -51,39 +37,46 @@ export function submitForm() {
   return submit(formId);
 }
 
-export function create(values) {
-  return request(values, 'post');
-}
-
-export function update(values) {
-  return request(values, 'put');
-}
-
-export function remove(id) {
+export function create(values, completed) {
   return dispatch => {
-    dispatch({ type: PLAYLIST_DELETED, payload: id });
+    values.createdAt = new Date();
+    collection.add(values)
+    .then(() => {
+      toastr.success('Sucesso', `Playlist cadastrada com sucesso!`);
+      dispatch(getAll());
+      completed(true);
+    })
+    .catch(() => {
+      toastr.error('Erro', `Falha ao criar ${type}!`);
+      completed(false);
+    });
   };
 }
 
-function request(values, method) {
+export function update(values, completed) {
   return dispatch => {
-    if (method === 'post') {
-      values.id = getMaxId() + 1;
-      list.unshift(values);
-    }
-    if (method === 'put') {
-      const index = list.indexOf(l => l.id === values.id);
-      list[index] = values;
-    }
-    dispatch(getAll());
+    collection.doc(values.id).update(values)
+    .then(() => {
+      toastr.success('Sucesso', `Playlist atualizada com sucesso!`);
+      dispatch(getAll());
+      completed(true);
+    })
+    .catch(() => {
+      toastr.error('Erro', `Falha ao atualizar ${type}!`);
+      completed(false);
+    });
   };
 }
 
-function getMaxId() {
-  let max = list[0].id;
-  for (const data of list) {
-    if (data.id > max)
-      max = data.id;
-  }
-  return max;
+export function remove(id, completed) {
+  return dispatch => {
+    collection.doc(id).delete().then(doc => {
+      dispatch({ type: PLAYLIST_DELETED, payload: id });
+      completed(true);
+    })
+    .catch(() => {
+      toastr.error('Erro', `Falha ao remover ${type}!`);
+      completed(false);
+    });
+  };
 }

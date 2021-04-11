@@ -10,7 +10,7 @@ const storage = firebaseInstance.storage();
 const collection = firebaseInstance.firestore().collection('slides');
 var slides = [];
 
-export function getAll() {
+export function getAll(completed) {
   return dispatch => {
     collection.get().then(result => {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -22,9 +22,13 @@ export function getAll() {
         }
         slides = list.sort((a, b) => b.order - a.order);
         dispatch({ type: SLIDE_FETCHED, payload: list });
+        completed(true);
       });
     })
-    .catch(() => toastr.error('Erro', `Falha ao carregar ${type}s!`));
+    .catch(() => {
+      toastr.error('Erro', `Falha ao carregar ${type}s!`);
+      completed(false);
+    });
   };
 }
 

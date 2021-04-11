@@ -10,14 +10,18 @@ const type = 'estilo';
 const formId = 'style-form';
 const collection = firebaseInstance.firestore().collection('styles');
 
-export function getAll() {
+export function getAll(completed) {
   return dispatch => {
     collection.get().then(result => {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
         .sort((a, b) => b.createdAt - a.createdAt);
       dispatch({ type: STYLE_FETCHED, payload: list });
+      completed(true);
     })
-    .catch(() => toastr.error('Erro', `Falha ao carregar ${type}s!`));
+    .catch(() => {
+      toastr.error('Erro', `Falha ao carregar ${type}s!`);
+      completed(false);
+    });
   };
 }
 

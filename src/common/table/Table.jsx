@@ -2,7 +2,8 @@ import './Table.css';
 
 import React, { Component } from 'react';
 import Action from './action/Action';
-import Empty from './empty/Empty';
+import Message from './message/Message';
+import Loading from './loading/Loading';
 
 export default class Table extends Component {
   getColumnHeaders() {
@@ -78,11 +79,12 @@ export default class Table extends Component {
   }
   
   render() {
-    const { rows } = this.props;
+    const { rows, loading } = this.props;
+    if (loading)
+      return <Loading />;
+
     if (!rows || !rows.length) 
-      return (
-        <Empty message={ this.props.emptyMessage } />
-      );
+      return <Message message={ this.props.emptyMessage || 'Nenhum registro encontrado' } />;
 
     return (
       <table className="table-grid">

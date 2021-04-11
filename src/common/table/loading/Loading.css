@@ -1,0 +1,24 @@
+.table-spinner {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: .5;
+}
+
+.table-spinner i {
+  opacity: .6;
+  font-size: 30px;
+  padding: 15px;
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
