@@ -10,7 +10,6 @@ import SiteLayout from './site/SiteLayout';
 import About from './site/pages/about/About';
 import Home from './site/pages/home/Home';
 import Reducers from './reducers/reducers';
-import AdminLayout from './admin/AdminLayout';
 import MusicList from './admin/pages/musics/music-list/MusicList';
 import MusicForm from './admin/pages/musics/music-form/MusicForm';
 import LetterList from './admin/pages/letters/letter-list/LetterList';

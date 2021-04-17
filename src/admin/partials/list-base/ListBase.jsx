@@ -22,6 +22,7 @@ export default class ListBase extends Component {
     this.afterLoad = this.afterLoad.bind(this);
     this.goEdit = this.goEdit.bind(this);
     this.goNew = this.goNew.bind(this);
+    this.movedRow = this.movedRow.bind(this);
   }
 
   componentWillMount() {
@@ -85,6 +86,30 @@ export default class ListBase extends Component {
     const url = `${router.location.pathname}/new`;
     this.props.router.push(url);
   }
+  
+  movedRow(sourceIndex, targetIndex) { 
+    if (sourceIndex === targetIndex) return;
+    const list = this.getList();
+    let rowsToUpdate = [];
+
+    const sourceRow = list[sourceIndex];
+    const targetRow = list[targetIndex];
+
+    const increment = this.sort === 'desc' ? +1 : -1;
+    sourceRow.order = targetRow.order;
+    if (sourceIndex < targetIndex) {
+      rowsToUpdate = list.slice(sourceIndex + 1, targetIndex + 1);
+      for (const row of rowsToUpdate)
+        row.order += increment;
+    } else {
+      rowsToUpdate = list.slice(targetIndex, sourceIndex);
+      for (const row of rowsToUpdate)
+        row.order -= increment;
+    }
+      
+    rowsToUpdate.push(sourceRow);
+    this.props.updateOrderBulk(rowsToUpdate);
+  }
 
   configure() { }
   
@@ -97,6 +122,11 @@ export default class ListBase extends Component {
       { text: 'CANCELAR', pallet: { fill: '#c8c8c8', text: 'black' }, click: this.closeModal.bind(this) },
       { text: 'REMOVER', pallet: { fill: 'red', text: 'white' }, loading: this.state.loadingRemove, click: this.confirmRemove.bind(this) }
     ];
+    
+    const tablePallet = {
+      text: 'black',
+      fill: '#a7d2ff'
+    };
     return (
       <div className={ `list ${this.className ? this.className : ''}` }>
         <Card>
@@ -105,7 +135,7 @@ export default class ListBase extends Component {
           </CardHeader>
           <CardContent padding="0">
             <Table rowClick={ row => this.goEdit(row.id) } loading={ this.state.loading }
-              pallet={ this.tablePallet } rows={ list }
+              drag={ !!this.props.updateOrderBulk } movedRow={ this.movedRow } pallet={ tablePallet } rows={ list }
               columns={ this.tableColumns } actions={ this.tableActions } 
             />
           </CardContent>

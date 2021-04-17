@@ -23,10 +23,6 @@ class UserList extends ListBase {
       { prop: 'email', label: 'Email', flex: 20 },
       { prop: 'role', label: 'Papel', flex: 20 }
     ];
-    this.tablePallet = {
-      text: 'black',
-      fill: '#007bff57'
-    };
   }
   
   getList() {

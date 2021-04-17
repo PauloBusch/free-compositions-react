@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 
-import { getAll, remove } from '../../../../reducers/letters/LettersActions';
+import { getAll, updateOrderBulk, remove } from '../../../../reducers/letters/LettersActions';
 import ListBase from '../../../partials/list-base/ListBase';
 
 class LetterList extends ListBase {
@@ -33,10 +33,7 @@ class LetterList extends ListBase {
       { prop: 'genre', label: 'Gênero', flex: 20 },
       { prop: 'letter', label: 'Resumo', flex: 60, template: this.resumeLetter }
     ];
-    this.tablePallet = {
-      text: 'black',
-      fill: '#007bff57'
-    };
+    this.sort = 'desc';
   }
   
   getList() {
@@ -45,5 +42,5 @@ class LetterList extends ListBase {
 }
 
 const mapStateToProps = state => ({ letters: state.letters });
-const mapDispatchToProps = dispatch => bindActionCreators({ getAll, remove }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getAll, updateOrderBulk, remove }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LetterList));

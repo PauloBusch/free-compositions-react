@@ -21,10 +21,6 @@ class PlaylistList extends ListBase {
     this.tableColumns = [
       { prop: 'name', label: 'Nome', flex: 100 }
     ];
-    this.tablePallet = {
-      text: 'black',
-      fill: '#007bff57'
-    };
   }
   
   getList() {

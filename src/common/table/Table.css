@@ -1,3 +1,8 @@
+.table-container {
+  max-height: calc(100vh - 300px);
+  overflow: auto;
+}
+
 .table-grid {
   width: 100%;
   border-collapse: collapse;
@@ -11,13 +16,23 @@
 
 .table-grid th {
   font-size: 18px;
+  position: sticky;
+  top: 0;
 }
 
 .table-grid tbody tr {
   transition: .2s;
+  background-color: white;
   border-bottom: 1px solid #00000023;
 }
 
 .table-grid tbody tr:hover {
-  background-color: #007bff23;
+  background-color: #e1f0ff;
+}
+
+.table-grid td.drag {
+  cursor: move;
+  text-align: center;
+  font-size: 25px;
+  color: rgb(158, 158, 158);
 }

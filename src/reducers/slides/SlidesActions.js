@@ -13,7 +13,7 @@ export function getAll(completed) {
   return dispatch => {
     collection.get().then(result => {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
-        .sort((a, b) => b.createdAt - a.createdAt);
+        .sort((a, b) => a.order - b.order);
       const urlTasks = list.map(slide => firebaseInstance.storage().ref(slide.image).getDownloadURL());
       Promise.all(urlTasks).then(urlResults => {
         for (const index in list){
@@ -52,25 +52,29 @@ export function submitForm() {
 
 export function create(values, completed) {
   return dispatch => {
-    const pathSlide = `images/slides/${values.image.name}`;
-    storage.ref(pathSlide).put(values.image).then(() => {
-      const slide = Object.assign(new Object(), values);
-      slide.createdAt = new Date();
-      slide.image = pathSlide;
-      collection.add(slide)
-      .then(() => {
-        toastr.success('Sucesso', `Slide cadastrado com sucesso!`);
-        dispatch(getAll());
-        if (completed) completed(true);
+    collection.orderBy('order', 'desc').limit(1).get().then(doc => { 
+      const maxOrder = doc.size > 0 ? doc.docs[0].data().order : 0;
+      const pathSlide = `images/slides/${values.image.name}`;
+      storage.ref(pathSlide).put(values.image).then(() => {
+        const slide = Object.assign(new Object(), values);
+        slide.createdAt = new Date();
+        slide.order = maxOrder + 1;
+        slide.image = pathSlide;
+        collection.add(slide)
+        .then(() => {
+          toastr.success('Sucesso', `Slide cadastrado com sucesso!`);
+          dispatch(getAll());
+          if (completed) completed(true);
+        })
+        .catch(() => {
+          toastr.error('Erro', `Falha ao criar ${type}!`);
+          if (completed) completed(false);
+        });
       })
       .catch(() => {
-        toastr.error('Erro', `Falha ao criar ${type}!`);
+        toastr.error('Erro', `Falha ao enviar ${type}!`);
         if (completed) completed(false);
       });
-    })
-    .catch(() => {
-      toastr.error('Erro', `Falha ao enviar ${type}!`);
-      if (completed) completed(false);
     });
   };
 }
@@ -114,6 +118,25 @@ export function remove(slide, completed) {
     .catch(() => {
       toastr.error('Erro', `Falha ao remover imagem!`);
       if (completed) completed(false);
+    });
+  };
+}
+
+export function updateOrderBulk(list) {
+  return dispatch => {
+    var batch = firebaseInstance.firestore().batch();
+
+    for (const item of list) {
+      const record = collection.doc(item.id);
+      batch.update(record, { order: item.order });
+    }
+    
+    return batch.commit().then(() => {
+      toastr.success('Sucesso', `Ordem atualizada com sucesso!`);
+      dispatch(getAll());
+    })
+    .catch(() => {
+      toastr.error('Erro', `Falha ao atualizar ordem!`);
     });
   };
 }

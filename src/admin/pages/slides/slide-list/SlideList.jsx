@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 
-import { getAll, remove } from '../../../../reducers/slides/SlidesActions';
+import { getAll, updateOrderBulk, remove } from '../../../../reducers/slides/SlidesActions';
 import ListBase from '../../../partials/list-base/ListBase';
 import Image from '../../../../common/image/Image';
 
@@ -43,10 +43,6 @@ class SlideList extends ListBase {
       { prop: 'positionX', label: 'Posicionamento Horizontal', flex: 40, format: this.getPositionX },
       { prop: 'positionY', label: 'Posicionamento Vertical', flex: 40, format: this.getPositionY }
     ];
-    this.tablePallet = {
-      text: 'black',
-      fill: '#007bff57'
-    };
   }
   
   getList() {
@@ -55,5 +51,5 @@ class SlideList extends ListBase {
 }
 
 const mapStateToProps = state => ({ slides: state.slides });
-const mapDispatchToProps = dispatch => bindActionCreators({ getAll, remove }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getAll, updateOrderBulk, remove }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SlideList));

@@ -14,16 +14,16 @@ export function getAll(completed) {
   return dispatch => {
     collection.get().then(result => {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
-        .sort((a, b) => b.createdAt - a.createdAt);
-        const urlTasks = list.map(music => firebaseInstance.storage().ref(music.image).getDownloadURL());
-        Promise.all(urlTasks).then(urlResults => {
-          for (const index in list){
-            list[index].imageRef = list[index].image;
-            list[index].image = urlResults[index];
-          }
-          dispatch({ type: MUSIC_FETCHED, payload: list });
-          if (completed) completed(true);
-        });
+        .sort((a, b) => b.order - a.order);
+      const urlTasks = list.map(music => firebaseInstance.storage().ref(music.image).getDownloadURL());
+      Promise.all(urlTasks).then(urlResults => {
+        for (const index in list){
+          list[index].imageRef = list[index].image;
+          list[index].image = urlResults[index];
+        }
+        dispatch({ type: MUSIC_FETCHED, payload: list });
+        if (completed) completed(true);
+      });
     })
     .catch(() => {
       toastr.error('Erro', `Falha ao carregar ${type}s!`);
@@ -53,24 +53,28 @@ export function submitForm() {
 
 export function create(values, completed) {
   return dispatch => {
-    const pathImage = `images/musics/${values.image.name}`;
-    storage.ref(pathImage).put(values.image).then(() => {
-      const music = Object.assign(new Object(), values);
-      music.createdAt = new Date();
-      music.image = pathImage;
-      collection.add(music).then(() => {
-        toastr.success('Sucesso', `Música cadastrada com sucesso!`);
-        dispatch(getAll());
-        if (completed) completed(true);
+    collection.orderBy('order', 'desc').limit(1).get().then(doc => { 
+      const maxOrder = doc.size > 0 ? doc.docs[0].data().order : 0;
+      const pathImage = `images/musics/${values.image.name}`;
+      storage.ref(pathImage).put(values.image).then(() => {
+        const music = Object.assign(new Object(), values);
+        music.createdAt = new Date();
+        music.order = maxOrder + 1;
+        music.image = pathImage;
+        collection.add(music).then(() => {
+          toastr.success('Sucesso', `Música cadastrada com sucesso!`);
+          dispatch(getAll());
+          if (completed) completed(true);
+        })
+        .catch(() => {
+          toastr.error('Erro', `Falha ao criar ${type}!`);
+          if (completed) completed(false);
+        });
       })
       .catch(() => {
-        toastr.error('Erro', `Falha ao criar ${type}!`);
+        toastr.error('Erro', `Falha ao enviar ${type}!`);
         if (completed) completed(false);
       });
-    })
-    .catch(() => {
-      toastr.error('Erro', `Falha ao enviar ${type}!`);
-      if (completed) completed(false);
     });
   };
 }
@@ -118,3 +122,21 @@ export function remove(music, completed) {
   };
 }
 
+export function updateOrderBulk(list) {
+  return dispatch => {
+    var batch = firebaseInstance.firestore().batch();
+
+    for (const item of list) {
+      const record = collection.doc(item.id);
+      batch.update(record, { order: item.order });
+    }
+    
+    return batch.commit().then(() => {
+      toastr.success('Sucesso', `Ordem atualizada com sucesso!`);
+      dispatch(getAll());
+    })
+    .catch(() => {
+      toastr.error('Erro', `Falha ao atualizar ordem!`);
+    });
+  };
+}
