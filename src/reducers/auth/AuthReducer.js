@@ -3,7 +3,7 @@ import {
   FORGOT_PASSWORD_EMAIL_LOADED,
   FORGOT_PASSWORD_EMAIL_LOADING,
   FORGOT_PASSWORD_EMAIL_SENDED 
-} from './AuthActionTypes';
+} from './AuthActionsType';
 
 const INITIAL_STATE = {
   user: null, 

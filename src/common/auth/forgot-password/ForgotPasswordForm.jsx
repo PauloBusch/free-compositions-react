@@ -11,7 +11,7 @@ import Input from '../../../common/fields/input/Input';
 import SubmitButton from '../../../common/buttons/submit/SubmitButton';
 import email from '../../../common/validators/email';
 import If from '../../../common/operators/If';
-import { forgotPassword } from '../../reducers/auth/AuthActions';
+import { forgotPassword } from '../../../reducers/auth/AuthActions';
 
 class ForgotPasswordForm extends Component {
   constructor(props) {

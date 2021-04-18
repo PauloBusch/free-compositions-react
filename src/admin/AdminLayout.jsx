@@ -6,15 +6,33 @@ import Header from './partials/header/Header';
 import Sidenav from './partials/sidenav/Sidenav';
 import Content from './partials/content/Content';
 import Toastr from '../common/messages/toastr';
-import { logout } from './reducers/auth/AuthActions';
+import { logout } from '../reducers/auth/AuthActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { listenSessionChanged } from './../reducers/auth/AuthActions';
+import { hashHistory } from 'react-router';
 
 class AdminLayout extends Component {
+  componentWillMount() {
+    this.props.listenSessionChanged(true);
+  }
+
   render() {
+    const { loading, user } = this.props;
+    if (loading) return false;
+
+    if (!user) {
+      hashHistory.push('/login');
+      return false;
+    }
+    if (user && user.role === 'Usuário') {
+      hashHistory.push('/');
+      return false;
+    }
+
     return (
       <div className="container-admin">
-        <Header logout={ this.props.logout }/>
+        <Header/>
         <div className="row-admin">
           <Sidenav />
           <Content>
@@ -27,5 +45,6 @@ class AdminLayout extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ logout }, dispatch);
-export default connect(null, mapDispatchToProps)(AdminLayout);
+const mapStateToProps = state => ({ loading: state.auth.loading, user: state.auth.user });
+const mapDispatchToProps = dispatch => bindActionCreators({ listenSessionChanged }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminLayout);

@@ -31,7 +31,7 @@ class UserForm extends FormBase {
   }
 
   form() {
-    const roles = ['Admin', 'Compositor'];
+    const roles = ['Admin', 'Compositor', 'Usuário'];
     const { handleSubmit } = this.props;
     return (
       <Form onSubmit={ handleSubmit(this.submit) }>

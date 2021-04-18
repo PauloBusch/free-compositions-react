@@ -2,6 +2,7 @@ import './MenuItem.css';
 
 import React, { Component } from 'react';
 import { Link } from 'react-router';        
+import { hashHistory } from 'react-router';
 
 export default class MenuItem extends Component {
   constructor(props) {
@@ -13,6 +14,9 @@ export default class MenuItem extends Component {
   }
 
   routeChanged() {
+    const currentHref = location.hash.substr(2);
+    if (currentHref === 'admin')
+      return hashHistory.push('/admin/slides');
     this.setState({ ...this.state, active: this.isActive() });
   }
 
@@ -27,7 +31,7 @@ export default class MenuItem extends Component {
     const { name, icon, href } = this.props;
     return (
       <li className="menu-item">
-        <Link to={ href } className={ `${ this.state.active ? 'active' : '' }` }>
+        <Link to={ href } className={ `${ this.isActive() ? 'active' : '' }` }>
           <i className={ `fas fa-${icon}` }></i>
           { name }
         </Link>

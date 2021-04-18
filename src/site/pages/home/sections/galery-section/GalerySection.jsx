@@ -77,7 +77,7 @@ class GalerySection extends Component {
           <h2>Playlists populares</h2>
           <i className="fas fa-chevron-right"></i>
         </div>
-        <GaleryPlaylist loading={ this.state.playlistsLoading } cards={ this.getPlaylists() }/>
+        <GaleryPlaylist test loading={ this.state.playlistsLoading } cards={ this.getPlaylists() }/>
       </Section>
     );
   }

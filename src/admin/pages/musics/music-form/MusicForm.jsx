@@ -5,7 +5,7 @@ import { Field, Form, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import url from './../../../../common/validators/url';
+import urlYoutube from './../../../../common/validators/url/url-youtube';
 import required from './../../../../common/validators/required';
 import Select from './../../../../common/fields/select/Select';
 import Row from '../../../../common/row/Row';
@@ -17,14 +17,15 @@ import { getAll as getGenresAll } from './../../../../reducers/genres/GenresActi
 import { getAll as getUsersAll } from './../../../../reducers/users/UsersActions';
 import { getAll as getStylesAll } from './../../../../reducers/styles/StylesActions';
 import { getAll as getPlaylistAll } from './../../../../reducers/playlists/PlaylistsActions';
+import TextArea from './../../../../common/fields/textarea/TextArea';
 
 const DEFAULT_STATE = {
   url: '',
-  image: '',
+  name: '',
   compositor: null,
   genre: null,
   style: null,
-  name: ''
+  letter: '',
 };
 
 class MusicForm extends FormBase { 
@@ -64,13 +65,8 @@ class MusicForm extends FormBase {
     return (
       <Form onSubmit={ handleSubmit(this.submit) }>
         <Row justify="flex-start">
-          <Field name="image" className="image-field" label="Imagem de Capa" 
-            accept="image/*"
-            button="Selecionar" placeholder="Selecione uma imagem"
-            flex="25" component={ File } validate={ required }
-          />
-          <Field name="url" type="text" label="Url do Audio/Vídeo" placeholder="Informe a url"
-            flex="25" component={ Input } validate={ [required, url] }
+          <Field name="url" type="text" label="Url do YoutTube" placeholder="Informe a url do youtube"
+            flex="25" component={ Input } validate={ [required, urlYoutube] }
           />
           <Field name="name" type="text" label="Nome" placeholder="Informe o nome"
             flex="25" component={ Input } validate={ required }
@@ -78,16 +74,21 @@ class MusicForm extends FormBase {
           <Field name="compositor" label="Compositor"
             flex="25" component={ Select } options={ compositors } readOnly={ user.role === 'Compositor' } validate={ required }
           />
-        </Row>
-        <Row justify="flex-start">
           <Field name="genre" label="Gênero"
             flex="25" component={ Select } options={ genres } validate={ required }
           />
+        </Row>
+        <Row justify="flex-start">
           <Field name="style" label="Estilo"
             flex="25" component={ Select } options={ styles } validate={ required }
           />
           <Field name="playlist" label="Playlist"
             flex="25" component={ Select } options={ playlists }
+          />
+        </Row>
+        <Row justify="flex-start">
+          <Field name="letter" label="Letra" placeholder="Informe a letra"
+            flex="100" rows="10" component={ TextArea } validate={ required }
           />
         </Row>
       </Form>

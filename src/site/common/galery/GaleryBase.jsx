@@ -17,7 +17,6 @@ export default class GaleryBase extends Component {
 
     this.length = 0;
     this.state = INITIAL_STATE;
-    this.init();
     this.prevCard = this.prevCard.bind(this);
     this.nextCard = this.nextCard.bind(this);
     window.addEventListener('resize', this.updateTake.bind(this));
@@ -27,10 +26,12 @@ export default class GaleryBase extends Component {
 
   render() {
     if (this.props.loading) return <Loading style={ { margin: '10vh 0' } }/>;
+    this.init();
     return this.galery();
   }
 
   init() {
+    if (this.initialized) return;
     const page = 0;
     const { isFirst, isLast } = this.stateButtons(page); 
     this.state = { 
@@ -40,6 +41,7 @@ export default class GaleryBase extends Component {
       prevDisabled: isFirst,
       nextDisabled: isLast
     };
+    this.initialized = true;
   }
 
   updateTake() {

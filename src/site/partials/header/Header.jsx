@@ -3,6 +3,8 @@ import './Header.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { WEBSITE_NAME } from '../../../consts';
+import { Link } from 'react-router';
+import { Fragment } from 'babel-plugin-react-html-attrs';
 
 const INITIAL_STATE = { show: false };
 
@@ -22,6 +24,13 @@ class Header extends Component {
   }
 
   render() {
+    const { user } = this.props;
+
+    const menus = <div>
+      <Link to="/create-account">Inscrever-se</Link>
+      <Link to={ user ? '/logout' : '/login' }>{ user ? 'Sair' : 'Entrar' }</Link>
+    </div>;
+
     return (
       <header className="site-header">
         <div className="main">
@@ -31,20 +40,12 @@ class Header extends Component {
           </a>
           <i id="toggle-mobile" onClick={ this.toggleMenu } className="fas fa-bars"></i>
         </div>
-        <div className="menu-desktop">
-          <i className="fas fa-bars"></i>
-          <span>|</span>
-          <a href="#">Inscrever-se</a>
-          <a href="#">Entrar</a>
-        </div>
-        <div className={ `menu-mobile ${this.state.show ? 'show' : ''}` }>
-          <a href="#">Inscrever-se</a>
-          <a href="#">Entrar</a>
-        </div>
+        <div className="menu-desktop">{ menus }</div>
+        <div className={ `menu-mobile ${this.state.show ? 'show' : ''}` }>{ menus }</div>
       </header>
     );
   }
 }
 
-const mapStateToProps = state => ({ ...state.contact });
+const mapStateToProps = state => ({ ...state.contact, user: state.auth.user });
 export default connect(mapStateToProps)(Header);

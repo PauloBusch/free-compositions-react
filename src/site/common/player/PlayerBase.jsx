@@ -16,7 +16,6 @@ export default class PlayerBase extends Component {
     super(props);
 
     this.state = INITIAL_STATE;
-    this.init();
     this.prevCard = this.prevCard.bind(this);
     this.nextCard = this.nextCard.bind(this);
     window.addEventListener('resize', this.updateMode.bind(this));
@@ -26,10 +25,12 @@ export default class PlayerBase extends Component {
 
   render() {
     if (this.props.loading) return <Loading style={ { marginTop: '30vh' } }/>;
+    this.init();
     return this.player();
   }
 
   init() {
+    if (this.initialized) return;
     const index = this.initialIndex();
     const { isFirst, isLast } = this.stateButtons(index); 
     this.state = { 
@@ -39,6 +40,7 @@ export default class PlayerBase extends Component {
       prevDisabled: isFirst,
       nextDisabled: isLast
     };
+    this.initialized = true;
   }
 
   initialIndex() {

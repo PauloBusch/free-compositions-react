@@ -1,15 +1,16 @@
 import { toastr } from 'react-redux-toastr';
 
-import firebaseInstance from './../../../firebase/index';
+import { hashHistory } from 'react-router';
+import firebaseInstance from '../../firebase/index';
 import firebase from 'firebase';
 import { 
   LOGIN, LOGOUT, LOADING, 
   FORGOT_PASSWORD_EMAIL_LOADED,
   FORGOT_PASSWORD_EMAIL_LOADING,
   FORGOT_PASSWORD_EMAIL_SENDED 
-} from './AuthActionTypes';
+} from './AuthActionsType';
 
-export function listenSessionChanged() {
+export function listenSessionChanged(isAdmin) {
   return dispatch => {
     dispatch({ type: LOADING });
     firebaseInstance.auth().onAuthStateChanged(user => {
@@ -18,15 +19,17 @@ export function listenSessionChanged() {
             const [doc] = result.docs;
             if (!doc) {
               dispatch({ type: LOGOUT });
-              window.location.href = '/#/admin';
+              hashHistory.push('/login');
               toastr.error('Erro', 'O usuário foi removido!');
               return;
             }
-            dispatch({ type: LOGIN, payload: { id: doc.id, ...doc.data() } }); 
+            const userData = { id: doc.id, ...doc.data() };
+            dispatch({ type: LOGIN, payload: userData }); 
           });
         } else {
+          if (!isAdmin) return;
           dispatch({ type: LOGOUT });
-          window.location.href = '/#/admin';
+          hashHistory.push('/login');
         }        
       }
     );

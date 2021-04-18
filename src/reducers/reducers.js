@@ -12,7 +12,7 @@ import UserReducer from './users/UsersReducer';
 import GenreReducer from './genres/GenresReducer';
 import StyleReducer from './styles/StylesReducer';
 import SlidesReducer from './slides/SlidesReducer';
-import authReducer from '../admin/reducers/auth/AuthReducer';
+import authReducer from './auth/AuthReducer';
 
 const rootReducer = combineReducers({
   toastr: toastrReducer,
