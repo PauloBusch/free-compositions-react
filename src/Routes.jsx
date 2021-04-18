@@ -27,6 +27,7 @@ import CreateAccount from './site/auth/create-account/index';
 import ForgotPasswordForm from './common/auth/forgot-password/ForgotPasswordForm';
 import AdminLayout from './admin/AdminLayout';
 import Logout from './common/auth/logout/index';
+import TypeAccount from './site/auth/type-account';
 
 const store = applyMiddleware(thunk, promise)(createStore)(Reducers);
 export default () => (
@@ -38,7 +39,8 @@ export default () => (
       </Route>
       <Route exact path="/login" component={ Auth } />
       <Route exact path="/logout" component={ Logout } />
-      <Route exact path="/create-account" component={ CreateAccount } />
+      <Route exact path="/type-account" component={ TypeAccount } />
+      <Route exact path="/create-account/:type" component={ CreateAccount } />
       <Route exact path="/forgot-password" component={ ForgotPasswordForm } />
       <Route exact path="/forgot-password/:email" component={ ForgotPasswordForm } />
       <Route exact path="/admin" component={ AdminLayout }>

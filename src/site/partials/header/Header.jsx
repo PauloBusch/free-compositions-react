@@ -27,7 +27,7 @@ class Header extends Component {
     const { user } = this.props;
 
     const menus = <div>
-      <Link to="/create-account">Inscrever-se</Link>
+      <Link to="/type-account">Inscrever-se</Link>
       <Link to={ user ? '/logout' : '/login' }>{ user ? 'Sair' : 'Entrar' }</Link>
     </div>;
 
