@@ -6,11 +6,14 @@ import { hashHistory } from 'react-router';
 
 class Logout extends Component {
   componentWillMount(){
-    this.props.logout();
+    this.props.logout(this.afterLogout.bind(this));
+  }
+
+  afterLogout(success) {
+    if (success) hashHistory.push('/');
   }
 
   render() { 
-    hashHistory.push('/');
     return false;
   }
 }

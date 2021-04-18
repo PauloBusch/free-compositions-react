@@ -27,8 +27,8 @@ export function listenSessionChanged(isAdmin) {
             dispatch({ type: LOGIN, payload: userData }); 
           });
         } else {
-          if (!isAdmin) return;
           dispatch({ type: LOGOUT });
+          if (!isAdmin) return;
           hashHistory.push('/login');
         }        
       }
@@ -36,21 +36,27 @@ export function listenSessionChanged(isAdmin) {
   }
 }
 
-export function login(values) {
+export function login(values, completed) {
   return () => {
     firebaseInstance.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-    firebaseInstance.auth().signInWithEmailAndPassword(values.email, values.password).then()
+    firebaseInstance.auth().signInWithEmailAndPassword(values.email, values.password).then(() => {
+      if (completed) completed(true);
+    })
     .catch(e => {
       toastr.error('Erro', 'Usuário/Senha inválidos');
+      if (completed) completed(false);
     });
   }
 }
 
-export function logout() {
+export function logout(completed) {
   return () => {
-    firebaseInstance.auth().signOut().then()
+    firebaseInstance.auth().signOut().then(() => {
+      if (completed) completed(true);
+    })
     .catch(e => {
       toastr.error('Erro', 'Falha ao realizar logout');
+      if (completed) completed(false);
     });
   }
 }

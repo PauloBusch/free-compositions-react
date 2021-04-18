@@ -23,7 +23,7 @@ import PlaylistForm from './admin/pages/playlists/playlist-form/PlaylistForm';
 import SlideList from './admin/pages/slides/slide-list/SlideList';
 import SlideForm from './admin/pages/slides/slide-form/SlideForm';
 import Auth from './common/auth/login/Auth';
-import CreateAccount from './site/auth/create-account/index';
+import createAccountForm from './site/auth/create-account/index';
 import ForgotPasswordForm from './common/auth/forgot-password/ForgotPasswordForm';
 import AdminLayout from './admin/AdminLayout';
 import Logout from './common/auth/logout/index';
@@ -40,7 +40,7 @@ export default () => (
       <Route exact path="/login" component={ Auth } />
       <Route exact path="/logout" component={ Logout } />
       <Route exact path="/type-account" component={ TypeAccount } />
-      <Route exact path="/create-account/:type" component={ CreateAccount } />
+      <Route exact path="/create-account/:type" component={ createAccountForm } />
       <Route exact path="/forgot-password" component={ ForgotPasswordForm } />
       <Route exact path="/forgot-password/:email" component={ ForgotPasswordForm } />
       <Route exact path="/admin" component={ AdminLayout }>

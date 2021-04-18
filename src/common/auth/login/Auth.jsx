@@ -15,6 +15,15 @@ import { Link, Redirect } from 'react-router';
 import { listenSessionChanged } from './../../../reducers/auth/AuthActions';
 
 class Auth extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { loginLoading: false };
+    this.afterLogin = this.afterLogin.bind(this);
+    this.toggleLoadingLogin = this.toggleLoadingLogin.bind(this);
+    this.submit = this.submit.bind(this);
+  }
+  
   componentWillMount() {
     this.props.listenSessionChanged(true);
   }
@@ -24,8 +33,25 @@ class Auth extends Component {
     return this.props.email && !emailError && this.props.password;
   }
 
+  submit(values) {
+    const { login } = this.props;
+    this.toggleLoadingLogin(true);
+    login(values, this.afterLogin);
+  }
+
+  afterLogin() {
+    this.toggleLoadingLogin(false);
+  }
+
+  toggleLoadingLogin(loading) {
+    this.setState({
+      ...this.state,
+      loginLoading: loading
+    });
+  }
+
   render() {
-    const { handleSubmit, user, loading, login, email } = this.props;
+    const { handleSubmit, user, loading, email } = this.props;
     if (loading) return false;
 
     if (user) {
@@ -40,14 +66,14 @@ class Auth extends Component {
 
     return (
       <div className="background-login">
-        <Form id="form-login" onSubmit={ handleSubmit(login) }>
+        <Form id="form-login" onSubmit={ handleSubmit(this.submit) }>
           <h2>Login</h2>
           <Field component={ Input } type="email" name="email"
             placeholder="E-mail" icon="user"/>
           <Field component={ Input } type="password" name="password"
             placeholder="Senha" icon="envelope"/>
             <Link className="link-forgot-password" to={ (`/forgot-password/${email ? encodeURIComponent(email) : ''}`) }>Esqueci minha senha</Link>
-          <SubmitButton disabled={ !this.isValid() } fill padding="10px" text="Entrar"/>
+          <SubmitButton disabled={ !this.isValid() } loading={ this.state.loginLoading } fill padding="10px" text="Entrar"/>
         </Form>
         <Toastr />
       </div>
