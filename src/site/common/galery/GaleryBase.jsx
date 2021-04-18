@@ -1,6 +1,7 @@
 import './GaleryBase.css';
 
 import React, { Component } from 'react';
+import Loading from './../../../common/loading/Loading';
 
 const INITIAL_STATE = {
   activePage: 0,
@@ -20,6 +21,13 @@ export default class GaleryBase extends Component {
     this.prevCard = this.prevCard.bind(this);
     this.nextCard = this.nextCard.bind(this);
     window.addEventListener('resize', this.updateTake.bind(this));
+  }
+
+  galery() { }
+
+  render() {
+    if (this.props.loading) return <Loading style={ { margin: '10vh 0' } }/>;
+    return this.galery();
   }
 
   init() {

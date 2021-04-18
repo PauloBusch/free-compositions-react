@@ -6,7 +6,7 @@ import ButtonNext from '../../player/actions/button-next/ButtonNext';
 import GaleryBase from './../GaleryBase';
 
 export default class GaleryMusic extends GaleryBase {
-  render() {
+  galery() {
     return (
       <div className="galery galery-musics">
         <div className="content">

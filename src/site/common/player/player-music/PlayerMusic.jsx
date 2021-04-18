@@ -5,7 +5,7 @@ import ButtonPrev from '../actions/button-prev/ButtonPrev';
 import ButtonNext from '../actions/button-next/ButtonNext';
 
 export default class PlayerMusic extends PlayerBase {
-  render() {
+  player() {
     return (
       <div className="player player-music">
         <div className="content">

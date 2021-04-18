@@ -2,6 +2,7 @@ import './PlayerBase.css';
 
 import React, { Component } from 'react';
 import { DESKTOP, MOBILE } from './../consts/AppMode';
+import Loading from './../../../common/loading/Loading';
 
 const INITIAL_STATE = {
   mode: DESKTOP,
@@ -19,6 +20,13 @@ export default class PlayerBase extends Component {
     this.prevCard = this.prevCard.bind(this);
     this.nextCard = this.nextCard.bind(this);
     window.addEventListener('resize', this.updateMode.bind(this));
+  }
+
+  player() { }
+
+  render() {
+    if (this.props.loading) return <Loading style={ { marginTop: '30vh' } }/>;
+    return this.player();
   }
 
   init() {

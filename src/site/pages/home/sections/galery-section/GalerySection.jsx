@@ -11,10 +11,49 @@ import { getAll as getGendersAll } from '../../../../../reducers/genres/GenresAc
 import { getAll as getPlaylistsAll } from '../../../../../reducers/playlists/PlaylistsActions';
 import * as _ from 'lodash';
 
+const DEFAULT_STATE = { genresLoading: false, playlistsLoading: false };
+
 class GalerySection extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = DEFAULT_STATE;
+    this.afterLoadGenres = this.afterLoadGenres.bind(this);
+    this.afterLoadPlaylists = this.afterLoadPlaylists.bind(this);
+    this.toggleLoadingGenres = this.toggleLoadingGenres.bind(this);
+    this.toggleLoadingPlaylists = this.toggleLoadingPlaylists.bind(this);
+  }
+
   componentWillMount() {
-    this.props.getGendersAll();
-    this.props.getPlaylistsAll();
+    this.setState({
+      ...this.state,
+      genresLoading: true,
+      playlistsLoading: true
+    });
+    this.props.getGendersAll(this.afterLoadGenres);
+    this.props.getPlaylistsAll(this.afterLoadPlaylists);
+  }
+
+  afterLoadGenres(success) {
+    if (success) this.toggleLoadingGenres(false);
+  }
+
+  afterLoadPlaylists(success) {
+    if (success) this.toggleLoadingPlaylists(false);
+  }
+
+  toggleLoadingGenres(loading) {
+    this.setState({
+      ...this.state,
+      genresLoading: loading
+    });
+  }
+
+  toggleLoadingPlaylists(loading) {
+    this.setState({
+      ...this.state,
+      playlistsLoading: loading
+    });
   }
 
   getPlaylists() {
@@ -32,13 +71,13 @@ class GalerySection extends Component {
           <h2>Músicas por gênero</h2>
           <i className="fas fa-chevron-right"></i>
         </div>
-        <GaleryGenre cards={ this.props.genres }/>
+        <GaleryGenre loading={ this.state.genresLoading } cards={ this.props.genres }/>
         
         <div className="head">
           <h2>Playlists populares</h2>
           <i className="fas fa-chevron-right"></i>
         </div>
-        <GaleryPlaylist cards={ this.getPlaylists() }/>
+        <GaleryPlaylist loading={ this.state.playlistsLoading } cards={ this.getPlaylists() }/>
       </Section>
     );
   }

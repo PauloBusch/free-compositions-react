@@ -5,7 +5,7 @@ import ButtonPrev from '../actions/button-prev/ButtonPrev';
 import ButtonNext from '../actions/button-next/ButtonNext';
 
 export default class PlayerArtist extends PlayerBase {
-  render() {
+  player() {
     return (
       <div className="player player-artist">
         <div className="content">

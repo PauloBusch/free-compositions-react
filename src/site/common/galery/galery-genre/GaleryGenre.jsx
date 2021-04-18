@@ -6,7 +6,7 @@ import ButtonNext from '../../player/actions/button-next/ButtonNext';
 import GaleryBase from './../GaleryBase';
 
 export default class GaleryGenre extends GaleryBase {
-  render() {
+  galery() {
     return (
       <div className="galery galery-genres">
         <div className="content">
