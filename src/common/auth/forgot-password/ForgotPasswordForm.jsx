@@ -2,7 +2,7 @@ import './ForgotPasswordForm.css';
 
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { Form, Field, formValueSelector, reduxForm } from 'redux-form';
 
@@ -48,7 +48,10 @@ class ForgotPasswordForm extends Component {
           </Form>
         </If>
         <If test={ forgotPasswordEmailSended }>
-          <span className="success-message">Acesse sua caixa de entrada para obter o link de redefinição!</span>
+          <div className="success-message">
+            <span>Acesse sua caixa de entrada para obter o link de redefinição!</span>
+            <Link className="link-login" to="/login">Clique aqui para logar</Link>
+          </div>
         </If>
         <Toastr />
       </div>

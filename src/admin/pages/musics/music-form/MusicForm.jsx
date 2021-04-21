@@ -1,3 +1,4 @@
+import './MusicForm.css';
 
 import React from 'react';
 import { withRouter } from 'react-router';
@@ -63,7 +64,7 @@ class MusicForm extends FormBase {
     const playlists = this.props.playlists.map(g => g.name);
     const { handleSubmit } = this.props;
     return (
-      <Form onSubmit={ handleSubmit(this.submit) }>
+      <Form id="music-form" onSubmit={ handleSubmit(this.submit) }>
         <Row justify="flex-start">
           <Field name="url" type="text" label="Url do YoutTube" placeholder="Informe a url do youtube"
             flex="25" component={ Input } validate={ [required, urlYoutube] }
@@ -82,7 +83,7 @@ class MusicForm extends FormBase {
           <Field name="style" label="Estilo"
             flex="25" component={ Select } options={ styles } validate={ required }
           />
-          <Field name="playlist" label="Playlist"
+          <Field name="playlist" label="Playlist" className="field-padding"
             flex="25" component={ Select } options={ playlists }
           />
         </Row>

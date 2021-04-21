@@ -59,6 +59,7 @@
   position: relative;
   border-top: .2px solid rgb(148, 148, 148);
   border-bottom: .2px solid rgb(148, 148, 148);
+  overflow-y: auto;
 }
 
 .modal .footer {

@@ -2,6 +2,7 @@ import './create-account.css';
 
 import React, { Component } from 'react';
 import { hashHistory, withRouter, Link } from 'react-router';
+import { toastr } from 'react-redux-toastr';
 import { reduxForm, formValueSelector, Form, Field } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -13,6 +14,8 @@ import email from './../../../common/validators/email';
 import SubmitButton from '../../../common/buttons/submit/SubmitButton';
 import Input from './../../../common/fields/input/Input';
 import Toastr from '../../../common/messages/toastr';
+import TermsOfUse from '../terms-of-use';
+import Modal from '../../../common/modal/Modal';
 
 const DEFAULT_VALUES = {
   name: '',
@@ -26,20 +29,29 @@ class CreateAccountForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { loading: false };
-    const type = this.props.router.params.type;
-    if (['Usuário', 'Compositor'].indexOf(type) === -1)
+    this.state = { loading: false, showTerms: false };
+    this.type = this.props.router.params.type;
+    if (['Usuário', 'Compositor'].indexOf(this.type) === -1)
       hashHistory.push('/type-account');
     const data = DEFAULT_VALUES;
-    data.role = type;
+    data.role = this.type;
     this.props.initialize(data);
     this.equalPassword = this.equalPassword.bind(this);
     this.submit = this.submit.bind(this);
     this.afterSubmit = this.afterSubmit.bind(this);
     this.toggleSaveLoading = this.toggleSaveLoading.bind(this);
+    this.accept = this.accept.bind(this);
+    this.reject = this.reject.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   submit(values) {
+    if (this.type === 'Compositor') 
+      return this.setState({ ...this.state, values: values, showTerms: true });
+    this.save(values);
+  }
+
+  save(values) {
     this.toggleSaveLoading(true);
     this.props.create(values, this.afterSubmit);
   }
@@ -69,8 +81,26 @@ class CreateAccountForm extends Component {
     return 'As senhas deve coincidir';
   }
 
+  reject() {
+    toastr.warning('Aviso', 'Para acessar o sistema é necessário aceitar os termos do contrato!');
+    this.closeModal();
+  }
+
+  accept() {
+    this.save(this.state.values);
+    this.closeModal();
+  }
+
+  closeModal() {
+    this.setState({ ...this.state, showTerms: false });
+  }
+
   render() {
     const { handleSubmit } = this.props;
+    const modalActions = [
+      { text: 'CANCELAR', pallet: { fill: '#c8c8c8', text: 'black' }, click: this.reject },
+      { text: 'ACEITAR', pallet: { fill: 'var(--primary)', text: 'white' }, click: this.accept }
+    ];
 
     return (
       <div className="background-account">
@@ -92,7 +122,12 @@ class CreateAccountForm extends Component {
           <Link className="link-login" to="/login">Já tenho uma conta</Link>
           <SubmitButton loading={ this.state.loading } fill padding="10px" text="Criar nova conta"/>
         </Form>
-        <Toastr />
+        <Modal title="Termos e condições de uso" 
+          actions={ modalActions } show={ this.state.showTerms } 
+          onClose={ this.reject }>
+          <TermsOfUse />
+        </Modal>
+        <Toastr/>
       </div>
     );
   }

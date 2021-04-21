@@ -24,6 +24,21 @@ export function getAll(completed) {
   };
 }
 
+export function getAllByCompositor(compositor, completed) {
+  return dispatch => {
+    collection.where('compositor', '==', compositor).get().then(result => {
+      const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => b.order - a.order);      
+      dispatch({ type: MUSIC_FETCHED, payload: list });
+      if (completed) completed(true);
+    })
+    .catch(() => {
+      toastr.error('Erro', `Falha ao carregar ${type}s!`);
+      if (completed) completed(false);
+    });
+  };
+}
+
 export function loadForm(id, completed) {
   return dispatch => {
     collection.doc(id).get().then(doc => {
