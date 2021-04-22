@@ -28,6 +28,7 @@ import ForgotPasswordForm from './common/auth/forgot-password/ForgotPasswordForm
 import AdminLayout from './admin/AdminLayout';
 import Logout from './common/auth/logout/index';
 import TypeAccount from './site/auth/type-account';
+import biographyForm from './admin/pages/biography';
 
 const store = applyMiddleware(thunk, promise)(createStore)(Reducers);
 export default () => (
@@ -44,6 +45,7 @@ export default () => (
       <Route exact path="/forgot-password" component={ ForgotPasswordForm } />
       <Route exact path="/forgot-password/:email" component={ ForgotPasswordForm } />
       <Route exact path="/admin" component={ AdminLayout }>
+        <Route path="biography" component={ biographyForm }/>
         <Route path="slides" component={ SlideList }/>
         <Route path="slides/new" component={ SlideForm }/>
         <Route path="slides/edit/:id" component={ SlideForm }/>

@@ -63,7 +63,7 @@ class CreateAccountForm extends Component {
       if (type === 'Usuário')
         hashHistory.push('/');
       if (type === 'Compositor')
-        hashHistory.push('/admin/musics');
+        hashHistory.push('/admin/biography');
     }
   }
 
@@ -99,7 +99,7 @@ class CreateAccountForm extends Component {
     const { handleSubmit } = this.props;
     const modalActions = [
       { text: 'CANCELAR', pallet: { fill: '#c8c8c8', text: 'black' }, click: this.reject },
-      { text: 'ACEITAR', pallet: { fill: 'var(--primary)', text: 'white' }, click: this.accept }
+      { text: 'ACEITAR', pallet: { fill: '#0276cd', text: 'white' }, click: this.accept }
     ];
 
     return (

@@ -1,0 +1,76 @@
+.image-input {
+  height: 100%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-input .image-background {
+  margin: 25px;
+  align-self: center;
+  border-radius: 50%;
+  background-position: center center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+}
+
+.image-input .actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.image-input .error-message {
+  text-align: center;
+}
+
+.image-input button {
+  outline: none;
+  font-size: 18px;
+  padding: 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.image-input button:active{
+  transform: scale(0.99);
+}
+
+.image-input .btn-add-image {
+  background-color: #0276cd;
+}
+
+.image-input .btn-add-image:hover {
+  background-color: #0059b9;
+}
+
+.image-input .btn-del-image {
+  background-color: red;
+}
+
+.image-input .btn-del-image:hover {
+  background-color: #d30000;
+}
+
+.image-input button[disabled] {
+  background-color: #a3a3a3;
+  cursor: default;
+}
+
+.image-input button[disabled]:hover {
+  background-color: #a3a3a3;
+}
+
+@media only screen and (max-width: 600px) {
+  .image-input button {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .image-input button {
+    font-size: 14px;
+  }
+}

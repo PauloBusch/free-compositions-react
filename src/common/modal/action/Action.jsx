@@ -20,7 +20,7 @@ export default props => (
       </div>
     </If>
 
-    <button className="modal-action"
+    <button type="button" className="modal-action"
       onClick={ props.onClick } 
       style={ getStyle(props) }
     >

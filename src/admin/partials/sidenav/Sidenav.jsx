@@ -19,6 +19,11 @@ class Sidenav extends Component {
               <MenuItem href="admin/slides" name="Slides" icon="images"/>
             </div>
           </If>
+          <If test={ ['Compositor'].indexOf(user.role) !== -1 }>
+            <div>
+              <MenuItem href="admin/biography" name="Biografia" icon="atlas"/>
+            </div>
+          </If>
           <If test={ ['Admin', 'Compositor'].indexOf(user.role) !== -1 }>
             <div>
               <MenuItem href="admin/musics" name="Músicas" icon="music"/>

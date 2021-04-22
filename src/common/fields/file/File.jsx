@@ -18,13 +18,10 @@ export default class File extends FieldBase {
   }
 
   onChange(e) {
-    const { input: { onChange }, fileFormat } = this.props;
+    const { input: { onChange } } = this.props;
     const [file] = e.target.files;
     if (file) this.setState({ ...this.state, name: file.name });
-    if (fileFormat === 'base64') 
-      this.toBase64(file, base64 => onChange(base64));
-    else 
-      onChange(file);
+    onChange(file);
   }
 
   field() {

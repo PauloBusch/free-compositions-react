@@ -60,7 +60,7 @@ class Auth extends Component {
       if (user.role === 'Admin')
         hashHistory.push('/admin/slides');
       if (user.role === 'Compositor')
-        hashHistory.push('/admin/musics');
+        hashHistory.push('/admin/biography');
       return false;
     }
 

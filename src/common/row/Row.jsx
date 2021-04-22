@@ -2,8 +2,17 @@ import './Row.css';
 
 import React from 'react';
 
-export default props => (
-  <div className="grid-row" style={ { justifyContent: props.justify ? props.justify : '' } }>
-    { props.children }
-  </div>
-);
+function getStyle(props) {
+  const style = { };
+  if (props.justify) style.justifyContent = props.justify;
+  if (props.height) style.height = props.height;
+  return style;
+}
+
+export default function Row(props){
+  return (
+    <div className="grid-row" style={ getStyle(props) }>
+      { props.children }
+    </div>
+  );
+}

@@ -3,10 +3,11 @@ import './FieldBase.css';
 import React, { Component } from 'react';
 
 export default class FieldBase extends Component {
-  getWidth() {
+  getStyle() {
     const { flex, px } = this.props;
-    if (px) return `${px}px`; 
-    if (flex) return `${flex}%`; 
+    if (px) return { witdth: `${px}px` };
+    if (flex) return { flexBasis: `${flex}%` };
+    return { }; 
   }
 
   errors() {
@@ -22,7 +23,7 @@ export default class FieldBase extends Component {
     return (
       <div 
         className={ `form-field ${errors ? 'has-error' : ''} ${className || ''}` }
-        style={ { width: this.getWidth() } }
+        style={ this.getStyle() }
       >
         { label ? <label htmlFor={ name }>{ label }</label> : false }
         { this.fieldWithIcon() }
