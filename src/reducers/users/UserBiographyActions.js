@@ -42,7 +42,8 @@ export function submitForm() {
 export function update(values, completed) {
   return () => {
     const save = image => {
-      values.image = image;
+      if (image) values.image = image;
+      if (values.imageUrl) delete values.imageUrl;
       collection.doc(values.id).update(values)
       .then(() => {
         toastr.success('Sucesso', `Biografia atualizada com sucesso!`);
@@ -56,9 +57,7 @@ export function update(values, completed) {
 
     if (values.image instanceof File) {
       const pathImage = `images/users/${values.image.name}`;
-      storage.ref(pathImage).put(values.image).then(() => {
-        save(pathImage);
-      })
+      storage.ref(pathImage).put(values.image).then(() => save(pathImage))
       .catch(() => {
         toastr.error('Erro', `Falha ao enviar imagem!`);
         if (completed) completed(false);

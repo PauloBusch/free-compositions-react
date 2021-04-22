@@ -99,7 +99,7 @@ const biographyForm = reduxForm({ form: 'biography-form' })(withRouter(Biography
 const selector = formValueSelector('biography-form');
 const mapStateToProps = state => ({ 
   user: state.auth.user,
-  imageUrl: selector(state, 'imageUrl')  
+  imageUrl: selector(state, 'imageUrl')
 });
 const mapDispatchToProps = dispatch => bindActionCreators({ update, submitForm, loadForm }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(biographyForm);

@@ -2,9 +2,10 @@ import React from 'react';
 
 function getStyle(props) {
   const { flex, px } = props;
-  if (px) return { witdth: `${px}px` };
-  if (flex) return { flexBasis: `${flex}%` };
-  return { }; 
+  const style = props.style || { };
+  if (px) style.width = `${px}px`;
+  if (flex) style.flexBasis = `${flex}%`;
+  return style; 
 }
 
 export default function Col(props) {

@@ -6,13 +6,13 @@
 }
 
 .image-input .image-background {
-  margin: 25px;
+  margin: 25px 0;
   align-self: center;
   border-radius: 50%;
   background-position: center center;
   background-size: cover;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
 }
 
 .image-input .actions {
