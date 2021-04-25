@@ -1,4 +1,6 @@
 .galery .card {
+  opacity: .9;
+  transition: .2s;
   width: 250px;
   height: 250px;
   position: relative;
@@ -7,30 +9,9 @@
   overflow: hidden;
 }
 
-.galery .card .play-hover {
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  border-radius: 25px;
-  display: block;
-  transition: .2s;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.199);
-}
-
-.galery .card .play-hover:hover {
+.galery .card:hover {
   opacity: 1;
-}
-
-.galery .card .play-hover i {
-  font-size: 50px;
-  color: white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  box-shadow: 1px 1px 5px rgb(151, 151, 151);
 }
 
 @media screen and (max-width: 1350px) {

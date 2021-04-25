@@ -1,0 +1,25 @@
+#artist {
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  box-sizing: border-box;
+  padding: 50px var(--space-x);
+}
+
+#artist .artist-details {
+  padding: 0 80px;
+}
+
+#artist h2 {
+  text-align: center;
+}
+
+#artist .artist-details .img {
+  height: 20vw;
+  width: 100%;
+  background-position: top center;
+  background-size: cover;
+}
+
+#artist .artist-info div {
+  line-height: 1.5;
+}

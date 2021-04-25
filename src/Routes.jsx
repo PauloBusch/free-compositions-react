@@ -30,6 +30,7 @@ import Logout from './common/auth/logout/index';
 import TypeAccount from './site/auth/type-account';
 import biographyForm from './admin/pages/biography';
 import ArtistDetail from './site/pages/artist/index';
+import GenreDetail from './site/pages/genre/index';
 
 const store = applyMiddleware(thunk, promise)(createStore)(Reducers);
 export default () => (
@@ -39,6 +40,7 @@ export default () => (
         <IndexRoute component={ Home }/>
         <Route path="about" component={ About }/>
         <Route path="artist/view/:id" component={ ArtistDetail }/>
+        <Route path="genre/view/:id" component={ GenreDetail }/>
       </Route>
       <Route exact path="/login" component={ Auth } />
       <Route exact path="/logout" component={ Logout } />

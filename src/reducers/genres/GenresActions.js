@@ -10,6 +10,20 @@ const type = 'gênero';
 const formId = 'genre-form';
 const collection = firebaseInstance.firestore().collection('genres');
 
+export function getById(id, completed) {
+  return () => {
+    collection.doc(id).get().then(doc => {
+      const data = { id: doc.id, ...doc.data() };
+      if (completed) completed(true, data);
+    })
+    .catch((error) => { 
+      toastr.error('Erro', `Falha ao carregar gênero!`); 
+      if (completed) completed(false);
+      throw error;
+    });
+  };
+}
+
 export function getAll(completed) {
   return dispatch => {
     collection.get().then(result => {

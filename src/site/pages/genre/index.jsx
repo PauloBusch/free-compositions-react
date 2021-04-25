@@ -6,12 +6,12 @@ import Row from './../../../common/row/Row';
 import Col from './../../../common/col/index';
 import { formatDate } from './../../../common/formatters/date';
 import { bindActionCreators } from 'redux';
-import { getById } from './../../reducers/artists/ArtistsActions';
-import { getAllByCompositor } from './../../../reducers/musics/MusicsActions';
+import { getById } from './../../../reducers/genres/GenresActions';
+import { getAllByGenre } from './../../../reducers/musics/MusicsActions';
 import Loading from './../../../common/loading/Loading';
 import GaleryMusic from './../../common/galery/galery-music/GaleryMusic';
 
-class ArtistDetail extends Component {
+class GenreDetail extends Component {
   constructor(props) {
     super(props);
 
@@ -35,14 +35,14 @@ class ArtistDetail extends Component {
     if (success) {    
       this.setState({ 
         ...this.state, 
-        artist: data
+        genre: data
       });
       this.getGalery(data);
     }
   }
 
   getGalery(artist) {
-    this.props.getAllByCompositor(artist.name, this.afterLoadGalery);
+    this.props.getAllByGenre(artist.name, this.afterLoadGalery);
   }
 
   afterLoadGalery(success, data) {
@@ -69,37 +69,20 @@ class ArtistDetail extends Component {
   }
 
   detail() {
-    if (this.state.loading || !this.state.artist || !this.state.musics) 
+    if (this.state.loading || !this.state.genre || !this.state.musics) 
       return <Loading style={ { marginTop: '15vh' } }/>;
 
-    const { artist } = this.state;
+    const { genre } = this.state;
     return (
       <div>
-        <h2>Biografia do Artista</h2>
-        <div>
-          <Row className="artist-details">
-            <Col flex="25">
-              <Row height="100%">
-                <div className="img" style={ { backgroundImage: `url('${artist.image || 'images/users/default-avatar.png'}')` } }></div>
-              </Row>
-            </Col>
-            <Col flex="75" className="artist-info" style={ { paddingLeft: '25px' } }>
-              <div className="name"><strong>Nome: </strong>{ artist.name }</div>
-              <div className="birthDate"><strong>Data de Nascimento: </strong>{ artist.birthDate ? formatDate(artist.birthDate) : '[Não informado]' }</div>
-              <div className="biography"><p>{ artist.biography || '' }</p></div>
-            </Col>
-          </Row>
-          { this.state.musics.length > 0 && 
-            <div>
-              <h2>Músicas do Artista</h2>
-              <GaleryMusic cards={ this.state.musics }/>;
-            </div>
-          }
-        </div>
+        <h2>{ genre.name }</h2>
+        { this.state.musics.length > 0 && 
+          <GaleryMusic cards={ this.state.musics }/>
+        }
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getById, getAllByCompositor }, dispatch);
-export default connect(null, mapDispatchToProps)(ArtistDetail);
+const mapDispatchToProps = dispatch => bindActionCreators({ getById, getAllByGenre }, dispatch);
+export default connect(null, mapDispatchToProps)(GenreDetail);

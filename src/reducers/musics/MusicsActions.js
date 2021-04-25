@@ -40,6 +40,22 @@ export function getAllByRanking(completed) {
   };
 }
 
+export function getAllByGenre(genre, completed) {
+  return dispatch => {
+    collection.where('genre', '==', genre).get().then(result => {
+      const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => b.order - a.order);      
+      dispatch({ type: MUSIC_FETCHED, payload: list });
+      if (completed) completed(true, list);
+    })
+    .catch((error) => {
+      toastr.error('Erro', `Falha ao carregar ${type}s!`);
+      if (completed) completed(false);
+      throw error;
+    });
+  };
+}
+
 export function getAllByCompositor(compositor, completed) {
   return dispatch => {
     collection.where('compositor', '==', compositor).get().then(result => {

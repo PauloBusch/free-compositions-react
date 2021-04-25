@@ -2,17 +2,19 @@ import '../../CardBase.css';
 import './Genre.css';
 
 import React from 'react';
+import { hashHistory } from 'react-router';
+
+function goToGenre(id) {
+  hashHistory.push(`/genre/view/${id}`);
+}
 
 export default props => {
   const { data } = props;
 
   return (
-    <div className="card genre" style={ 
+    <div onClick={ () => goToGenre(data.id) } className="card genre" style={ 
       { backgroundColor: data.backgroundColor }
     }>
-      <div className="play-hover">
-        <i className="far fa-play-circle"></i>
-      </div>
       <div className="detail">
         <h1>{ data.name }</h1>
       </div>
