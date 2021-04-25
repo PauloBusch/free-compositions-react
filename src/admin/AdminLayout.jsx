@@ -6,7 +6,6 @@ import Header from './partials/header/Header';
 import Sidenav from './partials/sidenav/Sidenav';
 import Content from './partials/content/Content';
 import Toastr from '../common/messages/toastr';
-import { logout } from '../reducers/auth/AuthActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { listenSessionChanged } from './../reducers/auth/AuthActions';
@@ -34,7 +33,7 @@ class AdminLayout extends Component {
       <div className="container-admin">
         <Header/>
         <div className="row-admin">
-          <Sidenav />
+          <Sidenav user={ user }/>
           <Content>
             { this.props.children }
           </Content>

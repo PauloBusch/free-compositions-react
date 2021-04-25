@@ -3,6 +3,7 @@ import { toastr } from 'react-redux-toastr';
 import { SLIDE_FETCHED, SLIDE_DELETED } from './SlidesActionsTypes';
 import firebaseInstance from './../../firebase/index';
 import 'firebase/firestore';
+import 'firebase/storage';
 
 const type = 'slide';
 const formId = 'slide-form';
@@ -24,9 +25,10 @@ export function getAll(completed) {
         if (completed) completed(true);
       });
     })
-    .catch(() => {
+    .catch((error) => {
       toastr.error('Erro', `Falha ao carregar ${type}s!`);
       if (completed) completed(false);
+      throw error;
     });
   };
 }
@@ -39,9 +41,10 @@ export function loadForm(id, completed) {
       dispatch(initialize(formId, slide));
       if (completed) completed(true);
     })
-    .catch(() => { 
+    .catch((error) => { 
       toastr.error('Erro', `Falha ao carregar ${type}!`); 
       if (completed) completed(false);
+      throw error;
     });
   };
 }
@@ -66,14 +69,16 @@ export function create(values, completed) {
           dispatch(getAll());
           if (completed) completed(true);
         })
-        .catch(() => {
+        .catch((error) => {
           toastr.error('Erro', `Falha ao criar ${type}!`);
           if (completed) completed(false);
+          throw error;
         });
       })
-      .catch(() => {
+      .catch((error) => {
         toastr.error('Erro', `Falha ao enviar ${type}!`);
         if (completed) completed(false);
+        throw error;
       });
     });
   };
@@ -91,14 +96,16 @@ export function update(values, completed) {
         dispatch(getAll());
         if (completed) completed(true);
       })
-      .catch(() => {
+      .catch((error) => {
         toastr.error('Erro', `Falha ao atualizar ${type}!`);
         if (completed) completed(false);
+        throw error;
       });
     })
-    .catch(() => {
+    .catch((error) => {
       toastr.error('Erro', `Falha ao enviar imagem!`);
       if (completed) completed(false);
+      throw error;
     });
   };
 }
@@ -110,14 +117,16 @@ export function remove(slide, completed) {
         dispatch({ type: SLIDE_DELETED, payload: slide.id });
         if (completed) completed(true);
       })
-      .catch(() => {
+      .catch((error) => {
         toastr.error('Erro', `Falha ao remover ${type}!`);
         if (completed) completed(false);
+        throw error;
       });
     })
-    .catch(() => {
+    .catch((error) => {
       toastr.error('Erro', `Falha ao remover imagem!`);
       if (completed) completed(false);
+      throw error;
     });
   };
 }
@@ -135,8 +144,9 @@ export function updateOrderBulk(list) {
       toastr.success('Sucesso', `Ordem atualizada com sucesso!`);
       dispatch(getAll());
     })
-    .catch(() => {
+    .catch((error) => {
       toastr.error('Erro', `Falha ao atualizar ordem!`);
+      throw error;
     });
   };
 }

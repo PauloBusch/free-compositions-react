@@ -16,9 +16,10 @@ export function getAll(completed) {
       dispatch({ type: LETTER_FETCHED, payload: list });
       if (completed) completed(true);
     })
-    .catch(() => {
+    .catch((error) => {
       toastr.error('Erro', `Falha ao carregar ${type}s!`);
       if (completed) completed(false);
+      throw error;
     });
   };
 }
@@ -29,9 +30,10 @@ export function loadForm(id, completed) {
       dispatch(initialize(formId, { id: doc.id, ...doc.data() }));
       if (completed) completed(true);
     })
-    .catch(() => { 
+    .catch((error) => { 
       toastr.error('Erro', `Falha ao carregar ${type}!`); 
       if (completed) completed(false);
+      throw error;
     });
   };
 }
@@ -52,9 +54,10 @@ export function create(values, completed) {
         dispatch(getAll());
         if (completed) completed(true);
       })
-      .catch(() => {
+      .catch((error) => {
         toastr.error('Erro', `Falha ao criar ${type}!`);
         if (completed) completed(false);
+        throw error;
       });
     });
   };
@@ -68,9 +71,10 @@ export function update(values, completed) {
       dispatch(getAll());
       if (completed) completed(true);
     })
-    .catch(() => {
+    .catch((error) => {
       toastr.error('Erro', `Falha ao atualizar ${type}!`);
       if (completed) completed(false);
+      throw error;
     });
   };
 }
@@ -81,9 +85,10 @@ export function remove(id, completed) {
       dispatch({ type: LETTER_DELETED, payload: id });
       if (completed) completed(true);
     })
-    .catch(() => {
+    .catch((error) => {
       toastr.error('Erro', `Falha ao remover ${type}!`);
       if (completed) completed(false);
+      throw error;
     });
   };
 }
@@ -101,8 +106,9 @@ export function updateOrderBulk(list) {
       toastr.success('Sucesso', `Ordem atualizada com sucesso!`);
       dispatch(getAll());
     })
-    .catch(() => {
+    .catch((error) => {
       toastr.error('Erro', `Falha ao atualizar ordem!`);
+      throw error;
     });
   };
 }

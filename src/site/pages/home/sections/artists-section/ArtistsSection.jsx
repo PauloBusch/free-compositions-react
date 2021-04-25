@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import Section from '../../../../../common/section/Section';
 import PlayerArtist from './../../../../common/player/player-artist/PlayerArtist';
 import Loading from './../../../../../common/loading/Loading';
+import { getAll } from './../../../../reducers/artists/ArtistsActions';
+import { bindActionCreators } from 'redux';
 
 const DEFAULT_STATE = { loading: true };
 
@@ -14,11 +16,17 @@ class ArtistsSection extends Component {
     super(props);
 
     this.state = DEFAULT_STATE;
+    this.afterLoad = this.afterLoad.bind(this);
     this.toggleLoading = this.toggleLoading.bind(this);
   }
 
   componentWillMount() {
-    this.toggleLoading(false);
+    this.toggleLoading(true);
+    this.props.getAll(this.afterLoad);
+  }
+
+  afterLoad(success) {
+    if (success) this.toggleLoading(false);
   }
 
   toggleLoading(loading) {
@@ -44,4 +52,5 @@ class ArtistsSection extends Component {
 }
 
 const mapStateToProps = state => ({ artists: state.artists });
-export default connect(mapStateToProps)(ArtistsSection);
+const mapDispatchToProps = dispatch => bindActionCreators({ getAll }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(ArtistsSection);

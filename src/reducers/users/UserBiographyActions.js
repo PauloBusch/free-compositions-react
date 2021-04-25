@@ -3,6 +3,7 @@ import { initialize, submit } from 'redux-form';
 import { toastr } from 'react-redux-toastr';
 import firebaseInstance from './../../firebase/index';
 import 'firebase/firestore';
+import 'firebase/storage';
 
 const formId = 'biography-form';
 const storage = firebaseInstance.storage();
@@ -21,16 +22,18 @@ export function loadForm(id, completed) {
         userData.imageUrl = url;
         dispatch(initialize(formId, { id: doc.id, ...userData }));
         if (completed) completed(true);
+        throw error;
       })
-      .catch(() => {
+      .catch((error) => {
         toastr.error('Erro', `Falha ao carregar imagem da biografia!`); 
         if (completed) completed(false);
+        throw error;
       });
     })
     .catch((error) => {
-      console.log(error); 
       toastr.error('Erro', `Falha ao carregar biografia!`); 
       if (completed) completed(false);
+      throw error;
     });
   };
 }
@@ -49,18 +52,20 @@ export function update(values, completed) {
         toastr.success('Sucesso', `Biografia atualizada com sucesso!`);
         if (completed) completed(true);
       })
-      .catch(() => {
+      .catch((error) => {
         toastr.error('Erro', `Falha ao atualizar Biografia!`);
         if (completed) completed(false);
+        throw error;
       });
     };
 
     if (values.image instanceof File) {
       const pathImage = `images/users/${values.image.name}`;
       storage.ref(pathImage).put(values.image).then(() => save(pathImage))
-      .catch(() => {
+      .catch((error) => {
         toastr.error('Erro', `Falha ao enviar imagem!`);
         if (completed) completed(false);
+        throw error;
       });
       return;
     }

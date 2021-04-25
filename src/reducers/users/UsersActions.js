@@ -4,6 +4,8 @@ import { USER_FETCHED, USER_DELETED } from './UsersActionsTypes';
 import { toastr } from 'react-redux-toastr';
 import firebaseInstance from './../../firebase/index';
 import 'firebase/firestore';
+import 'firebase/storage';
+import 'firebase/auth';
 
 const type = 'usuário';
 const formId = 'user-form';
@@ -18,9 +20,10 @@ export function getAll(completed) {
       dispatch({ type: USER_FETCHED, payload: list });
       if (completed) completed(true);
     })
-    .catch(() => {
+    .catch((error) => {
       toastr.error('Erro', `Falha ao carregar ${type}s!`);
       if (completed) completed(false);
+      throw error;
     });
   };
 }
@@ -39,14 +42,16 @@ export function loadForm(id, completed) {
         dispatch(initialize(formId, { id: doc.id, ...userData }));
         if (completed) completed(true);
       })
-      .catch(() => {
+      .catch((error) => {
         toastr.error('Erro', `Falha ao carregar imagem!`); 
         if (completed) completed(false);
+        throw error;
       });
     })
-    .catch(() => { 
+    .catch((error) => { 
       toastr.error('Erro', `Falha ao carregar ${type}!`); 
       if (completed) completed(false);
+      throw error;
     });
   };
 }
@@ -66,23 +71,25 @@ export function create(values, completed) {
         if (image) values.image = image;
         if (values.imageUrl) delete values.imageUrl;
         collection.add(values)
-        .then(() => {
-          toastr.success('Sucesso', `Usuário cadastrado com sucesso!`);
-          dispatch(getAll());
-          if (completed) completed(true);
-        })
-        .catch(() => {
-          toastr.error('Erro', `Falha ao criar ${type}!`);
-          if (completed) completed(false);
-        });
+          .then(() => {
+            toastr.success('Sucesso', `Usuário cadastrado com sucesso!`);
+            dispatch(getAll());
+            if (completed) completed(true);
+          })
+          .catch((error) => {
+            toastr.error('Erro', `Falha ao criar ${type}!`);
+            if (completed) completed(false);
+            throw error;
+          });
       };
 
       if (values.image instanceof File) {
         const pathImage = `images/users/${values.image.name}`;
         storage.ref(pathImage).put(values.image).then(() => save(pathImage))
-        .catch(() => {
+        .catch((error) => {
           toastr.error('Erro', `Falha ao enviar imagem!`);
           if (completed) completed(false);
+          throw error;
         });
         return;
       }
@@ -114,18 +121,20 @@ export function update(values, completed) {
         dispatch(getAll());
         if (completed) completed(true);
       })
-      .catch(() => {
+      .catch((error) => {
         toastr.error('Erro', `Falha ao atualizar ${type}!`);
         if (completed) completed(false);
+        throw error;
       });
     };
 
     if (values.image instanceof File) {
       const pathImage = `images/users/${values.image.name}`;
       storage.ref(pathImage).put(values.image).then(() => save(pathImage))
-      .catch(() => {
+      .catch((error) => {
         toastr.error('Erro', `Falha ao enviar imagem!`);
         if (completed) completed(false);
+        throw error;
       });
       return;
     }
@@ -140,9 +149,10 @@ export function remove(id, completed) {
       dispatch({ type: USER_DELETED, payload: id });
       if (completed) completed(true);
     })
-    .catch(() => {
+    .catch((error) => {
       toastr.error('Erro', `Falha ao remover ${type}!`);
       if (completed) completed(false);
+      throw error;
     });
   };
 }

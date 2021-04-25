@@ -1,26 +1,10 @@
-const INITIAL_STATE = [
-  {
-    id: 1,
-    image: 'images/artists/artist-1.jpg',
-    name: '$r L1l.'
-  },
-  {
-    id: 2,
-    image: 'images/artists/artist-2.jpg',
-    name: 'Fbrício Brasílio'
-  },
-  {
-    id: 3,
-    image: 'images/artists/artist-3.jpg',
-    name: 'Joana Antonio'
-  },
-  {
-    id: 4,
-    image: 'images/artists/artist-2.jpg',
-    name: 'Fbrício Brasílio'
-  }
-];
+import { ARTIST_FETCHED } from './ArtistsActionsTypes';
 
-export default function ArtistsReducer(state = INITIAL_STATE, action) {
-  return state;
+export default function ArtistsReducer(state = [], action) {
+  switch(action.type) {
+    case ARTIST_FETCHED: 
+      return action.payload;
+    default: 
+      return state;
+  }
 }

@@ -2,7 +2,7 @@ import { toastr } from 'react-redux-toastr';
 
 import { hashHistory } from 'react-router';
 import firebaseInstance from '../../firebase/index';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { 
   LOGIN, LOGOUT, LOADING, 
   FORGOT_PASSWORD_EMAIL_LOADED,
@@ -70,9 +70,10 @@ export function forgotPassword(values) {
       dispatch({ type: FORGOT_PASSWORD_EMAIL_SENDED });
       dispatch({ type: FORGOT_PASSWORD_EMAIL_LOADED });
     })
-    .catch(() => {
+    .catch((error) => {
       toastr.error('Erro', `Falha ao enviar email de redifinição!`);
       dispatch({ type: FORGOT_PASSWORD_EMAIL_LOADED });
+      throw error;
     });
   }
 }
