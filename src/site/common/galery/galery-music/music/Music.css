@@ -21,10 +21,10 @@
   font-size: 30px;
   padding: 5px;
   transition: .2s;
-  color: var(--primary);
+  color: #ddd;
   cursor: pointer;
 }
 
 .galery .music .actions i:hover {
-  color: var(--primary-hover);
+  color: white;
 }

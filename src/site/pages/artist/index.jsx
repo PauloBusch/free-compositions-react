@@ -80,7 +80,7 @@ class ArtistDetail extends Component {
           <Row className="artist-details">
             <Col flex="25">
               <Row height="100%">
-                <div className="img" style={ { backgroundImage: `url('${artist.image || 'images/users/default-avatar.png'}')` } }></div>
+                <div className="img" style={ { backgroundImage: `url('${artist.image}')` } }></div>
               </Row>
             </Col>
             <Col flex="75" className="artist-info" style={ { paddingLeft: '25px' } }>

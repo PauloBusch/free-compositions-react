@@ -23,6 +23,7 @@ export function getById(id, completed) {
         return;
       }
 
+      data.image = 'images/users/default-avatar.png';
       if (completed) completed(true, data);
     })
     .catch((error) => { 
@@ -45,6 +46,8 @@ export function getAll(completed) {
             listWithImage[index].imageRef = listWithImage[index].image;
             listWithImage[index].image = urlResults[index];
           }
+          for (const artist of list)
+            artist.image = artist.image || 'images/users/default-avatar.png';
           dispatch({ type: ARTIST_FETCHED, payload: list });
           if (completed) completed(true);
         });
