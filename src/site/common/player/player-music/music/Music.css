@@ -10,3 +10,7 @@
   border: none;
   border-bottom-right-radius: 0;
 }
+
+.player .music .actions i {
+  font-size: 40px;
+}
