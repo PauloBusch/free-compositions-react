@@ -116,7 +116,6 @@ export default class ListBase extends Component {
   getList() { }
 
   render() {
-    this.configure();
     const list = this.getList();
     const modalActions = [
       { text: 'CANCELAR', pallet: { fill: '#c8c8c8', text: 'black' }, click: this.closeModal.bind(this) },
@@ -127,6 +126,8 @@ export default class ListBase extends Component {
       text: 'black',
       fill: '#a7d2ff'
     };
+    
+    this.configure();
     return (
       <div className={ `list ${this.className ? this.className : ''}` }>
         <Card>

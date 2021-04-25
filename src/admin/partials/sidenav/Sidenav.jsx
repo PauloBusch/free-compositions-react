@@ -5,9 +5,19 @@ import Menu from './menu/Menu';
 import MenuItem from './menu-item/MenuItem';
 import If from '../../../common/operators/If';
 
+function redirectDefault(role) {
+  const currentHref = location.hash.substr(2);
+  if (currentHref === 'admin') {
+    const route = role === 'Admin' ? 'slides' : 'biography';
+    location.href = `/#/admin/${route}`;
+  }
+}
+
 export default props => {
   const { user } = props;
   if (!user) return false;
+
+  redirectDefault(user.role);
 
   return (
     <div className="sidenav">

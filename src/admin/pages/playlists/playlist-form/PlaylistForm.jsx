@@ -10,9 +10,11 @@ import Row from '../../../../common/row/Row';
 import FormBase from './../../../../common/form/FormBase';
 import Input from './../../../../common/fields/input/Input';
 import { create, update, loadForm, submitForm } from './../../../../reducers/playlists/PlaylistsActions';
+import File from './../../../../common/fields/file/File';
 
 const DEFAULT_STATE = {
-  name: ''
+  name: '',
+  image: null
 };
 
 class PlaylistForm extends FormBase { 
@@ -36,6 +38,9 @@ class PlaylistForm extends FormBase {
     return (
       <Form onSubmit={ handleSubmit(this.submit) }>
         <Row justify="flex-start">
+          <Field name="image" className="image-field" label="Imagem" button="Selecionar" placeholder="Selecione uma capa"
+            flex="25" component={ File } validate={ required }
+          />
           <Field name="name" type="text" label="Nome" placeholder="Informe o nome"
             flex="25" component={ Input } validate={ required }
           />

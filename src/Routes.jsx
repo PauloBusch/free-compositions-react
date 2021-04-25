@@ -23,14 +23,15 @@ import PlaylistForm from './admin/pages/playlists/playlist-form/PlaylistForm';
 import SlideList from './admin/pages/slides/slide-list/SlideList';
 import SlideForm from './admin/pages/slides/slide-form/SlideForm';
 import Auth from './common/auth/login/Auth';
-import createAccountForm from './site/auth/create-account/index';
+import createAccountForm from './site/auth/create-account';
 import ForgotPasswordForm from './common/auth/forgot-password/ForgotPasswordForm';
 import AdminLayout from './admin/AdminLayout';
-import Logout from './common/auth/logout/index';
+import Logout from './common/auth/logout';
 import TypeAccount from './site/auth/type-account';
 import biographyForm from './admin/pages/biography';
-import ArtistDetail from './site/pages/artist/index';
-import GenreDetail from './site/pages/genre/index';
+import ArtistDetail from './site/pages/artist';
+import GenreDetail from './site/pages/genre';
+import PlaylistDetail from './site/pages/playlist';
 
 const store = applyMiddleware(thunk, promise)(createStore)(Reducers);
 export default () => (
@@ -41,6 +42,7 @@ export default () => (
         <Route path="about" component={ About }/>
         <Route path="artist/view/:id" component={ ArtistDetail }/>
         <Route path="genre/view/:id" component={ GenreDetail }/>
+        <Route path="playlist/view/:id" component={ PlaylistDetail }/>
       </Route>
       <Route exact path="/login" component={ Auth } />
       <Route exact path="/logout" component={ Logout } />

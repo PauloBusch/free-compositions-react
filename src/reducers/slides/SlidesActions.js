@@ -64,16 +64,16 @@ export function create(values, completed) {
         slide.order = maxOrder + 1;
         slide.image = pathSlide;
         collection.add(slide)
-        .then(() => {
-          toastr.success('Sucesso', `Slide cadastrado com sucesso!`);
-          dispatch(getAll());
-          if (completed) completed(true);
-        })
-        .catch((error) => {
-          toastr.error('Erro', `Falha ao criar ${type}!`);
-          if (completed) completed(false);
-          throw error;
-        });
+          .then(() => {
+            toastr.success('Sucesso', `Slide cadastrado com sucesso!`);
+            dispatch(getAll());
+            if (completed) completed(true);
+          })
+          .catch((error) => {
+            toastr.error('Erro', `Falha ao criar ${type}!`);
+            if (completed) completed(false);
+            throw error;
+          });
       })
       .catch((error) => {
         toastr.error('Erro', `Falha ao enviar ${type}!`);
@@ -91,16 +91,16 @@ export function update(values, completed) {
       const slide = Object.assign(new Object(), values);
       slide.image = pathSlide;
       collection.doc(values.id).update(slide)
-      .then(() => {
-        toastr.success('Sucesso', `Slide atualizado com sucesso!`);
-        dispatch(getAll());
-        if (completed) completed(true);
-      })
-      .catch((error) => {
-        toastr.error('Erro', `Falha ao atualizar ${type}!`);
-        if (completed) completed(false);
-        throw error;
-      });
+        .then(() => {
+          toastr.success('Sucesso', `Slide atualizado com sucesso!`);
+          dispatch(getAll());
+          if (completed) completed(true);
+        })
+        .catch((error) => {
+          toastr.error('Erro', `Falha ao atualizar ${type}!`);
+          if (completed) completed(false);
+          throw error;
+        });
     })
     .catch((error) => {
       toastr.error('Erro', `Falha ao enviar imagem!`);
@@ -112,19 +112,18 @@ export function update(values, completed) {
 
 export function remove(slide, completed) {
   return dispatch => {
-    storage.ref(slide.imageRef).delete().then(() => {
-      collection.doc(slide.id).delete().then(doc => {
-        dispatch({ type: SLIDE_DELETED, payload: slide.id });
-        if (completed) completed(true);
-      })
-      .catch((error) => {
-        toastr.error('Erro', `Falha ao remover ${type}!`);
-        if (completed) completed(false);
-        throw error;
-      });
+    collection.doc(slide.id).delete().then(doc => {
+      dispatch({ type: SLIDE_DELETED, payload: slide.id });
+      if (completed) completed(true);
+      storage.ref(slide.imageRef).delete().then()
+        .catch((error) => {
+          toastr.error('Erro', `Falha ao remover imagem!`);
+          if (completed) completed(false);
+          throw error;
+        });
     })
     .catch((error) => {
-      toastr.error('Erro', `Falha ao remover imagem!`);
+      toastr.error('Erro', `Falha ao remover ${type}!`);
       if (completed) completed(false);
       throw error;
     });

@@ -1,15 +1,15 @@
-import './genre.css';
+import './playlist.css';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getById } from './../../../reducers/genres/GenresActions';
-import { getAllByGenre } from './../../../reducers/musics/MusicsActions';
-import Loading from './../../../common/loading/Loading';
-import GaleryMusic from './../../common/galery/galery-music/GaleryMusic';
+import { getById } from '../../../reducers/playlists/PlaylistsActions';
+import { getAllByPlaylist } from '../../../reducers/musics/MusicsActions';
+import Loading from '../../../common/loading/Loading';
+import GaleryMusic from '../../common/galery/galery-music/GaleryMusic';
 import Message from '../../../common/table/message/Message';
 
-class GenreDetail extends Component {
+class PlaylistDetail extends Component {
   constructor(props) {
     super(props);
 
@@ -33,14 +33,14 @@ class GenreDetail extends Component {
     if (success) {    
       this.setState({ 
         ...this.state, 
-        genre: data
+        playlist: data
       });
       this.getGalery(data);
     }
   }
 
   getGalery(artist) {
-    this.props.getAllByGenre(artist.name, this.afterLoadGalery);
+    this.props.getAllByPlaylist(artist.name, this.afterLoadGalery);
   }
 
   afterLoadGalery(success, data) {
@@ -63,19 +63,19 @@ class GenreDetail extends Component {
   }
 
   render() {
-    return (<div id="genre">{ this.detail() }</div>);
+    return (<div id="artist">{ this.detail() }</div>);
   }
 
   detail() {
-    if (this.state.loading || !this.state.genre || !this.state.musics) 
+    if (this.state.loading || !this.state.playlist || !this.state.musics) 
       return <Loading style={ { marginTop: '15vh' } }/>;
 
-    const { genre } = this.state;
+    const { playlist } = this.state;
     return (
       <div>
-        <h2>{ genre.name }</h2>
+        <h2>{ playlist.name }</h2>
         { this.state.musics.length === 0 && 
-          <Message message="Nenhuma música do gênero"/>
+          <Message message="Nenhuma música da playlist"/>
         }
         { this.state.musics.length > 0 && 
           <GaleryMusic cards={ this.state.musics }/>
@@ -85,5 +85,5 @@ class GenreDetail extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getById, getAllByGenre }, dispatch);
-export default connect(null, mapDispatchToProps)(GenreDetail);
+const mapDispatchToProps = dispatch => bindActionCreators({ getById, getAllByPlaylist }, dispatch);
+export default connect(null, mapDispatchToProps)(PlaylistDetail);

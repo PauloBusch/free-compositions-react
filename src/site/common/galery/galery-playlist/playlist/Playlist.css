@@ -1,5 +1,4 @@
 .galery .playlist {
-  cursor: default;
   background-size: cover;
   background-position: center center;
 }
@@ -16,23 +15,4 @@
 .galery .playlist h1 {
   color: white;
   text-align: center;
-}
-
-.galery .playlist .actions {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  padding: 5px;
-}
-
-.galery .playlist .actions i {
-  cursor: pointer;
-  transition: .2s;
-  padding: 8px;
-  font-size: 20px;
-  color: white;
-}
-
-.galery .playlist .actions i:hover {
-  color: var(--primary);
 }

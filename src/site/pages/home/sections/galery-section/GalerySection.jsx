@@ -9,7 +9,6 @@ import GaleryGenre from './../../../../common/galery/galery-genre/GaleryGenre';
 import GaleryPlaylist from './../../../../common/galery/galery-playlist/GaleryPlaylist';
 import { getAll as getGendersAll } from '../../../../../reducers/genres/GenresActions';
 import { getAll as getPlaylistsAll } from '../../../../../reducers/playlists/PlaylistsActions';
-import * as _ from 'lodash';
 
 const DEFAULT_STATE = { genresLoading: false, playlistsLoading: false };
 
@@ -56,14 +55,6 @@ class GalerySection extends Component {
     });
   }
 
-  getPlaylists() {
-    const { musics } = this.props;
-    const groupByPlaylist = _.groupBy(musics, 'playlist');
-    return Object.keys(groupByPlaylist).map(playlist => {
-      return { name: playlist, image: groupByPlaylist[playlist][0].image };
-    });
-  }
-
   render() {
     return (
       <Section id="galery">
@@ -77,12 +68,12 @@ class GalerySection extends Component {
           <h2>Playlists populares</h2>
           <i className="fas fa-chevron-right"></i>
         </div>
-        <GaleryPlaylist test loading={ this.state.playlistsLoading } cards={ this.getPlaylists() }/>
+        <GaleryPlaylist loading={ this.state.playlistsLoading } cards={ this.props.playlists }/>
       </Section>
     );
   }
 }
 
-const mapStateToProps = state => ({ genres: state.genres, playlists: state.playlists, musics: state.musics });
+const mapStateToProps = state => ({ genres: state.genres, playlists: state.playlists });
 const mapDispatchToProps = dispatch => bindActionCreators({ getGendersAll, getPlaylistsAll }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GalerySection);
