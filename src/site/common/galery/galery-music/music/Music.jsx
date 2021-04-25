@@ -10,6 +10,9 @@ export default props => {
   return (
     <div className="card music">
       <iframe className="img" src={ getYoutubeLink(data.url) }/>
+      <div className="actions">
+        <i onClick={ () => props.readLetter(data.letter) } title="Ver Letra" className="fab fa-readme"></i>
+      </div>
     </div>
   );  
 }

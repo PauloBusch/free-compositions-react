@@ -8,4 +8,23 @@
   height: 100%;
   border: none;
   border-bottom-right-radius: 0;
+  background-color: #ddd;
+}
+
+.galery .music .actions {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+}
+
+.galery .music .actions i {
+  font-size: 30px;
+  padding: 5px;
+  transition: .2s;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.galery .music .actions i:hover {
+  color: var(--primary-hover);
 }
