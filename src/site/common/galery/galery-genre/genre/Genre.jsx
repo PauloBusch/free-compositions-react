@@ -14,7 +14,7 @@ export default props => {
         <i className="far fa-play-circle"></i>
       </div>
       <div className="detail">
-        <h1 style={ { color: data.contrastColor } }>{ data.name }</h1>
+        <h1>{ data.name }</h1>
       </div>
     </div>
   );  

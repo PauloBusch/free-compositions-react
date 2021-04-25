@@ -83,7 +83,7 @@ class ArtistDetail extends Component {
                 <div className="img" style={ { backgroundImage: `url('${artist.image || 'images/users/default-avatar.png'}')` } }></div>
               </Row>
             </Col>
-            <Col flex="75" className="artist-info" style={ { paddingLeft: '12px' } }>
+            <Col flex="75" className="artist-info" style={ { paddingLeft: '25px' } }>
               <div className="name"><strong>Nome: </strong>{ artist.name }</div>
               <div className="birthDate"><strong>Data de Nascimento: </strong>{ artist.birthDate ? formatDate(artist.birthDate) : '[Não informado]' }</div>
               <div className="biography"><p>{ artist.biography || '' }</p></div>
