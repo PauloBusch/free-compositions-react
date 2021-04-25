@@ -1,31 +1,34 @@
 import './RankingSection.css';
 
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Section from '../../../../../common/section/Section';
 import GaleryMusic from './../../../../common/galery/galery-music/GaleryMusic';
 import Loading from './../../../../../common/loading/Loading';
-
-const DEFAULT_STATE = { loading: true };
+import { getAllByRanking } from '../../../../../reducers/musics/MusicsActions';
 
 class RankingSection extends Component {
   constructor(props) {
     super(props);
 
-    this.state = DEFAULT_STATE;
-    this.toggleLoading = this.toggleLoading.bind(this);
+    this.state = { loading: true, musics: null };
+    this.afterLoad = this.afterLoad.bind(this);
   }
 
   componentWillMount() {
-    this.toggleLoading(false);
+    this.props.getAllByRanking(this.afterLoad);
   }
 
-  toggleLoading(loading) {
-    this.setState({
-      ...this.state,
-      loading: loading
-    });
+  afterLoad(success, data) {
+    if (success) {    
+      this.setState({ 
+        ...this.state, 
+        musics: data,
+        loading: false
+      });
+    }
   }
 
   render() {
@@ -42,9 +45,9 @@ class RankingSection extends Component {
 
   ranking() {
     if (this.state.loading) return <Loading style={ { margin: '10vh 0' } }/>;
-    return <GaleryMusic cards={ this.props.ranking }/>;
+    return <GaleryMusic cards={ this.state.musics }/>;
   }
 }
 
-const mapStateToProps = state => ({ ranking: state.ranking });
-export default connect(mapStateToProps)(RankingSection);
+const mapDispatchToProps = dispatch => bindActionCreators({ getAllByRanking }, dispatch);
+export default connect(null, mapDispatchToProps)(RankingSection);

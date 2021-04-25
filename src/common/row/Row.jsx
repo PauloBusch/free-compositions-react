@@ -11,7 +11,7 @@ function getStyle(props) {
 
 export default function Row(props){
   return (
-    <div className="grid-row" style={ getStyle(props) }>
+    <div className={ `grid-row ${props.className || ''}` } style={ getStyle(props) }>
       { props.children }
     </div>
   );

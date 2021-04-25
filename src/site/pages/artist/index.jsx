@@ -7,16 +7,20 @@ import Col from './../../../common/col/index';
 import { formatDate } from './../../../common/formatters/date';
 import { bindActionCreators } from 'redux';
 import { getById } from './../../reducers/artists/ArtistsActions';
+import { getAllByCompositor } from './../../../reducers/musics/MusicsActions';
 import Loading from './../../../common/loading/Loading';
+import GaleryMusic from './../../common/galery/galery-music/GaleryMusic';
 
 class ArtistDetail extends Component {
   constructor(props) {
     super(props);
 
     this.id = this.getId();
-    this.state = { loading: true, artist: null };
+    this.state = { loading: true, artist: null, musics: null };
     this.afterLoad = this.afterLoad.bind(this);
+    this.afterLoadGalery = this.afterLoadGalery.bind(this);
     this.getData = this.getData.bind(this);
+    this.getGalery = this.getGalery.bind(this);
   }
 
   componentWillMount() {
@@ -25,6 +29,30 @@ class ArtistDetail extends Component {
 
   getData() {
     this.props.getById(this.id, this.afterLoad);
+  }
+
+  afterLoad(success, data) {
+    if (success) {    
+      this.setState({ 
+        ...this.state, 
+        artist: data
+      });
+      this.getGalery(data);
+    }
+  }
+
+  getGalery(artist) {
+    this.props.getAllByCompositor(artist.name, this.afterLoadGalery);
+  }
+
+  afterLoadGalery(success, data) {
+    if (success) {    
+      this.setState({ 
+        ...this.state,
+        musics: data,
+        loading: false
+      });
+    }
   }
 
   getId() {
@@ -36,30 +64,20 @@ class ArtistDetail extends Component {
     return pathname.substring(index).replace(regex, '');
   }
 
-  afterLoad(success, data) {
-    if (success) {    
-      this.setState({ 
-        ...this.state, 
-        artist: data,
-        loading: false
-      });
-    }
-  }
-
   render() {
     return (<div id="artist">{ this.detail() }</div>);
   }
 
   detail() {
-    if (this.state.loading || !this.state.artist) 
+    if (this.state.loading || !this.state.artist || !this.state.musics) 
       return <Loading style={ { marginTop: '15vh' } }/>;
 
     const { artist } = this.state;
     return (
       <div>
-        <h2>Bibliografia do Artista</h2>
-        <div className="details">
-          <Row>
+        <h2>Biografia do Artista</h2>
+        <div>
+          <Row className="artist-details">
             <Col flex="25">
               <Row height="100%">
                 <div className="img" style={ { backgroundImage: `url('${artist.image || 'images/users/default-avatar.png'}')` } }></div>
@@ -71,14 +89,13 @@ class ArtistDetail extends Component {
               <div className="biography"><p>{ artist.biography || '' }</p></div>
             </Col>
           </Row>
-          <Row className="artist-galery">
-            Galery
-          </Row>
+          <h2>Músicas do Artista</h2>
+          <GaleryMusic cards={ this.state.musics }/>;
         </div>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getById }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getById, getAllByCompositor }, dispatch);
 export default connect(null, mapDispatchToProps)(ArtistDetail);
