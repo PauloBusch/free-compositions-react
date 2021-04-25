@@ -10,7 +10,7 @@ function getStyle(props) {
 
 export default function Col(props) {
   return (
-    <div className="grid-col" style={ getStyle(props) }>
+    <div className={ `grid-col ${props.className || ''}` } style={ getStyle(props) }>
       { props.children }
     </div>
   );

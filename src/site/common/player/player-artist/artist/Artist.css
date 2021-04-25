@@ -1,14 +1,12 @@
-.artist .actions > div {
-  display: flex;
-  align-items: center;
+.player .artist {
+  cursor: pointer;
 }
 
-.artist .actions > div > i:nth-of-type(2) {
-  font-size: 60px;
+.player .artist h2 {
+  text-align: center;
+  margin: 25px;
 }
 
-@media screen and (max-width: 350px) {
-  .artist .actions > div > i:nth-of-type(2) {
-    font-size: 60px;
-  }
+.player .artist .img {
+  height: 400px;
 }
