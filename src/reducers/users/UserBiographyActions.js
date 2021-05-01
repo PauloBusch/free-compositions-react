@@ -22,7 +22,6 @@ export function loadForm(id, completed) {
         userData.imageUrl = url;
         dispatch(initialize(formId, { id: doc.id, ...userData }));
         if (completed) completed(true);
-        throw error;
       })
       .catch((error) => {
         toastr.error('Erro', `Falha ao carregar imagem da biografia!`); 

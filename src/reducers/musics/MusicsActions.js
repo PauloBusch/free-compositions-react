@@ -108,7 +108,7 @@ export function submitForm() {
 }
 
 export function create(values, completed) {
-  return dispatch => {
+  return () => {
     collection.orderBy('order', 'desc').limit(1).get().then(doc => { 
       const maxOrder = doc.size > 0 ? doc.docs[0].data().order : 0;
       const music = Object.assign(new Object(), values);
@@ -116,7 +116,6 @@ export function create(values, completed) {
       music.order = maxOrder + 1;
       collection.add(music).then(() => {
         toastr.success('Sucesso', `Música cadastrada com sucesso!`);
-        dispatch(getAll());
         if (completed) completed(true);
       })
       .catch((error) => {
@@ -129,12 +128,11 @@ export function create(values, completed) {
 }
 
 export function update(values, completed) {
-  return dispatch => {
+  return () => {
     const music = Object.assign(new Object(), values);
     collection.doc(values.id).update(music)
     .then(() => {
       toastr.success('Sucesso', `Música atualizada com sucesso!`);
-      dispatch(getAll());
       if (completed) completed(true);
     })
     .catch((error) => {
@@ -160,7 +158,7 @@ export function remove(music, completed) {
 }
 
 export function updateOrderBulk(list) {
-  return dispatch => {
+  return () => {
     var batch = firebaseInstance.firestore().batch();
 
     for (const item of list) {
@@ -170,7 +168,6 @@ export function updateOrderBulk(list) {
     
     return batch.commit().then(() => {
       toastr.success('Sucesso', `Ordem atualizada com sucesso!`);
-      dispatch(getAll());
     })
     .catch((error) => {
       toastr.error('Erro', `Falha ao atualizar ordem!`);
