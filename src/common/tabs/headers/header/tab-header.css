@@ -1,0 +1,21 @@
+.tab-header {
+  transition: .2s;
+  cursor: pointer;
+  padding: 15px;
+  color: white;
+  background-color: #4389da;
+}
+
+.tab-header:hover {
+  background-color: #347aca;
+}
+
+.tab-header.active {
+  cursor: default;
+  color: black;
+  background-color: rgb(167, 210, 255);
+}
+
+.tab-header h2 {
+  margin: 0;
+}

@@ -26,7 +26,7 @@ class UserList extends ListBase {
   }
   
   getList() {
-    return this.props.users;
+    return this.props.users.filter(u => u.role !== 'Usuário');
   }
 }
 

@@ -4,6 +4,7 @@ import { MUSIC_FETCHED, MUSIC_DELETED } from './MusicsActionsTypes';
 import { toastr } from 'react-redux-toastr';
 import firebaseInstance from './../../firebase/index';
 import 'firebase/firestore';
+import { MUSIC_PUBLIC } from './MusicStatus';
 
 const type = 'música';
 const formId = 'music-form';
@@ -25,9 +26,28 @@ export function getAll(completed) {
   };
 }
 
+export function getAllByStatus(status, completed) {
+  return () => {
+    collection
+    .where('status', '==', status)
+    .get().then(result => {
+      const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => b.order - a.order);      
+      if (completed) completed(true, list);
+    })
+    .catch((error) => {
+      toastr.error('Erro', `Falha ao carregar ${type}s!`);
+      if (completed) completed(false);
+      throw error;
+    });
+  };
+}
+
 export function getAllByRanking(completed) {
   return () => {
-    collection.get().then(result => {
+    collection
+    .where('status', '==', MUSIC_PUBLIC)
+    .get().then(result => {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
         .sort((a, b) => b.order - a.order);      
       if (completed) completed(true, list);
@@ -42,7 +62,10 @@ export function getAllByRanking(completed) {
 
 export function getAllByPlaylist(playlist, completed) {
   return dispatch => {
-    collection.where('playlist', '==', playlist).get().then(result => {
+    collection
+    .where('playlist', '==', playlist)
+    .where('status', '==', MUSIC_PUBLIC)
+    .get().then(result => {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
         .sort((a, b) => b.order - a.order);      
       dispatch({ type: MUSIC_FETCHED, payload: list });
@@ -58,7 +81,10 @@ export function getAllByPlaylist(playlist, completed) {
 
 export function getAllByGenre(genre, completed) {
   return dispatch => {
-    collection.where('genre', '==', genre).get().then(result => {
+    collection
+    .where('genre', '==', genre)
+    .where('status', '==', MUSIC_PUBLIC)
+    .get().then(result => {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
         .sort((a, b) => b.order - a.order);      
       dispatch({ type: MUSIC_FETCHED, payload: list });
@@ -74,7 +100,10 @@ export function getAllByGenre(genre, completed) {
 
 export function getAllByCompositor(compositor, completed) {
   return dispatch => {
-    collection.where('compositor', '==', compositor).get().then(result => {
+    collection
+    .where('compositor', '==', compositor)
+    .where('status', '==', MUSIC_PUBLIC)
+    .get().then(result => {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
         .sort((a, b) => b.order - a.order);      
       dispatch({ type: MUSIC_FETCHED, payload: list });

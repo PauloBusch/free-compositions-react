@@ -19,6 +19,7 @@ import { getAll as getUsersAll } from './../../../../reducers/users/UsersActions
 import { getAll as getStylesAll } from './../../../../reducers/styles/StylesActions';
 import { getAll as getPlaylistAll } from './../../../../reducers/playlists/PlaylistsActions';
 import TextArea from './../../../../common/fields/textarea/TextArea';
+import { MUSIC_PENDING, MUSIC_PUBLIC } from './../../../../reducers/musics/MusicStatus';
 
 const DEFAULT_STATE = {
   url: '',
@@ -26,6 +27,7 @@ const DEFAULT_STATE = {
   compositor: null,
   genre: null,
   style: null,
+  status: MUSIC_PUBLIC,
   letter: '',
 };
 
@@ -35,6 +37,7 @@ class MusicForm extends FormBase {
     const { user } = this.props;
     if (user && user.role === 'Compositor') {
       DEFAULT_STATE.compositor = user.name;
+      DEFAULT_STATE.status = MUSIC_PENDING;
     }
     if (!this.id) {
       this.props.initialize(DEFAULT_STATE);
@@ -65,6 +68,9 @@ class MusicForm extends FormBase {
     const { handleSubmit } = this.props;
     return (
       <Form id="music-form" onSubmit={ handleSubmit(this.submit) }>
+        <Row className="hidden">
+          <Field name="status" type="hidden" component={ Input }/>
+        </Row>
         <Row justify="flex-start">
           <Field name="url" type="text" label="Url do YoutTube" placeholder="Informe a url do youtube"
             flex="25" component={ Input } validate={ [required, urlYoutube] }

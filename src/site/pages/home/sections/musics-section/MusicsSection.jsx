@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import Section from '../../../../../common/section/Section';
 import PlayerMusic from '../../../../common/player/player-music/PlayerMusic';
 import { getAll } from '../../../../../reducers/musics/MusicsActions';
+import { MUSIC_PUBLIC } from './../../../../../reducers/musics/MusicStatus';
 
 const DEFAULT_STATE = { loading: false };
 
@@ -36,10 +37,12 @@ class MusicsSection extends Component {
   }
 
   render() {
+    const musics = this.props.musics.filter(m => m.status === MUSIC_PUBLIC);
+
     return (
       <Section id="musics">
         <h1>Músicas</h1>
-        <PlayerMusic loading={ this.state.loading } cards={ this.props.musics }/>
+        <PlayerMusic loading={ this.state.loading } cards={ musics }/>
       </Section>
     );
   }

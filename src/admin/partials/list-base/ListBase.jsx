@@ -116,31 +116,15 @@ export default class ListBase extends Component {
   getList() { }
 
   render() {
-    const list = this.getList();
     const modalActions = [
       { text: 'CANCELAR', pallet: { fill: '#c8c8c8', text: 'black' }, click: this.closeModal.bind(this) },
       { text: 'REMOVER', pallet: { fill: 'red', text: 'white' }, loading: this.state.loadingRemove, click: this.confirmRemove.bind(this) }
     ];
     
-    const tablePallet = {
-      text: 'black',
-      fill: '#a7d2ff'
-    };
-    
     this.configure();
     return (
       <div className={ `list ${this.className ? this.className : ''}` }>
-        <Card>
-          <CardHeader>
-            <h2>{ this.title }</h2>
-          </CardHeader>
-          <CardContent padding="0">
-            <Table rowClick={ row => this.goEdit(row.id) } loading={ this.state.loading }
-              drag={ !!this.props.updateOrderBulk } movedRow={ this.movedRow } pallet={ tablePallet } rows={ list }
-              columns={ this.tableColumns } actions={ this.tableActions } 
-            />
-          </CardContent>
-        </Card>
+        { this.title ? this.card() : this.table() }
         <Modal title="Confirmação" 
           actions={ modalActions } show={ this.state.showConfirmRemove } 
           onClose={ this.closeModal }
@@ -150,5 +134,34 @@ export default class ListBase extends Component {
         <FixedButton title="Cadastrar" onClick={ this.goNew } icon="plus" color="var(--primary)"/>
       </div>
     );    
+  }
+
+  table() {
+    const list = this.getList();
+    
+    const tablePallet = {
+      text: 'black',
+      fill: '#a7d2ff'
+    };
+
+    return (
+      <Table rowClick={ row => this.goEdit(row.id) } loading={ this.state.loading }
+        drag={ !!this.props.updateOrderBulk } movedRow={ this.movedRow } pallet={ tablePallet } rows={ list }
+        columns={ this.tableColumns } actions={ this.tableActions } 
+      />
+    );
+  }
+
+  card() {
+    return (
+      <Card>
+        <CardHeader>
+          <h2>{ this.title }</h2>
+        </CardHeader>
+        <CardContent padding="0">
+          { this.table() }
+        </CardContent>
+      </Card>
+    );
   }
 }

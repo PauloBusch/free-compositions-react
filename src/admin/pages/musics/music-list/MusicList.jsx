@@ -4,25 +4,31 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 
-import { getAll, getAllByCompositor, updateOrderBulk, remove } from '../../../../reducers/musics/MusicsActions';
 import ListBase from '../../../partials/list-base/ListBase';
+import { getAllByStatus, updateOrderBulk, remove } from '../../../../reducers/musics/MusicsActions';
+import { MUSIC_PENDING, MUSIC_PUBLIC } from '../../../../reducers/musics/MusicStatus';
 
 class MusicList extends ListBase {
   constructor(props) {
     super(props);
 
-    this.title = 'Músicas';
-    this.className = 'page-music-list';
+    this.className = 'tab-music-list';
+    this.status = this.props.status || MUSIC_PUBLIC;
     this.resumeLetter = this.resumeLetter.bind(this);
+    this.getStatus = this.getStatus.bind(this);
     this.configure();
   }
 
   componentWillMount() {
-    const { user } = this.props;
     this.toggleLoading(true);
-    user.role === 'Compositor' 
-      ? this.props.getAllByCompositor(user.name, this.afterLoad)
-      : this.props.getAll(this.afterLoad);
+    this.props.getAllByStatus(this.status, this.afterLoad);
+  }
+
+  afterLoad(success, list) {
+    if (success) {
+      this.musics = list;
+      this.toggleLoading(false);
+    }
   }
 
   confirmRemove() {
@@ -39,6 +45,11 @@ class MusicList extends ListBase {
     return <span>{letter}</span>;
   }
 
+  getStatus(status) {
+    if (status === MUSIC_PUBLIC) return 'Público';
+    if (status === MUSIC_PENDING) return 'Avaliação';
+  }
+
   configure() {
     const { user } = this.props;
     this.tableActions = [
@@ -47,19 +58,23 @@ class MusicList extends ListBase {
     this.tableColumns = [
       { prop: 'name', label: 'Nome', flex: 20 },
       { prop: 'compositor', label: 'Compositor', flex: 20 },
+      { prop: 'status', label: 'Status', flex: 20, format: this.getStatus },
       { prop: 'genre', label: 'Gênero', flex: 20 },
       { prop: 'letter', label: 'Resumo', flex: 40, template: this.resumeLetter }
     ];
     if (user.role === 'Compositor')
       this.tableColumns = this.tableColumns.filter(c => c.label !== 'Compositor');
+    else 
+      this.tableColumns = this.tableColumns.filter(c => c.label !== 'Status');
+
     this.sort = 'desc';
   }
   
   getList() {
-    return this.props.musics;
+    return this.musics;
   }
 }
 
 const mapStateToProps = state => ({ musics: state.musics, user: state.auth.user });
-const mapDispatchToProps = dispatch => bindActionCreators({ getAll, getAllByCompositor, updateOrderBulk, remove }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getAllByStatus, updateOrderBulk, remove }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MusicList));

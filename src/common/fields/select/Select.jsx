@@ -64,7 +64,7 @@ export default class Select extends FieldBase {
         className="form-control" 
         onChange={ this.onChange }
         placeholder={ this.props.placeholder }>
-        { this.getOptions().map(o => <option key={ o.value } value={ o.value }>{ o.text }</option>) }
+        { this.getOptions().map((o, i) => <option key={ i } value={ o.value }>{ o.text }</option>) }
       </select>
     );
   }
