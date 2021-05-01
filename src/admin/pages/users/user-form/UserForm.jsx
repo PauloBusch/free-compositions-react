@@ -27,8 +27,12 @@ const DEFAULT_STATE = {
 class UserForm extends FormBase { 
   constructor(props) {
     super(props);
+    
+    const { router } = this.props;
     if (!this.id) {
-      this.props.initialize(DEFAULT_STATE);
+      const data = DEFAULT_STATE;
+      if (router.params.role) data.role = router.params.role;
+      this.props.initialize(data);
     }
     this.title = 'Usuário';
   }

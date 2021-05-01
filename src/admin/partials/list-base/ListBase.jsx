@@ -9,6 +9,7 @@ import CardHeader from '../card/card-header/CardHeader';
 import Table from './../../../common/table/Table';
 import Modal from '../../../common/modal/Modal';
 import FixedButton from '../../../common/buttons/fixed/FixedButton';
+import { getRouteWithoutParams } from './../../../common/router/index';
 
 const INITIAL_STATE = { loading: true, loadingRemove: false, selected: null, showConfirmRemove: false };
 
@@ -77,14 +78,14 @@ export default class ListBase extends Component {
 
   goEdit(id) {
     const { router } = this.props;
-    const url = `${router.location.pathname}/edit/${id}`;
-    this.props.router.push(url);
+    const url = `${getRouteWithoutParams(router)}/edit/${id}`;
+    router.push(url);
   }
 
   goNew() {
     const { router } = this.props;
-    const url = `${router.location.pathname}/new`;
-    this.props.router.push(url);
+    const url = `${getRouteWithoutParams(router)}/new`;
+    router.push(url);
   }
   
   movedRow(sourceIndex, targetIndex) { 

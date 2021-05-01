@@ -87,8 +87,7 @@ export default class FormBase extends Component {
     const needBack = pathname.search(/\/edit\/|\/new/) !== -1;
     if (!needBack) return;
     
-    const url = pathname.substring(0, pathname.search(/\/edit\/|\/new/));
-    this.props.router.push(url);
+    router.goBack();
   }
 
   render() {

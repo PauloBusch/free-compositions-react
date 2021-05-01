@@ -26,11 +26,14 @@ export function getAll(completed) {
   };
 }
 
-export function getAllByStatus(status, completed) {
+export function getAllByFilter(filters, completed) {
   return () => {
-    collection
-    .where('status', '==', status)
-    .get().then(result => {
+    let filtred = collection;
+
+    for (const prop in filters)
+      filtred = filtred.where(prop, '==', filters[prop]);
+
+    filtred.get().then(result => {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
         .sort((a, b) => b.order - a.order);      
       if (completed) completed(true, list);

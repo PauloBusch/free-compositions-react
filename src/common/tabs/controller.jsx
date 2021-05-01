@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { getRouteWithoutParams } from './../router/index';
 
 export default class TabsController extends Component {
   constructor(props, defaultTab) {
@@ -17,10 +18,6 @@ export default class TabsController extends Component {
       ...this.state,
       tabActive: tab
     });
-    if (!router.params.tab)
-      return router.push(`${pathname}/${tab}`);
-    
-    const index = pathname.lastIndexOf(`/${router.params.tab}`);
-    router.push(`${pathname.substring(0, index)}/${tab}`);
+    router.push(`${getRouteWithoutParams(router)}/${tab}`);
   }
 }

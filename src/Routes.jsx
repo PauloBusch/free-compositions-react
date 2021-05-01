@@ -11,7 +11,7 @@ import About from './site/pages/about/About';
 import Home from './site/pages/home/Home';
 import Reducers from './reducers/reducers';
 import MusicForm from './admin/pages/musics/music-form/MusicForm';
-import UserList from './admin/pages/users/user-list/UserList';
+import UserListTabs from './admin/pages/users/user-list';
 import UserForm from './admin/pages/users/user-form/UserForm';
 import GenreList from './admin/pages/genres/genre-list/GenreList';
 import GenreForm from './admin/pages/genres/genre-form/GenreForm';
@@ -31,7 +31,7 @@ import biographyForm from './admin/pages/biography';
 import ArtistDetail from './site/pages/artist';
 import GenreDetail from './site/pages/genre';
 import PlaylistDetail from './site/pages/playlist';
-import MusicListTabs from './admin/pages/musics/music-list-tabs/music-list-tabs';
+import MusicListTabs from './admin/pages/musics/music-list';
 
 const store = applyMiddleware(thunk, promise)(createStore)(Reducers);
 export default () => (
@@ -55,13 +55,15 @@ export default () => (
         <Route path="slides" component={ SlideList }/>
         <Route path="slides/new" component={ SlideForm }/>
         <Route path="slides/edit/:id" component={ SlideForm }/>
-        <Route path="musics" component={ MusicListTabs }/>
-        <Route path="musics/:tab" component={ MusicListTabs }/>
         <Route path="musics/new" component={ MusicForm }/>
         <Route path="musics/edit/:id" component={ MusicForm }/>
-        <Route path="users" component={ UserList }/>
+        <Route path="musics/:tab" component={ MusicListTabs }/>
+        <Route path="musics" component={ MusicListTabs }/>
         <Route path="users/new" component={ UserForm }/>
+        <Route path="users/new/:role" component={ UserForm }/>
         <Route path="users/edit/:id" component={ UserForm }/>
+        <Route path="users/:tab" component={ UserListTabs }/>
+        <Route path="users" component={ UserListTabs }/>
         <Route path="genres" component={ GenreList }/>
         <Route path="genres/new" component={ GenreForm }/>
         <Route path="genres/edit/:id" component={ GenreForm }/>
