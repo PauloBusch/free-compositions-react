@@ -15,6 +15,10 @@
   position: absolute;
   bottom: 5px;
   left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 50%;
 }
 
 .galery .music .actions i {

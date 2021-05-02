@@ -20,6 +20,7 @@ const DEFAULT_STATE = {
   style: null,
   status: MUSIC_PUBLIC,
   letter: '',
+  price: null,
   rejectJustification: ''
 };
 
@@ -84,11 +85,14 @@ export default class MusicFormBase extends FormBase {
             flex="25" component={ Select } options={ compositors } 
             readOnly={ user.role === 'Compositor' || readonly } validate={ required }
           />
-          <Field name="genre" label="Gênero"
-            flex="25" component={ Select } options={ genres } validate={ required } readOnly={ readonly }
+          <Field name="price" type="number" label="Preço" placeholder="Informe o preço"
+            flex="25" component={ Input } validate={ required } readOnly={ readonly }
           />
         </Row>
         <Row justify="flex-start">
+          <Field name="genre" label="Gênero"
+            flex="25" component={ Select } options={ genres } validate={ required } readOnly={ readonly }
+          />
           <Field name="style" label="Estilo"
             flex="25" component={ Select } options={ styles } validate={ required } readOnly={ readonly }
           />

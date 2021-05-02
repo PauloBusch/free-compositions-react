@@ -1,0 +1,11 @@
+export function generateAddContactLink(phone) {
+  if (!phone) return '';
+  const numbers = phone.replace(/\D/g, '');
+  return `https://wa.me/55${numbers}`;
+}
+
+export function generateSendMessageLink(phone) {
+  if (!phone) return '';
+  const numbers = phone.replace(/\D/g, '');
+  return `https://api.whatsapp.com/send?phone=+55${numbers}`;
+}

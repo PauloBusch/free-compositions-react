@@ -22,10 +22,10 @@ class RankingSection extends Component {
   }
 
   afterLoad(success, data) {
-    if (success) {    
+    if (success) {
       this.setState({ 
         ...this.state, 
-        musics: data,
+        musics: data.slice(0, 12),
         loading: false
       });
     }
