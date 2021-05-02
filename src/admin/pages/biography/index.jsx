@@ -77,10 +77,9 @@ class BiographyForm extends FormBase {
         <Row justify="flex-start">
           <Col flex="30">
             <Row height="100%" justify="flex-start">
-              <Field name="image" className="image-field" label="Foto" 
+              <Field name="image" className="image-field" label="Foto" flex="100"
                 imageDefault="images/users/default-avatar.png"
-                imageUrl={ imageUrl }
-                flex="100" component={ Image } validate={ required }
+                imageUrl={ imageUrl } component={ Image }
               />
             </Row>
           </Col>
