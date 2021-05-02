@@ -46,7 +46,7 @@ class UserForm extends FormBase {
           <Field name="name" type="text" label="Nome" placeholder="Informe o nome"
             flex="25" component={ Input } validate={ required }
           />
-          <Field name="email" type="email" label="Email" placeholder="Informe o email"
+          <Field name="email" type="email" label="Email" placeholder="Informe o email" 
             flex="25" component={ Input } readOnly={ !!this.id } validate={ [required, email] }
           />
           <Field name="role" label="Papel" placeholder="Informe o papel"
@@ -54,6 +54,7 @@ class UserForm extends FormBase {
           />
           <If test={ !this.id }>
             <Field name="password" type="password" label="Senha" placeholder="Informe a senha"
+              orientation="A senha deve conter caracteres especiais, números e letras em maiúsculo e minúsculo com no mínimo 8 caracteres"
               flex="25" component={ Input } validate={ [required, password] }
             />
           </If>

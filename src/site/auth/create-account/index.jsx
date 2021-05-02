@@ -114,6 +114,7 @@ class CreateAccountForm extends Component {
             component={ Input } validate={ [required, email] }
           />
           <Field name="password" type="password" label="Senha" placeholder="Informe a senha"
+            orientation="A senha deve conter caracteres especiais, números e letras em maiúsculo e minúsculo com no mínimo 8 caracteres"
             component={ Input } validate={ [required, password] }
           />
           <Field name="confirmPassword" type="password" label="Confirmação da Senha" placeholder="Informe a confirmação da senha"

@@ -31,10 +31,20 @@
   color: rgb(189, 189, 189);
 }
 
-.form-field .error-message {
-  color: red;
+.form-field .error-message,
+.form-field .orientation-message {
+  word-break: break-all;
   font-size: 15px;
   margin-top: 5px;
+}
+
+
+.form-field .error-message {
+  color: red;
+}
+
+.form-field .orientation-message {
+  color: rgb(139, 139, 139);
 }
 
 .form-control.has-error,

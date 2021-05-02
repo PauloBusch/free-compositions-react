@@ -16,6 +16,12 @@ export default class FieldBase extends Component {
     return <div className="error-message">{ error }</div>;
   }
 
+  orientation() {
+    const { orientation } = this.props;
+    if (!orientation) return false;
+    return <div className="orientation-message">{ orientation }</div>;
+  }
+
   render() {
     const { label, name, className } = this.props;
     const errors = this.errors();
@@ -27,6 +33,7 @@ export default class FieldBase extends Component {
       >
         { label ? <label htmlFor={ name }>{ label }</label> : false }
         { this.fieldWithIcon() }
+        { this.orientation() }
         { errors }
       </div>
     );
