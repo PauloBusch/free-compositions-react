@@ -30,8 +30,8 @@ export default class Slider extends Component {
   }
 
   configureAnimation() {
-    if (this.animationId) clearInterval(this.animationId);
-    this.animationId = setInterval(this.updateAnimation.bind(this), this.props.timeTransition || 5000);
+    // if (this.animationId) clearInterval(this.animationId);
+    // this.animationId = setInterval(this.updateAnimation.bind(this), this.props.timeTransition || 5000);
   }
 
   updateAnimation() {

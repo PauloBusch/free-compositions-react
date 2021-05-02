@@ -1,0 +1,22 @@
+
+.field-checkbox {
+  margin-top: 35px;
+}
+
+.has-error .field-checkbox {
+  margin-top: 25px;
+}
+
+.field-checkbox label,
+.field-checkbox input {
+  cursor: pointer;
+}
+
+.field-checkbox input {
+  margin: 0;
+}
+
+.field-checkbox label {
+  margin: 0;
+  margin-left: 5px;
+}

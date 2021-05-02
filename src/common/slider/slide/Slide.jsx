@@ -11,6 +11,6 @@ export default props => (
         }
       }>
     </div>
-    { props.template ? props.template() : false }
+    { props.template ? props.template : false }
   </li>
 );

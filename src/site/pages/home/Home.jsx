@@ -9,18 +9,27 @@ import Slider from './../../../common/slider/Slider';
 import { getAll as getAllSlides } from '../../.../../../reducers/slides/SlidesActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import OverlaySlide from './overlay-slide/index';
 
 class Home extends Component {
   componentWillMount() {
     this.props.getAllSlides();
   }
 
+  mapSlideData(slide) {
+    const { image, positionX, positionY, overlaySlide } = slide;
+    return { 
+      image: image, 
+      position: `${positionX} ${positionY}`,
+      template: overlaySlide ? OverlaySlide(slide) : false
+    };
+  }
+
   render() {
-    const { slides } = this.props;
     return (
       <div className="home">
         <div className="slides-container">
-          <Slider slides={ slides.map(s => ({ image: s.image, position: `${s.positionX} ${s.positionY}` })) } timeTransition={ 10000 }/>
+          <Slider slides={ this.props.slides.map(s => this.mapSlideData(s)) } timeTransition={ 10000 }/>
         </div>
         <MusicsSection />
         <ArtistsSection />
