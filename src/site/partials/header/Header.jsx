@@ -26,10 +26,9 @@ class Header extends Component {
   render() {
     const { user } = this.props;
 
-    const menus = <div>
-      { !user && <Link to="/type-account">Inscrever-se</Link> }
-      <Link to={ user ? '/logout' : '/login' }>{ user ? 'Sair' : 'Entrar' }</Link>
-    </div>;
+    const menus = [];
+    if (!user) menus.push(<Link key="type-account" to="/type-account">Inscrever-se</Link>);
+    menus.push(<Link key="access" to={ user ? '/logout' : '/login' }>{ user ? 'Sair' : 'Entrar' }</Link>);
 
     return (
       <header className="site-header">
@@ -40,7 +39,10 @@ class Header extends Component {
           </a>
           <i id="toggle-mobile" onClick={ this.toggleMenu } className="fas fa-bars"></i>
         </div>
-        <div className="menu-desktop">{ menus }</div>
+        <div className="menu-desktop">
+          { user && <h4>Olá, { user.name }</h4> }
+          { menus }
+        </div>
         <div className={ `menu-mobile ${this.state.show ? 'show' : ''}` }>{ menus }</div>
       </header>
     );

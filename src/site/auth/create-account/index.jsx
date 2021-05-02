@@ -107,7 +107,7 @@ class CreateAccountForm extends Component {
         <Form id="form-account" onSubmit={ handleSubmit(this.submit) }>
           <h2>Nova conta</h2>
 
-          <Field name="name" type="text" label="Nome" placeholder="Informe o nome"
+          <Field name="name" type="text" label="Nome Completo" placeholder="Informe o nome completo"
             component={ Input } validate={ required }
           />
           <Field name="email" type="email" label="Email" placeholder="Informe o email"
@@ -122,7 +122,7 @@ class CreateAccountForm extends Component {
           <Link className="link-login" to="/login">Já tenho uma conta</Link>
           <SubmitButton loading={ this.state.loading } fill padding="10px" text="Criar nova conta"/>
         </Form>
-        <Modal title="Termos e condições de uso" 
+        <Modal title="Termos e Condições de Uso" 
           actions={ modalActions } show={ this.state.showTerms } 
           onClose={ this.reject }>
           <TermsOfUse />

@@ -16,6 +16,12 @@ class MusicListPublic extends MusicListBase {
     router.push(url);
   }
 
+  configure() {
+    super.configure();
+
+    this.useDrag = this.props.user.role === 'Admin';
+  }
+
   constructor(props) {
     super(props, MUSIC_PUBLIC);
   }

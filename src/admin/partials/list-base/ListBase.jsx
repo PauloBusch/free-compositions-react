@@ -25,6 +25,7 @@ export default class ListBase extends Component {
     this.goNew = this.goNew.bind(this);
     this.movedRow = this.movedRow.bind(this);
     this.afterUpdateOrder = this.afterUpdateOrder.bind(this);
+    this.useDrag = !!this.props.updateOrderBulk;
   }
 
   componentWillMount() {
@@ -150,7 +151,7 @@ export default class ListBase extends Component {
 
     return (
       <Table rowClick={ row => this.goEdit(row.id) } loading={ this.state.loading }
-        drag={ !!this.props.updateOrderBulk } movedRow={ this.movedRow } pallet={ tablePallet } rows={ list }
+        drag={ this.useDrag } movedRow={ this.movedRow } pallet={ tablePallet } rows={ list }
         columns={ this.tableColumns } actions={ this.tableActions } 
       />
     );

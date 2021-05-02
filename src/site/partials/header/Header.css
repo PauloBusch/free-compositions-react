@@ -12,6 +12,7 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 1px 5px rgb(0 0 0 / 32%);
+  color: white;
 }
 
 .site-header .main {
@@ -32,7 +33,8 @@
   margin-right: 15px;
 }
 
-.site-header .main h2 {
+.site-header .main h2,
+.site-header .main h4 {
   margin: 0;
 }
 

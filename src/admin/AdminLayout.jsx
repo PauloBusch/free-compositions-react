@@ -31,7 +31,7 @@ class AdminLayout extends Component {
 
     return (
       <div className="container-admin">
-        <Header/>
+        <Header user={ user }/>
         <div className="row-admin">
           <Sidenav user={ user }/>
           <Content>

@@ -13,9 +13,13 @@
   align-items: center;
 }
 
-
 .header-admin .title > * {
   display: inline-block;
+}
+
+.header-admin .right {
+  display: flex;
+  align-items: center;
 }
 
 .header-admin i {
