@@ -1,0 +1,12 @@
+#music-form .field-padding {
+  padding-right: 10px;
+} 
+
+.music-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.music-buttons .submit-button {
+  margin-left: 15px;
+}

@@ -7,8 +7,15 @@ import { withRouter } from 'react-router';
 
 import { getAllByFilter, updateOrderBulk, remove } from '../../../../../reducers/musics/MusicsActions';
 import { MUSIC_PUBLIC } from '../../../../../reducers/musics/MusicStatus';
+import { getRouteWithoutParams } from './../../../../../common/router/index';
 
 class MusicListPublic extends MusicListBase {
+  goEdit(id) {
+    const { router } = this.props;
+    const url = `${getRouteWithoutParams(router)}/edit/${id}`;
+    router.push(url);
+  }
+
   constructor(props) {
     super(props, MUSIC_PUBLIC);
   }

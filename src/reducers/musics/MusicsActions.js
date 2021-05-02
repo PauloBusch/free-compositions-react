@@ -189,7 +189,7 @@ export function remove(music, completed) {
   };
 }
 
-export function updateOrderBulk(list) {
+export function updateOrderBulk(list, completed) {
   return () => {
     var batch = firebaseInstance.firestore().batch();
 
@@ -200,9 +200,11 @@ export function updateOrderBulk(list) {
     
     return batch.commit().then(() => {
       toastr.success('Sucesso', `Ordem atualizada com sucesso!`);
+      if (completed) completed(true);
     })
     .catch((error) => {
       toastr.error('Erro', `Falha ao atualizar ordem!`);
+      if (completed) completed(false);
       throw error;
     });
   };

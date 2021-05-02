@@ -6,6 +6,7 @@ export default class TextArea extends FieldBase {
     return (
       <textarea { ...this.props.input } 
         className="form-control" 
+        readOnly={ this.props.readOnly }
         rows={ this.props.rows || '5' }
         placeholder={ this.props.placeholder }>
       </textarea>

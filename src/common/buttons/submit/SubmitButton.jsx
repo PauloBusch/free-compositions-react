@@ -13,7 +13,9 @@ export default props => (
     <button type="submit" disabled={ props.disabled } onClick={ props.onClick } style={ 
       { 
         width: props.fill ? '100%' : 'auto',
-        padding: props.padding ? props.padding : ''
+        padding: props.padding ? props.padding : '',
+        backgroundColor: props.backgroundColor || '',
+        color: props.color || ''
       } 
     }>{ props.text }</button>
   </div>

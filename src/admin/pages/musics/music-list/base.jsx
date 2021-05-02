@@ -9,7 +9,6 @@ export default class MusicListBase extends ListBase {
     this.className = 'tab-music-list';
     this.status = status;
     this.resumeLetter = this.resumeLetter.bind(this);
-    this.configure();
   }
 
   componentWillMount() {
@@ -30,6 +29,11 @@ export default class MusicListBase extends ListBase {
   confirmRemove() {
     this.toggleLoadingRemove(true);
     this.props.remove(this.state.selected, this.afterRemove);
+  }
+
+  afterRemove(success) {
+    if (success) this.musics = this.musics.filter(l => l.id !== this.state.selected.id);
+    super.afterRemove(success);
   }
 
   resumeLetter(props) {
@@ -56,6 +60,15 @@ export default class MusicListBase extends ListBase {
       this.tableColumns = this.tableColumns.filter(c => c.label !== 'Compositor');
 
     this.sort = 'desc';
+  }
+
+  afterUpdateOrder(success) { 
+    if (success) {
+      const { user } = this.props;
+      const filters = { status: this.status };
+      if (user.role === 'Compositor') filters.compositor = user.name;
+      this.props.getAllByFilter(filters, this.afterLoad);
+    }
   }
   
   getList() {

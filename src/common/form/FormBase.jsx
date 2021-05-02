@@ -83,17 +83,19 @@ export default class FormBase extends Component {
 
   goBack() {
     const { router } = this.props;
-    const { pathname } = router.location;
-    const needBack = pathname.search(/\/edit\/|\/new/) !== -1;
-    if (!needBack) return;
+    if (!this.needGoBack()) return;
     
     router.goBack();
   }
 
-  render() {
+  needGoBack() {
     const { router } = this.props;
     const { pathname } = router.location;
-    const needBack = pathname.search(/\/edit\/|\/new/) !== -1;
+    return pathname.search(/\/edit\/|\/new/) !== -1;
+  }
+
+  render() {
+    const needBack = this.needGoBack();
     return (
       <div className="page-base-form">
         <Card>
@@ -105,10 +107,16 @@ export default class FormBase extends Component {
             { this.state.loading ? <Loading /> : this.form() }
           </CardContent>
           <CardFooter>
-            <SubmitButton text="SALVAR" loading={ this.state.saveLoading } onClick={ this.props.submitForm }/>
+            { this.buttons() }
           </CardFooter>
         </Card>
       </div>
+    );
+  }
+
+  buttons() {
+    return (
+      <SubmitButton text="SALVAR" loading={ this.state.saveLoading } onClick={ this.props.submitForm }/>
     );
   }
 }

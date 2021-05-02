@@ -10,7 +10,9 @@ import SiteLayout from './site/SiteLayout';
 import About from './site/pages/about/About';
 import Home from './site/pages/home/Home';
 import Reducers from './reducers/reducers';
-import MusicForm from './admin/pages/musics/music-form/MusicForm';
+import MusicForm from './admin/pages/musics/music-form/public';
+import MusicFormRate from './admin/pages/musics/music-form/rate';
+import MusicFormReview from './admin/pages/musics/music-form/review';
 import UserListTabs from './admin/pages/users/user-list';
 import UserForm from './admin/pages/users/user-form/UserForm';
 import GenreList from './admin/pages/genres/genre-list/GenreList';
@@ -57,6 +59,8 @@ export default () => (
         <Route path="slides/edit/:id" component={ SlideForm }/>
         <Route path="musics/new" component={ MusicForm }/>
         <Route path="musics/edit/:id" component={ MusicForm }/>
+        <Route path="musics/rate/:id" component={ MusicFormRate }/>
+        <Route path="musics/review/:id" component={ MusicFormReview }/>
         <Route path="musics/:tab" component={ MusicListTabs }/>
         <Route path="musics" component={ MusicListTabs }/>
         <Route path="users/new" component={ UserForm }/>

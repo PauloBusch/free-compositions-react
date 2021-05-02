@@ -24,6 +24,7 @@ export default class ListBase extends Component {
     this.goEdit = this.goEdit.bind(this);
     this.goNew = this.goNew.bind(this);
     this.movedRow = this.movedRow.bind(this);
+    this.afterUpdateOrder = this.afterUpdateOrder.bind(this);
   }
 
   componentWillMount() {
@@ -109,8 +110,10 @@ export default class ListBase extends Component {
     }
       
     rowsToUpdate.push(sourceRow);
-    this.props.updateOrderBulk(rowsToUpdate);
+    this.props.updateOrderBulk(rowsToUpdate, this.afterUpdateOrder);
   }
+
+  afterUpdateOrder(success) { }
 
   configure() { }
   

@@ -100,7 +100,7 @@ export default class Table extends DragBase {
 
   hasActions() {
     const { actions } = this.props;
-    return actions && Array.isArray(actions);
+    return actions && Array.isArray(actions) && actions.length > 0;
   }
 
   getRowValues() {

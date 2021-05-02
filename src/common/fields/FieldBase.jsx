@@ -11,8 +11,8 @@ export default class FieldBase extends Component {
   }
 
   errors() {
-    const { meta: { touched, error } } = this.props;
-    if (!touched || !error) return false;
+    const { meta: { touched, error }, readOnly } = this.props;
+    if (!touched || !error || readOnly) return false;
     return <div className="error-message">{ error }</div>;
   }
 

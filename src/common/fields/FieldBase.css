@@ -20,7 +20,9 @@
   outline: none;
 }
 
+.form-control[disabled],
 .form-control[readonly] {
+  cursor: default;
   border: 1px solid rgb(204, 204, 204);
   color: rgb(189, 189, 189);
 }
