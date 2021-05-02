@@ -4,7 +4,7 @@ import { MUSIC_FETCHED, MUSIC_DELETED } from './MusicsActionsTypes';
 import { toastr } from 'react-redux-toastr';
 import firebaseInstance from './../../firebase/index';
 import 'firebase/firestore';
-import { MUSIC_PUBLIC } from './MusicStatus';
+import { MUSIC_ARCHIVED, MUSIC_PUBLIC } from './MusicStatus';
 
 const type = 'música';
 const formId = 'music-form';
@@ -175,6 +175,20 @@ export function update(values, completed) {
   };
 }
 
+export function changeStatus(id, status, completed) {
+  return () => {
+    collection.doc(id).update({ status })
+    .then(() => {
+      if (completed) completed(true);
+    })
+    .catch((error) => {
+      toastr.error('Erro', `Falha ao alterar status da ${type}!`);
+      if (completed) completed(false);
+      throw error;
+    });
+  };
+}
+
 export function remove(music, completed) {
   return dispatch => {
     collection.doc(music.id).delete().then(doc => {
@@ -204,6 +218,34 @@ export function updateOrderBulk(list, completed) {
     })
     .catch((error) => {
       toastr.error('Erro', `Falha ao atualizar ordem!`);
+      if (completed) completed(false);
+      throw error;
+    });
+  };
+}
+
+export function archivePublicByCompositor(user, completed) {
+  return () => {
+    collection
+    .where('status', '==', MUSIC_PUBLIC)
+    .where('compositor', '==', user.name)
+    .get().then(result => {
+      const batch = firebaseInstance.firestore().batch();
+
+      for (const doc of result.docs)
+        batch.update(doc.ref, { status: MUSIC_ARCHIVED });
+      
+      return batch.commit().then(() => {
+        if (completed) completed(true);
+      })
+      .catch((error) => {
+        if (completed) completed(false);
+        throw error;
+      });
+
+    })
+    .catch((error) => {
+      toastr.error('Erro', `Falha ao carregar ${type}s!`);
       if (completed) completed(false);
       throw error;
     });

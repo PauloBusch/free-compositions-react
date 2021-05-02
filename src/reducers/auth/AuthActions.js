@@ -18,7 +18,7 @@ export function listenSessionChanged(isAdmin) {
           firebaseInstance.firestore().collection('users').where('accountId', '==', user.uid).get().then(result => {
             const [doc] = result.docs;
             if (!doc) {
-              dispatch({ type: LOGOUT });
+              dispatch(logout());
               hashHistory.push('/login');
               toastr.error('Erro', 'O usuário foi removido!');
               return;

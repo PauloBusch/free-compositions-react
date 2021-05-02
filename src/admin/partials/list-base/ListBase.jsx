@@ -71,9 +71,9 @@ export default class ListBase extends Component {
     this.setState({ ...this.state, showConfirmRemove: false });
   }
 
-  remove(slide) {
+  remove(record) {
     this.setState({ ...this.state, 
-      selected: slide,
+      selected: record,
       showConfirmRemove: true
     });
   }
@@ -120,25 +120,31 @@ export default class ListBase extends Component {
   
   getList() { }
 
-  render() {
-    const modalActions = [
-      { text: 'CANCELAR', pallet: { fill: '#c8c8c8', text: 'black' }, click: this.closeModal.bind(this) },
-      { text: 'REMOVER', pallet: { fill: 'red', text: 'white' }, loading: this.state.loadingRemove, click: this.confirmRemove.bind(this) }
-    ];
-    
+  render() {    
     this.configure();
     return (
       <div className={ `list ${this.className ? this.className : ''}` }>
         { this.title ? this.card() : this.table() }
-        <Modal title="Confirmação" 
-          actions={ modalActions } show={ this.state.showConfirmRemove } 
-          onClose={ this.closeModal }
-        >
-          Deseja realmente remover o registro?
-        </Modal>
+        { this.modal() }
         <FixedButton title="Cadastrar" onClick={ this.goNew } icon="plus" color="var(--primary)"/>
       </div>
     );    
+  }
+
+  modal() {
+    const modalActions = [
+      { text: 'CANCELAR', pallet: { fill: '#c8c8c8', text: 'black' }, click: this.closeModal.bind(this) },
+      { text: 'REMOVER', pallet: { fill: 'red', text: 'white' }, loading: this.state.loadingRemove, click: this.confirmRemove.bind(this) }
+    ];
+
+    return ( 
+      <Modal title="Confirmação" 
+        actions={ modalActions } show={ this.state.showConfirmRemove } 
+        onClose={ this.closeModal }
+      >
+        Deseja realmente remover o registro?
+      </Modal>
+    );
   }
 
   table() {

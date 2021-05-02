@@ -12,16 +12,16 @@ const collection = firebaseInstance.firestore().collection('users');
 export function loadForm(id, completed) {
   return dispatch => {
     collection.doc(id).get().then(doc => {
-      const userData = doc.data();
+      const userData = { id: doc.id, ...doc.data() };
       if (!userData.image) {
-        dispatch(initialize(formId, { id: doc.id, ...userData }));
-        if (completed) completed(true);
+        dispatch(initialize(formId, userData));
+        if (completed) completed(true, userData);
         return;
       }
       storage.ref(userData.image).getDownloadURL().then(url => {
         userData.imageUrl = url;
-        dispatch(initialize(formId, { id: doc.id, ...userData }));
-        if (completed) completed(true);
+        dispatch(initialize(formId, userData));
+        if (completed) completed(true, userData);
       })
       .catch((error) => {
         toastr.error('Erro', `Falha ao carregar imagem da biografia!`); 

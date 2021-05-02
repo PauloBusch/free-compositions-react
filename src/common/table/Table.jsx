@@ -36,7 +36,7 @@ export default class Table extends DragBase {
   }
 
   getColumnHeaders() {
-    const { drag, columns, flexAction } = this.props;
+    const { drag, columns, actions } = this.props;
     if (!columns || !Array.isArray(columns)) return false;
     const headStyles = this.getHeadStyles();
     const heads = columns.map(c => 
@@ -53,7 +53,7 @@ export default class Table extends DragBase {
       </th>;
       heads.unshift(head);
     }
-    if (this.hasActions()) heads.push(<th key="actions" style={ { ...headStyles, width: `${flexAction || 2 }%` } }>Ações</th>);
+    if (this.hasActions()) heads.push(<th key="actions" className="header-actions" style={ { ...headStyles, width: `${actions.length * 50 }px` } }>Ações</th>);
     return <tr>{ heads }</tr>;
   }
 
@@ -85,7 +85,7 @@ export default class Table extends DragBase {
     if (!this.hasActions()) return false;
     const { actions } = this.props;
     return (
-      <td>
+      <td className="cell-actions">
         { actions.map(a => <Action 
               key={ a.icon || a.title } 
               color={ a.color }

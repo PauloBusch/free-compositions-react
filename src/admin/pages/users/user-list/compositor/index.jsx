@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 
 import { getAll, remove } from '../../../../../reducers/users/UsersActions';
+import { archivePublicByCompositor } from '../../../../../reducers/musics/MusicsActions';
 import UserListBase from './../base';
 import { getRouteWithoutParams } from './../../../../../common/router/index';
 
@@ -20,5 +21,5 @@ class UserListCompositor extends UserListBase {
 
 
 const mapStateToProps = state => ({ users: state.users });
-const mapDispatchToProps = dispatch => bindActionCreators({ getAll, remove }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getAll, archivePublicByCompositor, remove }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserListCompositor));

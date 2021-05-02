@@ -1,0 +1,8 @@
+.user-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-buttons .submit-button {
+  margin-left: 15px;
+}

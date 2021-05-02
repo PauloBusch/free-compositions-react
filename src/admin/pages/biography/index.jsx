@@ -1,10 +1,16 @@
+import './biography.css';
+
 import React from 'react';
-import { withRouter } from 'react-router';
+
+import { withRouter, hashHistory } from 'react-router';
 import { Field, Form, reduxForm, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { submitForm, loadForm, update } from '../../../reducers/users/UserBiographyActions';
+import { logout } from '../../../reducers/auth/AuthActions';
+import { remove } from '../../../reducers/users/UsersActions';
+import { archivePublicByCompositor } from '../../../reducers/musics/MusicsActions';
 import required from '../../../common/validators/required';
 import Row from '../../../common/row/Row';
 import FormBase from '../../../common/form/FormBase';
@@ -13,6 +19,8 @@ import TextArea from '../../../common/fields/textarea/TextArea';
 import Col from '../../../common/col/index';
 import Image from '../../../common/fields/image/index';
 import Modal from '../../../common/modal/Modal';
+import { MUSIC_ARCHIVED } from '../../../reducers/musics/MusicStatus';
+import SubmitButton from '../../../common/buttons/submit/SubmitButton';
 
 const DEFAULT_STATE = {
   name: '',
@@ -26,9 +34,22 @@ class BiographyForm extends FormBase {
       this.props.initialize(DEFAULT_STATE);
     }
 
-    const { user } = this.props;
-    this.state = { ...this.state, showModal: !user.biography };
+    this.state = { ...this.state, removeLoading: false, showModal: false };
     this.closeModal = this.closeModal.bind(this);
+    this.closeModalRemove = this.closeModalRemove.bind(this);
+    this.afterRemove = this.afterRemove.bind(this);
+    this.remove = this.remove.bind(this);
+  }
+
+  afterLoad(success, user) {
+    if (success) {
+      this.setState({ 
+        ...this.state, 
+        user: user,
+        loading: false,
+        showModal: !user.biography
+      });
+    }
   }
 
   getTitle() {
@@ -50,9 +71,6 @@ class BiographyForm extends FormBase {
 
   form() {
     const { handleSubmit, imageUrl } = this.props;
-    const modalActions = [
-      { text: 'OK', pallet: { fill: '#0276cd', text: 'white' }, click: this.closeModal }
-    ];
 
     return (
       <Form id="biography-form" onSubmit={ handleSubmit(this.submit) }>
@@ -68,7 +86,7 @@ class BiographyForm extends FormBase {
           </Col>
           <Col flex="70">
             <Row justify="flex-start">
-              <Field name="name" type="text" label="Nome Completo" placeholder="Informe o nome"
+              <Field name="name" type="text" label="Nome Completo" placeholder="Informe o nome completo"
                 flex="50" component={ Input } validate={ required }
               />
               <Field name="birthDate" type="date" label="Data de Nascimento"
@@ -82,15 +100,91 @@ class BiographyForm extends FormBase {
             </Row>
           </Col>
         </Row>
-        <Modal title="Atualização das Informações Bibliográficas" 
-          actions={ modalActions } show={ this.state.showModal } 
-          onClose={ this.closeModal }>
-          <p>Seja bem vindo!</p>
-          <p>Este é o painel administrativo destinado aos Compositores.</p>
-          <p>Primeiro atualize as informações biográficas para serem exibidas no site.</p>
-          <p>Depois pode cadastrar as músicas que deseja vender na plataforma.</p>
-        </Modal>
+        { this.modalUpdate() }
+        { this.modalRemove() }
       </Form>
+    );
+  }
+
+  modalUpdate() {
+    const modalActions = [
+      { text: 'OK', pallet: { fill: '#0276cd', text: 'white' }, click: this.closeModal }
+    ];
+
+    return (
+      <Modal title="Atualização das Informações Bibliográficas" 
+        actions={ modalActions } show={ this.state.showModal } 
+        onClose={ this.closeModal }>
+        <p>Seja bem vindo!</p>
+        <p>Este é o painel administrativo destinado aos Compositores.</p>
+        <p>Primeiro atualize as informações biográficas para serem exibidas no site.</p>
+        <p>Depois pode cadastrar as músicas que deseja vender na plataforma.</p>
+      </Modal>
+    );
+  }
+
+  modalRemove() {
+    const modalActions = [
+      { text: 'CANCELAR', pallet: { fill: '#c8c8c8', text: 'black' }, click: this.closeModalRemove.bind(this) },
+      { text: 'REMOVER', pallet: { fill: 'red', text: 'white' }, loading: this.state.loadingRemove, click: this.confirmRemove.bind(this) }
+    ];
+
+    return ( 
+      <Modal title="Confirmação" 
+        actions={ modalActions } show={ this.state.showConfirmRemove } 
+        onClose={ this.closeModalRemove }
+      >
+        <div>
+          Deseja realmente remover a conta?<br />
+          Você perderá acesso ao sistema administrativo e as músicas cadastradas!
+        </div>
+      </Modal>
+    );
+  }
+
+  confirmRemove() {
+    this.toggleLoadingRemove(true);
+    this.props.remove(this.id, this.afterRemove);
+  }
+  
+  afterRemove(success) {
+    if (!success) {
+      this.toggleLoadingRemove(false);
+      return;
+    }
+    this.props.archivePublicByCompositor(this.state.user, () => {
+      this.toggleLoadingRemove(false);
+      this.setState({ 
+        ...this.state, 
+        showConfirmRemove: false 
+      });
+      this.props.logout()
+    });
+  }
+
+  toggleLoadingRemove(loading) {
+    this.setState({ 
+      ...this.state, 
+      loadingRemove: loading
+    });
+  }
+
+  closeModalRemove() {
+    this.setState({ ...this.state, showConfirmRemove: false });
+  }
+
+  remove() {
+    this.setState({ ...this.state, 
+      showConfirmRemove: true
+    });
+  }
+
+  buttons() {
+    return (
+      <div className="user-buttons">
+        <SubmitButton text="REMOVER" backgroundColor="red" loading={ this.state.removeLoading } onClick={ this.remove }/>
+        <SubmitButton text="SALVAR" loading={ this.state.saveLoading } onClick={ this.props.submitForm }/>
+      </div>
     );
   }
 }
@@ -101,5 +195,5 @@ const mapStateToProps = state => ({
   user: state.auth.user,
   imageUrl: selector(state, 'imageUrl')
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ update, submitForm, loadForm }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ update, remove, logout, archivePublicByCompositor, submitForm, loadForm }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(biographyForm);

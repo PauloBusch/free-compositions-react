@@ -1,5 +1,16 @@
 .table-action {
+  opacity: .8;
+  transition: .2s;
   font-size: 20px;
   cursor: pointer;
   padding: 0 15px;
+}
+
+.table-action:hover {
+  opacity: 1;
+}
+
+th.header-actions {
+  display: block;
+  text-align: center;
 }
