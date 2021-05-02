@@ -6,6 +6,10 @@
   margin: 15px;
 }
 
+.music h2 {
+  font-weight: 100;
+}
+
 .player .music .img {
   border: none;
   border-bottom-right-radius: 0;
