@@ -1,3 +1,9 @@
+.background-type {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to right, var(--secondary), var(--primary));
+}
+
 .select-type {
   min-width: 380px;
   position: absolute;
@@ -33,14 +39,19 @@
   box-shadow: 0px 0px 1px rgb(178, 178, 178);
 }
 
-.account-type:hover {
-  border: 2px solid rgba(0, 0, 255, 0.103);
-  box-shadow: 0px 0px 1px rgba(25, 0, 255, 0.212);
+.account-type.user {
+  background-color: var(--secondary);
+  color: black;
+}
+
+.account-type.compositor {
+  background-color: var(--primary);
+  color: white;
 }
 
 .account-type.active {
-  border: 2px solid rgba(0, 0, 255, 0.205);
-  box-shadow: 0px 0px 1px rgba(25, 0, 255, 0.651);
+  border: 2px solid black;
+  box-shadow: 0px 0px 1px black;
 }
 
 .select-type .submit-button {

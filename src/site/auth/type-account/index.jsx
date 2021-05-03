@@ -21,21 +21,23 @@ class TypeAccount extends Component {
 
   render() {
     return (
-      <div className="select-type">
-        <h2>Selecione o tipo de conta</h2>
-        <div className="account-types">
-          <div className={ `account-type ${this.state.type === 'Usuário' ? 'active' : ''}` } 
-            onClick={ () => this.setState({ type: 'Usuário' }) }>
-            <h4>Usuário</h4>
-            <div>Desejo comprar uma música</div>
+      <div className="background-type">
+        <div className="select-type">
+          <h2>Selecione o tipo de conta</h2>
+          <div className="account-types">
+            <div className={ `account-type user ${this.state.type === 'Usuário' ? 'active' : ''}` } 
+              onClick={ () => this.setState({ type: 'Usuário' }) }>
+              <h4>Usuário</h4>
+              <div>Desejo comprar uma música</div>
+            </div>
+            <div className={ `account-type compositor ${this.state.type === 'Compositor' ? 'active' : ''}` } 
+              onClick={ () => this.setState({ type: 'Compositor' }) }>
+              <h4>Compositor</h4>
+              <div>Quero postar letra de músicas para venda</div>
+            </div>
           </div>
-          <div className={ `account-type ${this.state.type === 'Compositor' ? 'active' : ''}` } 
-            onClick={ () => this.setState({ type: 'Compositor' }) }>
-            <h4>Compositor</h4>
-            <div>Quero postar letra de músicas para venda</div>
-          </div>
+          <SubmitButton disabled={ !this.state.type } onClick={ this.next } text="Próximo"/>
         </div>
-        <SubmitButton disabled={ !this.state.type } onClick={ this.next } text="Próximo"/>
       </div>
     );
   }
