@@ -1,7 +1,7 @@
 .background-login {
   width: 100vw;
   height: 100vh;
-  background-color: white;
+  background: linear-gradient(to right, var(--secondary), var(--primary));
 }
 
 #form-login {
