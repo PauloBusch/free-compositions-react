@@ -11,25 +11,11 @@ import { MUSIC_ARCHIVED } from '../../../../../reducers/musics/MusicStatus';
 import Table from '../../../../../common/table/Table';
 import { changeStatus } from './../../../../../reducers/musics/MusicsActions';
 import { MUSIC_PUBLIC } from './../../../../../reducers/musics/MusicStatus';
+import { getRouteWithoutParams } from './../../../../../common/router/index';
 
 class MusicListArchived extends MusicListBase {
   constructor(props) {
     super(props, MUSIC_ARCHIVED);
-  }
-
-  table() {
-    const list = this.getList();
-    
-    const tablePallet = {
-      text: 'black',
-      fill: '#a7d2ff'
-    };
-
-    return (
-      <Table loading={ this.state.loading } pallet={ tablePallet } rows={ list }
-        columns={ this.tableColumns } actions={ this.tableActions } 
-      />
-    );
   }
 
   restore(music) {
@@ -41,6 +27,12 @@ class MusicListArchived extends MusicListBase {
       this.musics = this.musics.filter(l => l.id !== music.id);
       this.forceUpdate();
     }
+  }
+
+  goEdit(id) {
+    const { router } = this.props;
+    const url = `${getRouteWithoutParams(router)}/view/${id}`;
+    router.push(url);
   }
 
   configure() {

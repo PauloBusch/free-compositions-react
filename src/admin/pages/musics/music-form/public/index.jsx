@@ -26,13 +26,6 @@ class MusicForm extends MusicFormBase {
     this.closeConfirmSendPending = this.closeConfirmSendPending.bind(this);
   }
 
-  getTitle() {
-    if (this.id)
-      return `Edição de ${this.title}`;
-    
-    return `Cadastro de ${this.title}`;
-  }
-
   form() {
     const { handleSubmit } = this.props;
 
@@ -45,6 +38,8 @@ class MusicForm extends MusicFormBase {
   }
 
   buttons() {
+    if (this.readonly) return false;
+
     return <SubmitButton text="SALVAR" loading={ this.state.saveLoading } onClick={ this.beforeSubmit }/>
   }
 

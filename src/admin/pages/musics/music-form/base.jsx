@@ -35,6 +35,7 @@ export default class MusicFormBase extends FormBase {
     if (!this.id) {
       this.props.initialize(DEFAULT_STATE);
     }
+    this.readonly = this.isReadonly();
     this.title = 'Música';
   }
 
@@ -58,11 +59,41 @@ export default class MusicFormBase extends FormBase {
     router.goBack();
   }
 
+  getTitle() {
+    if (this.id) {
+      if (this.state.loading)
+        return 'Carregando...';
+      
+      if (this.readonly)
+        return `Detalhes da ${this.title}`;
+
+      return `Edição da ${this.title}`;
+    }
+    
+    return `Cadastro de ${this.title}`;
+  }  
+
+  getId() {
+    const { router } = this.props;
+    const { pathname } = router.location;
+    const regex = /\/edit\/|\/view\//;
+    const index = pathname.search(regex);
+    if (index === -1) return null;
+    return pathname.substring(index).replace(regex, '');
+  }
+
+  isReadonly() {
+    const { router } = this.props;
+    const { pathname } = router.location;
+    return pathname.search(/\/view\//) !== -1;
+  }
+
   needGoBack() {  
     return true;
   }
 
-  fields(readonly) {
+  fields() {
+    const readonly = this.readonly;
     const { user } = this.props;
     const genres = this.props.genres.map(g => g.name);
     const compositors = this.props.users.filter(u => u.role === 'Compositor').map(u => u.name);

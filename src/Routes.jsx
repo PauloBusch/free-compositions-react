@@ -58,6 +58,7 @@ export default () => (
         <Route path="slides/new" component={ SlideForm }/>
         <Route path="slides/edit/:id" component={ SlideForm }/>
         <Route path="musics/new" component={ MusicForm }/>
+        <Route path="musics/view/:id" component={ MusicForm }/>
         <Route path="musics/edit/:id" component={ MusicForm }/>
         <Route path="musics/rate/:id" component={ MusicFormRate }/>
         <Route path="musics/review/:id" component={ MusicFormReview }/>

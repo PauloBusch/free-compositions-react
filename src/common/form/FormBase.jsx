@@ -106,12 +106,16 @@ export default class FormBase extends Component {
           <CardContent>
             { this.state.loading ? <Loading /> : this.form() }
           </CardContent>
-          <CardFooter>
-            { this.buttons() }
-          </CardFooter>
+          { this.footer() }
         </Card>
       </div>
     );
+  }
+
+  footer() {
+    const buttons = this.buttons();
+    if (!buttons) return false;
+    return (<CardFooter>{ buttons }</CardFooter>);
   }
 
   buttons() {

@@ -13,6 +13,7 @@ import MusicListPublic from './public';
 import MusicListReview from './review/index';
 import MusicListPending from './peding/index';
 import MusicListArchived from './archived/index';
+import MusicListSold from './sold/index';
 
 class MusicListTabs extends TabsController {
   constructor(props) {
@@ -28,6 +29,7 @@ class MusicListTabs extends TabsController {
           <TabHeader onClick={ this.changeTab } target="public" current={ this.state.tabActive } title="Públicas"/>
           { ['Admin', 'Compositor'].indexOf(user.role) !== -1 && <TabHeader onClick={ this.changeTab } target="pending" current={ this.state.tabActive } title="Enviadas"/> }
           { user.role === 'Compositor' && <TabHeader onClick={ this.changeTab } target="review" current={ this.state.tabActive } title="Rejeitadas"/> }
+          <TabHeader onClick={ this.changeTab } target="sold" current={ this.state.tabActive } title="Vendidas"/>
           { user.role === 'Admin' && <TabHeader onClick={ this.changeTab } target="archived" current={ this.state.tabActive } title="Arquivadas"/> }
         </TabsHeader>
         <TabsContent>
@@ -39,6 +41,9 @@ class MusicListTabs extends TabsController {
           </TabContent>
           <TabContent id="review" current={ this.state.tabActive }>
             <MusicListReview/>
+          </TabContent>
+          <TabContent id="sold" current={ this.state.tabActive }>
+            <MusicListSold/>
           </TabContent>
           <TabContent id="archived" current={ this.state.tabActive }>
             <MusicListArchived/>
