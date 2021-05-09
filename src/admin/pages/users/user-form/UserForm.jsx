@@ -17,6 +17,7 @@ import If from '../../../../common/operators/If';
 import Col from './../../../../common/col/index';
 import Image from './../../../../common/fields/image/index';
 import TextArea from './../../../../common/fields/textarea/TextArea';
+import Password from './../../../../common/fields/password/index';
 
 const DEFAULT_STATE = {
   name: '',
@@ -53,9 +54,9 @@ class UserForm extends FormBase {
             flex="25" component={ Select } options={ roles } validate={ required }
           />
           <If test={ !this.id }>
-            <Field name="password" type="password" label="Senha" placeholder="Informe a senha"
+            <Field name="password" label="Senha" placeholder="Informe a senha"
               orientation="A senha deve conter caracteres especiais, números e letras em maiúsculo e minúsculo com no mínimo 8 caracteres"
-              flex="25" component={ Input } validate={ [required, password] }
+              flex="25" component={ Password } validate={ [required, password] }
             />
           </If>
         </Row>

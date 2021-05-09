@@ -41,7 +41,7 @@ export default props => (
         <a href="#"><i className="fab fa-youtube"></i></a>
       </div>
       <a href="https://gritealto.com/" target="_blank">
-        Powered by GriteAlto.
+        Powered by GriteAlto
       </a>
     </div>
   </footer>

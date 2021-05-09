@@ -13,6 +13,7 @@ import email from '../../validators/email';
 import { hashHistory } from 'react-router';
 import { Link, Redirect } from 'react-router';
 import { listenSessionChanged } from './../../../reducers/auth/AuthActions';
+import Password from './../../fields/password/index';
 
 class Auth extends Component {
   constructor(props) {
@@ -70,9 +71,9 @@ class Auth extends Component {
           <h2>Login</h2>
           <Field component={ Input } type="email" name="email"
             placeholder="E-mail" icon="user"/>
-          <Field component={ Input } type="password" name="password"
+          <Field component={ Password } name="password"
             placeholder="Senha" icon="envelope"/>
-            <Link className="link-forgot-password" to={ (`/forgot-password/${email ? encodeURIComponent(email) : ''}`) }>Esqueci minha senha</Link>
+          <Link className="link-forgot-password" to={ (`/forgot-password/${email ? encodeURIComponent(email) : ''}`) }>Esqueci minha senha</Link>
           <SubmitButton disabled={ !this.isValid() } loading={ this.state.loginLoading } fill padding="10px" text="Entrar"/>
         </Form>
         <Toastr />

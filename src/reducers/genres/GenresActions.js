@@ -94,7 +94,7 @@ export function update(values, completed) {
 
 export function remove(id, completed) {
   return dispatch => {
-    collection.doc(id).delete().then(doc => {
+    collection.doc(id).delete().then(() => {
       dispatch({ type: GENRE_DELETED, payload: id });
       if (completed) completed(true);
     })

@@ -16,6 +16,7 @@ import Input from './../../../common/fields/input/Input';
 import Toastr from '../../../common/messages/toastr';
 import TermsOfUse from '../terms-of-use';
 import Modal from '../../../common/modal/Modal';
+import Password from './../../../common/fields/password/index';
 
 const DEFAULT_VALUES = {
   name: '',
@@ -113,12 +114,12 @@ class CreateAccountForm extends Component {
           <Field name="email" type="email" label="Email" placeholder="Informe o email"
             component={ Input } validate={ [required, email] }
           />
-          <Field name="password" type="password" label="Senha" placeholder="Informe a senha"
+          <Field name="password" label="Senha" placeholder="Informe a senha"
             orientation="A senha deve conter caracteres especiais, números e letras em maiúsculo e minúsculo com no mínimo 8 caracteres"
-            component={ Input } validate={ [required, password] }
+            component={ Password } validate={ [required, password] }
           />
-          <Field name="confirmPassword" type="password" label="Confirmação da Senha" placeholder="Informe a confirmação da senha"
-            component={ Input } validate={ [required, this.equalPassword] }
+          <Field name="confirmPassword" label="Confirmação da Senha" placeholder="Informe a confirmação da senha"
+            component={ Password } validate={ [required, this.equalPassword] }
           />
           <Link className="link-login" to="/login">Já tenho uma conta</Link>
           <SubmitButton loading={ this.state.loading } fill padding="10px" text="Criar nova conta"/>

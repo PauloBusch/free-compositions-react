@@ -58,7 +58,8 @@ textarea.form-control {
   max-height: 300px;
 }
 
-.field-icon {
+.field-icon,
+.field-icon-right {
   display: flex;
   align-items: center;
   position: relative;
@@ -68,11 +69,37 @@ textarea.form-control {
   padding-left: 40px;
 }
 
-.field-icon i.icon {
-  cursor: pointer;
+.field-icon-right .form-control {
+  padding-right: 40px;
+}
+
+.field-icon i.icon,
+.field-icon-right i.icon {
+  opacity: .5;
   position: absolute;
+}
+
+.field-icon i.icon:not(.icon-right) {
   left: 15px;
 }
+
+.field-icon-right i.icon-right {
+  right: 15px;
+}
+
+.field-icon-right i.icon-right {
+  opacity: .8;
+  transition: .2s;
+  cursor: pointer;
+}
+
+.field-icon-right i.icon-right:hover {
+  opacity: 1;
+}
+
+.field-padding {
+  padding-right: 10px !important;
+} 
 
 @media only screen and (max-width: 600px) {
   .form-control {
