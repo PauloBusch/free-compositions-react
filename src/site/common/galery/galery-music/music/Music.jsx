@@ -8,7 +8,9 @@ import { generateSendMessageLink } from './../../../../../common/api/whatsapp';
 
 function getPriceFormatted(price) {
   if (!price) return 'Grátis';
-  return `R$ ${parseFloat(price).toLocaleString()}`;
+  const value = parseFloat(price);
+  if (isNaN(value) || !value) return 'Grátis';
+  return `R$ ${value.toLocaleString()}`;
 }
 
 export default props => {

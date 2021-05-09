@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import { submitForm, loadForm, update } from '../../../reducers/users/UserBiographyActions';
 import { logout } from '../../../reducers/auth/AuthActions';
 import { remove } from '../../../reducers/users/UsersActions';
-import { archivePublicByCompositor } from '../../../reducers/musics/MusicsActions';
+import { archiveByCompositor } from '../../../reducers/musics/MusicsActions';
 import required from '../../../common/validators/required';
 import Row from '../../../common/row/Row';
 import FormBase from '../../../common/form/FormBase';
@@ -151,7 +151,7 @@ class BiographyForm extends FormBase {
       this.toggleLoadingRemove(false);
       return;
     }
-    this.props.archivePublicByCompositor(this.state.user, () => {
+    this.props.archiveByCompositor(this.state.user, () => {
       this.toggleLoadingRemove(false);
       this.setState({ 
         ...this.state, 
@@ -194,5 +194,5 @@ const mapStateToProps = state => ({
   user: state.auth.user,
   imageUrl: selector(state, 'imageUrl')
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ update, remove, logout, archivePublicByCompositor, submitForm, loadForm }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ update, remove, logout, archiveByCompositor, submitForm, loadForm }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(biographyForm);

@@ -4,7 +4,7 @@ import { MUSIC_FETCHED, MUSIC_DELETED } from './MusicsActionsTypes';
 import { toastr } from 'react-redux-toastr';
 import firebaseInstance from './../../firebase/index';
 import 'firebase/firestore';
-import { MUSIC_ARCHIVED, MUSIC_PUBLIC } from './MusicStatus';
+import { MUSIC_ARCHIVED, MUSIC_PUBLIC, MUSIC_SOLD } from './MusicStatus';
 
 const type = 'música';
 const formId = 'music-form';
@@ -224,10 +224,10 @@ export function updateOrderBulk(list, completed) {
   };
 }
 
-export function archivePublicByCompositor(user, completed) {
+export function archiveByCompositor(user, completed) {
   return () => {
     collection
-    .where('status', '==', MUSIC_PUBLIC)
+    .where('status', '!=', MUSIC_SOLD)
     .where('compositor', '==', user.name)
     .get().then(result => {
       const batch = firebaseInstance.firestore().batch();

@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import UserListBase from './../base';
 import { getAll, remove } from '../../../../../reducers/users/UsersActions';
 import { getRouteWithoutParams } from './../../../../../common/router/index';
-import { archivePublicByCompositor } from '../../../../../reducers/musics/MusicsActions';
+import { archiveByCompositor } from '../../../../../reducers/musics/MusicsActions';
 
 class UserListAdministrator extends UserListBase {
   constructor(props) {
@@ -21,5 +21,5 @@ class UserListAdministrator extends UserListBase {
 
 
 const mapStateToProps = state => ({ users: state.users });
-const mapDispatchToProps = dispatch => bindActionCreators({ getAll, archivePublicByCompositor, remove }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getAll, archiveByCompositor, remove }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserListAdministrator));

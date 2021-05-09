@@ -33,7 +33,7 @@ export default class UserListBase extends ListBase {
       this.toggleLoadingRemove(false);
       return;
     }
-    this.props.archivePublicByCompositor(this.state.selected, () => {
+    this.props.archiveByCompositor(this.state.selected, () => {
       this.toggleLoadingRemove(false);
       this.setState({ 
         ...this.state, 

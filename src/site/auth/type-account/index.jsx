@@ -1,8 +1,9 @@
 import './type-account.css'; 
 
 import React, { Component } from 'react';
-import { hashHistory } from 'react-router';
+import { hashHistory, Link } from 'react-router';
 import SubmitButton from '../../../common/buttons/submit/SubmitButton';
+import Row from './../../../common/row/Row';
 
 const INITIAL_STATE = { type: null };
 
@@ -36,7 +37,10 @@ class TypeAccount extends Component {
               <div>Quero postar letra de músicas para venda</div>
             </div>
           </div>
-          <SubmitButton disabled={ !this.state.type } onClick={ this.next } text="Próximo"/>
+          <Row>
+            <Link className="link-login" to="/login">Já tenho uma conta</Link>
+            <SubmitButton disabled={ !this.state.type } onClick={ this.next } text="Próximo"/>
+          </Row>
         </div>
       </div>
     );

@@ -32,7 +32,6 @@
 
 .form-field .error-message,
 .form-field .orientation-message {
-  word-break: break-all;
   font-size: 15px;
   margin-top: 5px;
 }

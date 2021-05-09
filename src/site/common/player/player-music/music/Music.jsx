@@ -9,7 +9,9 @@ import { generateSendMessageLink } from './../../../../../common/api/whatsapp';
 
 function getPriceContent(price) {
   if (!price) return <h2>GRÁTIS</h2>;
-  return <h2>R$ { parseFloat(price).toLocaleString() }</h2>;
+  const value = parseFloat(price);
+  if (isNaN(value) || !value) return <h2>GRÁTIS</h2>;
+  return <h2>R$ { value.toLocaleString() }</h2>;
 }
 
 export default props => { 
