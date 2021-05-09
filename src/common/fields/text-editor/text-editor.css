@@ -1,0 +1,8 @@
+.text-editor-container {
+  border: 1.5px solid #5e5e5e;
+  box-sizing: border-box !important;
+}
+
+.text-editor-content {
+  min-height: 150px;
+}

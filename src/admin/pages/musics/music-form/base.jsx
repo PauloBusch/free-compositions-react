@@ -11,6 +11,7 @@ import FormBase from '../../../../common/form/FormBase';
 import Input from '../../../../common/fields/input/Input';
 import TextArea from '../../../../common/fields/textarea/TextArea';
 import { MUSIC_PENDING, MUSIC_PUBLIC } from '../../../../reducers/musics/MusicStatus';
+import TextEditor from './../../../../common/fields/text-editor/index';
 
 const DEFAULT_STATE = {
   url: '',
@@ -133,7 +134,7 @@ export default class MusicFormBase extends FormBase {
         </Row>
         <Row justify="flex-start">
           <Field name="letter" label="Letra" placeholder="Informe a letra"
-            flex="100" rows="10" component={ TextArea } validate={ required } readOnly={ readonly }
+            flex="100" component={ TextEditor } validate={ required } readOnly={ readonly }
           />
         </Row>
       </div>
