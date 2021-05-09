@@ -40,9 +40,14 @@ export default class MusicListBase extends ListBase {
     const { letter } = props.row;
     const limit = 180;
     if (!letter) return false;
-    if (letter.length > limit) 
-      return <span>{letter.substr(0, limit - 3)}...</span>;
-    return <span>{letter}</span>;
+    
+    const regex = /(<([^>]+)>)/ig;
+    const text = letter.replace(regex, '');
+    if (!text) return false;
+
+    if (text.length > limit) 
+      return <span>{text.substr(0, limit - 3)}...</span>;
+    return <span>{text}</span>;
   }
 
   configure() {

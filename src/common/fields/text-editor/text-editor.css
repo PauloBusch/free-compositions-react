@@ -6,3 +6,9 @@
 .text-editor-content {
   min-height: 150px;
 }
+
+.text-editor-content .public-DraftStyleDefault-block,
+.text-editor-content .public-DraftEditorPlaceholder-root {
+  margin: 0;
+  padding: .5em 0;
+}

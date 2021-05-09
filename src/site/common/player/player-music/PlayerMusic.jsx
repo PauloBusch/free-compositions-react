@@ -17,8 +17,15 @@ export default class PlayerMusic extends PlayerBase {
   readLetter(letter) {
     this.setState({ ...this.state, 
       showLetter: true,
-      letter: letter 
+      letter: this.treatHtml(letter)
     });
+  }
+
+  treatHtml(text) {
+    if (!text) return '';
+    return text
+      .replace(/(\r\n|\n|\r)/gm, '')
+      .replace(/(<? *script)/gi, 'illegalscript');
   }
 
   closeModal() {
@@ -39,8 +46,8 @@ export default class PlayerMusic extends PlayerBase {
         </div>
         <Modal title="Letra da Música" show={ this.state.showLetter } 
           onClose={ this.closeModal }>
-          <div style={ { whiteSpace: 'pre-line' } }>
-            { this.state.letter }
+          <div style={ { whiteSpace: 'pre-line' } } 
+            dangerouslySetInnerHTML={ { __html: this.state.letter } }>
           </div>
         </Modal>
       </div>
