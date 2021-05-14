@@ -34,6 +34,7 @@ import ArtistDetail from './site/pages/artist';
 import GenreDetail from './site/pages/genre';
 import PlaylistDetail from './site/pages/playlist';
 import MusicListTabs from './admin/pages/musics/music-list';
+import ChangePasswordForm from './common/auth/change-password/index';
 
 const store = applyMiddleware(thunk, promise)(createStore)(Reducers);
 export default () => (
@@ -50,6 +51,7 @@ export default () => (
       <Route exact path="/logout" component={ Logout } />
       <Route exact path="/type-account" component={ TypeAccount } />
       <Route exact path="/create-account/:type" component={ createAccountForm } />
+      <Route exact path="/change-password" component={ ChangePasswordForm } />
       <Route exact path="/forgot-password" component={ ForgotPasswordForm } />
       <Route exact path="/forgot-password/:email" component={ ForgotPasswordForm } />
       <Route exact path="/admin" component={ AdminLayout }>

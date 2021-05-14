@@ -77,3 +77,31 @@ export function forgotPassword(values) {
     });
   }
 }
+
+export function changePasswordWithResetCode(code, password, completed) {
+  return dispatch => {
+    firebaseInstance.auth().confirmPasswordReset(code, password)
+      .then(() => {
+        toastr.success('Sucesso', `Senha alterada com sucesso!`);
+        dispatch(logout());
+        completed(true);
+      })
+      .catch(error => {
+        toastr.error('Erro', `Falha ao alterar senha!`);
+        completed(false);
+        throw error;
+      });
+  }
+}
+
+export function validateResetCode(code, completed) {
+  return () => {
+    firebaseInstance.auth().verifyPasswordResetCode(code).then(email => {
+      completed({ success: true, email });
+    })
+    .catch(error => {
+      completed({ success: false });
+      throw error;
+    });
+  }
+}

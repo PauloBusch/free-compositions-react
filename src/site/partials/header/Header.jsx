@@ -40,12 +40,21 @@ class Header extends Component {
           <i id="toggle-mobile" onClick={ this.toggleMenu } className="fas fa-bars"></i>
         </div>
         <div className="menu-desktop">
-          { user && <h4>Olá, { user.name }</h4> }
+          { this.getLink() }
           { menus }
         </div>
         <div className={ `menu-mobile ${this.state.show ? 'show' : ''}` }>{ menus }</div>
       </header>
     );
+  }
+
+  getLink() {
+    const { user } = this.props;
+    if (!user) return false;
+    const label = <h4>Olá, { user.name }</h4>;
+    if (['Admin', 'Compositor'].indexOf(user.role) !== -1) 
+      return <a href="/#/admin">{ label }</a>;
+    return label;
   }
 }
 
