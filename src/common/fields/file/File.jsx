@@ -32,6 +32,7 @@ export default class File extends FieldBase {
         <button type="button" onClick={ () => this.fileInput.click() }>{ button || 'Selecionar arquivo' }</button>
         <label>{ this.state.name || placeholder || 'Selecione um arquivo...' }</label>
         <input type="file" 
+          ref={ ref => this.inputRef = ref }
           name={ input.name }
           style={ { display: 'none' } }
           accept={ accept }

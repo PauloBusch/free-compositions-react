@@ -11,13 +11,20 @@ function stopScroll(stop) {
   else body.classList.remove('stop-scrolling');
 }
 
+function getStyle(props) {
+  const style = { };
+  if (props.maxWidth) 
+    style.maxWidth = props.maxWidth;
+  return style;
+}
+
 export default props => {
     const { title, show, actions, onClose } = props;
     const buttons = actions || [{ text: 'Fechar', click: onClose }];
     stopScroll(show);
     return (
       <div className={ `block ${ show ? '' : 'hide' }` }>
-        <div className="modal">
+        <div className="modal" style={ getStyle(props) }>
           <div className="header">
             <h2>{ title }</h2>
             <i title="Fechar" className="fas fa-times" onClick={ () => onClose() }></i>

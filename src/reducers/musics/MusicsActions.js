@@ -35,7 +35,11 @@ export function getAllByFilter(filters, completed) {
 
     filtred.get().then(result => {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
-        .sort((a, b) => b.order - a.order);      
+        .sort((a, b) => b.order - a.order);
+      list.forEach(d => {
+        if (d.expirationLink) 
+          d.expirationLink = d.expirationLink.toDate(); 
+      });
       if (completed) completed(true, list);
     })
     .catch((error) => {

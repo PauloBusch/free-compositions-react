@@ -18,6 +18,7 @@ export default class Checkbox extends FieldBase {
       >
         <div className="field-checkbox"> 
           <input { ...this.props.input } 
+            ref={ ref => this.inputRef = ref }
             readOnly={ this.props.readOnly }
             id={ id }
             type="checkbox">

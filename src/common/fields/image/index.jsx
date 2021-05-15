@@ -77,6 +77,7 @@ export default class Image extends FieldBase {
         </div>
         { errors }
         <input type="file" 
+          ref={ ref => this.inputRef = ref }
           name={ input.name }
           style={ { display: 'none' } }
           accept="image/*"

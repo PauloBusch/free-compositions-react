@@ -48,6 +48,7 @@ export default class Select extends FieldBase {
       return (
         <div className="select-insert">
           <input { ...this.props.input } 
+            ref={ ref => this.inputRef = ref }
             className="form-control" 
             type={ this.props.type } 
             placeholder={ this.props.placeholder }>
@@ -60,6 +61,7 @@ export default class Select extends FieldBase {
     const { input, readOnly } = this.props;
     return (
       <select { ...input }
+        ref={ ref => this.inputRef = ref }
         disabled={ readOnly } 
         className="form-control" 
         onChange={ this.onChange }

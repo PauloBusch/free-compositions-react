@@ -138,7 +138,7 @@ export default class ListBase extends Component {
     ];
 
     return ( 
-      <Modal title="Confirmação" 
+      <Modal title="Confirmação" key="remove"
         actions={ modalActions } show={ this.state.showConfirmRemove } 
         onClose={ this.closeModal }
       >

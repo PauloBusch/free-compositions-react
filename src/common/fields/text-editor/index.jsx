@@ -45,6 +45,7 @@ export default class TextEditor extends FieldBase {
           } }
         />
         <input { ...this.props.input } 
+          ref={ ref => this.inputRef = ref }
           readOnly={ this.props.readOnly } 
           value={ this.getRawHtml(this.state.editorState) }
           type="hidden"/>

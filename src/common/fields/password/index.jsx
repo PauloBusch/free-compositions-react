@@ -12,6 +12,7 @@ export default class Password extends FieldBase {
   field() {
     return (
       <input { ...this.props.input } 
+        ref={ ref => this.inputRef = ref }
         className="form-control" 
         readOnly={ this.props.readOnly }
         type={ this.state.showPassword ? 'text' : 'password' }
