@@ -130,7 +130,7 @@ class MusicFormRate extends MusicFormBase {
   }
 
   openLinkModal() {
-    this.props.dispatch(change('music-form', 'shareLink', `${WEBSITE_URL}/${this.id}`));
+    this.props.dispatch(change('music-form', 'shareLink', `${WEBSITE_URL}/#/music/preview/${this.id}`));
     this.setState({
       ...this.state,
       showLinkModal: true

@@ -35,6 +35,7 @@ import GenreDetail from './site/pages/genre';
 import PlaylistDetail from './site/pages/playlist';
 import MusicListTabs from './admin/pages/musics/music-list';
 import ChangePasswordForm from './common/auth/change-password/index';
+import MusicPreview from './site/pages/music/index';
 
 const store = applyMiddleware(thunk, promise)(createStore)(Reducers);
 export default () => (
@@ -43,6 +44,7 @@ export default () => (
       <Route path="/" component={ SiteLayout }> 
         <IndexRoute component={ Home }/>
         <Route path="about" component={ About }/>
+        <Route path="music/preview/:id" component={ MusicPreview }/>
         <Route path="artist/view/:id" component={ ArtistDetail }/>
         <Route path="genre/view/:id" component={ GenreDetail }/>
         <Route path="playlist/view/:id" component={ PlaylistDetail }/>

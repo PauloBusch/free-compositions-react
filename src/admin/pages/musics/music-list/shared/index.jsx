@@ -48,8 +48,7 @@ class MusicListShared extends MusicListBase {
   }
 
   copyLink(music) {
-    const link = this.generateLink(music);
-    copyToClipboard(link);
+    copyToClipboard(this.generateLink(music));
   }
 
   extendExpiration(music) {
@@ -57,7 +56,7 @@ class MusicListShared extends MusicListBase {
   }
 
   generateLink(music) {
-    return `${WEBSITE_URL}/${music.id}`;
+    return `${WEBSITE_URL}/#/music/preview/${music.id}`;
   }
 
   formatExpiration(date) {
@@ -154,8 +153,7 @@ class MusicListShared extends MusicListBase {
   }
 
   openLinkModal() {
-    const musicLink = `${WEBSITE_URL}/${this.state.selected.id}`;
-    this.props.dispatch(change('modal-form', 'shareLink', musicLink));
+    this.props.dispatch(change('modal-form', 'shareLink', this.generateLink(this.state.selected)));
     this.setState({
       ...this.state,
       showLinkModal: true

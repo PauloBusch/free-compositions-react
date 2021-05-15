@@ -10,6 +10,21 @@ const type = 'música';
 const formId = 'music-form';
 const collection = firebaseInstance.firestore().collection('musics');
 
+export function getById(id, completed) {
+  return () => {
+    collection.doc(id).get().then(doc => {
+      const data = { id: doc.id, ...doc.data() };
+      if (data.expirationLink) data.expirationLink = data.expirationLink.toDate(); 
+      if (completed) completed(true, data);
+    })
+    .catch((error) => { 
+      toastr.error('Erro', `Falha ao carregar ${type}!`);
+      if (completed) completed(false);
+      throw error;
+    });
+  };
+}
+
 export function getAll(completed) {
   return dispatch => {
     collection.get().then(result => {

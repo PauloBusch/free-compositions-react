@@ -1,0 +1,30 @@
+#music {
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  box-sizing: border-box;
+  padding: 50px var(--space-x);
+}
+
+#music h2 {
+  text-align: center;
+}
+
+#music .letter-container {
+  line-height: 2;
+}
+
+#music .letter-container h2{
+  margin-top: 50px;
+}
+
+#music .music-details .img {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-bottom-right-radius: 0;
+  background-color: #ddd;
+}
+
+#music .music-info div {
+  line-height: 2;
+}
