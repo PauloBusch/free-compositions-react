@@ -39,9 +39,9 @@ export default class GaleryMusic extends GaleryBase {
         </div>
         <Modal title="Letra da Música" show={ this.state.showLetter } 
           onClose={ this.closeModal }>
-          <pre>
+          <div style={ { whiteSpace: 'pre-line' } }>
             { this.state.letter }
-          </pre>
+          </div>
         </Modal>
       </div>
     );
