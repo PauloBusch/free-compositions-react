@@ -1,10 +1,10 @@
 import './FormBase.css';
 
 import React, { Component } from 'react';
-import Card from '../../admin/partials/card/Card';
-import CardHeader from '../../admin/partials/card/card-header/CardHeader';
-import CardContent from '../../admin/partials/card/card-content/CardContent';
-import CardFooter from '../../admin/partials/card/card-footer/CardFooter';
+import Card from '../../admin/partials/card';
+import CardHeader from '../../admin/partials/card/card-header';
+import CardContent from '../../admin/partials/card/card-content';
+import CardFooter from '../../admin/partials/card/card-footer';
 import SubmitButton from '../buttons/submit/SubmitButton';
 import Loading from '../loading/Loading';
 

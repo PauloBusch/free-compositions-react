@@ -1,9 +1,24 @@
 .text-editor-container {
-  border: 1.5px solid #5e5e5e;
+  border: none;
+  box-shadow: 0 0 0 1px #5e5e5e;
   box-sizing: border-box !important;
+  padding: 0;
+}
+
+.text-editor-toolbar {
+  z-index: 10;
+  position: sticky;
+  margin: 0 !important;
+  background: white;
+  visibility: visible;
+  box-shadow: 0 1px 3px #5e5e5e96;
 }
 
 .text-editor-content {
+  max-height: calc(100vh - 560px);
+  max-width: calc(100vw - 280px);
+  overflow: auto;
+  padding: 8px;
   min-height: 150px;
 }
 

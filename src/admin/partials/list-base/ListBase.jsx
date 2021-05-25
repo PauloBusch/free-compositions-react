@@ -2,9 +2,9 @@ import './ListBase.css';
 
 import React, { Component } from 'react';
 
-import Card from '../card/Card';
-import CardContent from '../card/card-content/CardContent';
-import CardHeader from '../card/card-header/CardHeader';
+import Card from '../card';
+import CardContent from '../card/card-content';
+import CardHeader from '../card/card-header';
 
 import Table from './../../../common/table/Table';
 import Modal from '../../../common/modal/Modal';

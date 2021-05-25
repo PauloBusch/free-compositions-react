@@ -35,11 +35,12 @@ export default class TextEditor extends FieldBase {
         <Editor placeholder={ this.props.placeholder }
           wrapperClassName="text-editor-container form-control"
           editorClassName="text-editor-content"
+          toolbarClassName="text-editor-toolbar"
           defaultEditorState={ this.state.editorState }
           onEditorStateChange={ this.onChange }
           localization={ { locale: 'pt' } }
           toolbar={ {
-            options: ['inline', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'history'],
+            options: ['inline', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'history', 'link', 'image'],
             inline: { options: ['bold', 'italic', 'underline'] },
             fontSize: { options: [8, 9, 10, 11, 12, 14, 16, 18, 24, 30] }
           } }

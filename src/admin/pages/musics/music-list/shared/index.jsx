@@ -101,7 +101,7 @@ class MusicListShared extends MusicListBase {
     ];
 
     return (
-      <Modal title="Renovar Link" maxWidth="500px"
+      <Modal title="Renovar Link" maxWidth="600px"
         actions={ modalActions } show={ this.state.showShareModal } 
         onClose={ this.closeShareModal }>
           { this.state.showShareModal && <Field name="shareDays" label="Duração em dias"
@@ -112,7 +112,7 @@ class MusicListShared extends MusicListBase {
 
   modalLink() {
     return (
-      <Modal title="Renovar Link" maxWidth="500px"
+      <Modal title="Renovar Link" maxWidth="600px"
         show={ this.state.showLinkModal } onClose={ this.closeLinkModal }>
           { this.state.showLinkModal && <Field name="shareLink" value="teste" 
             component={ Input } copyClipboard readOnly={ true }/> }

@@ -47,7 +47,7 @@ class MusicFormRate extends MusicFormBase {
   getId() {
     const { router } = this.props;
     const { pathname } = router.location;
-    const regex = /\/rate/;
+    const regex = /\/rate\//;
     const index = pathname.search(regex);
     if (index === -1) return null;
     return pathname.substring(index).replace(regex, '');
