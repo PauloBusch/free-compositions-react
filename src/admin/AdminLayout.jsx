@@ -8,7 +8,7 @@ import Content from './partials/content/Content';
 import Toastr from '../common/messages/toastr';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { listenSessionChanged } from './../reducers/auth/AuthActions';
+import { listenSessionChanged, redirectToLogin } from './../reducers/auth/AuthActions';
 import { hashHistory } from 'react-router';
 
 class AdminLayout extends Component {
@@ -21,7 +21,7 @@ class AdminLayout extends Component {
     if (loading) return false;
 
     if (!user) {
-      hashHistory.push('/login');
+      redirectToLogin();
       return false;
     }
     if (user && user.role === 'Usuário') {

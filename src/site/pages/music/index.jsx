@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import { getById } from '../../../reducers/musics/MusicsActions';
 import { getYoutubeLink } from '../../../common/api/youtube';
 import Message from '../../../common/table/message/Message';
+import { redirectToLogin } from '../../../reducers/auth/AuthActions';
 
 class MusicPreview extends Component {
   constructor(props) {
@@ -22,6 +23,10 @@ class MusicPreview extends Component {
   }
 
   componentWillMount() {
+    if (!this.props.user) {
+      redirectToLogin();
+      return;
+    }
     this.getData();
   }
 
@@ -105,5 +110,6 @@ class MusicPreview extends Component {
   }
 }
 
+const mapStateToProps = state => ({ user: state.auth.user });
 const mapDispatchToProps = dispatch => bindActionCreators({ getById }, dispatch);
-export default connect(null, mapDispatchToProps)(MusicPreview);
+export default connect(mapStateToProps, mapDispatchToProps)(MusicPreview);

@@ -14,25 +14,24 @@ export function listenSessionChanged(isAdmin) {
   return dispatch => {
     dispatch({ type: LOADING });
     firebaseInstance.auth().onAuthStateChanged(user => {
-        if (user) {
-          firebaseInstance.firestore().collection('users').where('accountId', '==', user.uid).get().then(result => {
-            const [doc] = result.docs;
-            if (!doc) {
-              dispatch(logout());
-              hashHistory.push('/login');
-              toastr.error('Erro', 'O usuário foi removido!');
-              return;
-            }
-            const userData = { id: doc.id, ...doc.data() };
-            dispatch({ type: LOGIN, payload: userData }); 
-          });
-        } else {
-          dispatch({ type: LOGOUT });
-          if (!isAdmin) return;
-          hashHistory.push('/login');
-        }        
-      }
-    );
+      if (user) {
+        firebaseInstance.firestore().collection('users').where('accountId', '==', user.uid).get().then(result => {
+          const [doc] = result.docs;
+          if (!doc) {
+            dispatch(logout());
+            redirectToLogin();
+            toastr.error('Erro', 'O usuário foi removido!');
+            return;
+          }
+          const userData = { id: doc.id, ...doc.data() };
+          dispatch({ type: LOGIN, payload: userData }); 
+        });
+      } else {
+        dispatch({ type: LOGOUT });
+        if (!isAdmin) return;
+        redirectToLogin();
+      }        
+    });
   }
 }
 
@@ -42,9 +41,10 @@ export function login(values, completed) {
     firebaseInstance.auth().signInWithEmailAndPassword(values.email, values.password).then(() => {
       if (completed) completed(true);
     })
-    .catch(e => {
+    .catch(error => {
       toastr.error('Erro', 'Usuário/Senha inválidos');
       if (completed) completed(false);
+      throw error;
     });
   }
 }
@@ -54,9 +54,10 @@ export function logout(completed) {
     firebaseInstance.auth().signOut().then(() => {
       if (completed) completed(true);
     })
-    .catch(e => {
+    .catch(error => {
       toastr.error('Erro', 'Falha ao realizar logout');
       if (completed) completed(false);
+      throw error;
     });
   }
 }
@@ -104,4 +105,12 @@ export function validateResetCode(code, completed) {
       throw error;
     });
   }
+}
+
+export function redirectToLogin() {
+  const { hash, href } = location;
+  const currentHref = hash.substr(2);
+  if (currentHref.indexOf('login') !== -1) return;
+  const redirect = href.substr(href.indexOf('#') + 2);
+  if (redirect) hashHistory.push(`/login?redirect=${encodeURIComponent(redirect)}`);
 }

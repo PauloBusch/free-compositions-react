@@ -41,6 +41,7 @@ class Header extends Component {
         </div>
         <div className="menu-desktop">
           { this.getLink() }
+          { this.getAdmin() }
           { menus }
         </div>
         <div className={ `menu-mobile ${this.state.show ? 'show' : ''}` }>{ menus }</div>
@@ -51,10 +52,14 @@ class Header extends Component {
   getLink() {
     const { user } = this.props;
     if (!user) return false;
-    const label = <h4>Olá, { user.name }</h4>;
-    if (['Admin', 'Compositor'].indexOf(user.role) !== -1) 
-      return <a href="/#/admin">{ label }</a>;
-    return label;
+    return <h4>Olá, { user.name }</h4>;
+  }
+
+  getAdmin() {
+    const { user } = this.props;
+    if (!user) return false;
+    if (['Admin', 'Compositor'].indexOf(user.role) === -1) return false; 
+    return <a href="/#/admin">Admin</a>;
   }
 }
 

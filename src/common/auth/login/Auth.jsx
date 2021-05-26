@@ -11,7 +11,7 @@ import Input from '../../fields/input/Input';
 import SubmitButton from '../../buttons/submit/SubmitButton';
 import email from '../../validators/email';
 import { hashHistory } from 'react-router';
-import { Link, Redirect } from 'react-router';
+import { Link } from 'react-router';
 import { listenSessionChanged } from './../../../reducers/auth/AuthActions';
 import Password from './../../fields/password/index';
 
@@ -44,6 +44,20 @@ class Auth extends Component {
     this.toggleLoadingLogin(false);
   }
 
+  redirectUser() {
+    const { router } = this.props;
+    const redirect = router.location.query.redirect || this.getRedirectRoute();
+    setTimeout(() => hashHistory.push(`/${redirect}`), 0);
+  }
+
+  getRedirectRoute() {
+    const { user } = this.props;
+    if (user.role === 'Usuário') return '';
+    if (user.role === 'Admin') return 'admin/slides';
+    if (user.role === 'Compositor') return 'admin/biography';
+    return '';
+  }
+
   toggleLoadingLogin(loading) {
     this.setState({
       ...this.state,
@@ -54,14 +68,8 @@ class Auth extends Component {
   render() {
     const { handleSubmit, user, loading, email } = this.props;
     if (loading) return false;
-
     if (user) {
-      if (user.role === 'Usuário')
-        hashHistory.push('/');
-      if (user.role === 'Admin')
-        hashHistory.push('/admin/slides');
-      if (user.role === 'Compositor')
-        hashHistory.push('/admin/biography');
+      this.redirectUser();
       return false;
     }
 

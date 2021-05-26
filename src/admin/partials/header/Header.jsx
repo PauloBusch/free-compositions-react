@@ -13,8 +13,9 @@ export default function Header(props) {
         <h2>Painel Administrativo - { WEBSITE_NAME || 'Website' }</h2>
       </div>
       <div className="right">
-        <a href="/"><h4>Olá, { props.user.name }</h4></a>
-        <i id="icon-logout" title="Sair" className="fas fa-sign-out-alt" onClick={ () => hashHistory.push('/logout') }></i>
+        <h4>Olá, { props.user.name }</h4>
+        <i title="Site" className="icon fas fa-globe" onClick={ () => hashHistory.push('/') }></i>
+        <i title="Sair" className="icon fas fa-sign-out-alt" onClick={ () => hashHistory.push('/logout') }></i>
       </div>
     </header>
   );

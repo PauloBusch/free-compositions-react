@@ -37,14 +37,21 @@
   color: white;
 }
 
-.header-admin #icon-logout {
-  padding: 15px 0 15px 15px;
+.header-admin .right h4 {
+  margin-right: 10px;
+}
+
+.header-admin .right .icon:last-of-type {
   margin-right: 50px;
+}
+
+.header-admin .icon {
+  padding: 10px;
   font-size: 25px;
   transition: .2s;
   cursor: pointer;
 }
 
-.header-admin #icon-logout:hover {
+.header-admin .icon:hover {
   color: rgba(255, 255, 255, 0.726);
 }
