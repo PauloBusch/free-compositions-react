@@ -1,12 +1,10 @@
-
-
-.music h2,
-.music h3 {
+.player .music h2,
+.player .music h3 {
   text-align: center;
   margin: 15px;
 }
 
-.music h2 {
+.player .music h2 {
   font-weight: 100;
 }
 

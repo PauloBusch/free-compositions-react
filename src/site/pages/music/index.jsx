@@ -91,7 +91,7 @@ class MusicPreview extends Component {
             </Col>
             <Col flex="25" className="music-info" style={ { paddingLeft: '25px' } }>
               <div><strong>Nome: </strong>{ music.name }</div>
-              <div><strong>Compositor: </strong>{ music.compositor }</div>
+              <div><strong>Compositores: </strong>{ music.compositors.join(', ') }</div>
               <div><strong>Preço: </strong>{ this.getPriceFormatted(music.price) }</div>
               <div><strong>Gênero: </strong>{ music.genre }</div>
               <div><strong>Estilo: </strong>{ music.style }</div>

@@ -16,12 +16,12 @@ function getPriceContent(price) {
 
 export default props => { 
   const { data } = props;
-  const buyMessage = `Olá! Quero comprar a música "${data.name}" do compositor "${data.compositor}". Poderia me ajudar?`;
+  const buyMessage = `Olá! Quero comprar a música "${data.name}". Poderia me ajudar?`;
 
   return (
     <div className={ `card music ${ props.active ? 'active' : '' }` }>
       <iframe className="img" src={ getYoutubeLink(data.url) }/>
-      <h2>{ data.compositor }</h2>
+      <h2>{ data.compositors.join(', ') }</h2>
       <h3>{ data.name }</h3>
       { getPriceContent(data.price) }
       <div className="actions">

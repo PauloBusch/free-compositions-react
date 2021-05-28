@@ -15,7 +15,7 @@ function getPriceFormatted(price) {
 
 export default props => {
   const { data } = props;
-  const buyMessage = `Olá! Quero comprar a música "${data.name}" do compositor "${data.compositor}". Poderia me ajudar?`;
+  const buyMessage = `Olá! Quero comprar a música "${data.name}". Poderia me ajudar?`;
 
   return (
     <div className="card music">

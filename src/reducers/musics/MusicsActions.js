@@ -45,8 +45,12 @@ export function getAllByFilter(filters, completed) {
   return () => {
     let filtred = collection;
 
-    for (const prop in filters)
-      filtred = filtred.where(prop, '==', filters[prop]);
+    if (filters) {
+      if (filters.compositor)
+        filtred = filtred.where('compositors', 'array-contains', filters.compositor);
+      if (filters.status)
+        filtred = filtred.where('status', '==', filters.status);
+    }
 
     filtred.get().then(result => {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
@@ -123,7 +127,7 @@ export function getAllByGenre(genre, completed) {
 export function getAllByCompositor(compositor, completed) {
   return dispatch => {
     collection
-    .where('compositor', '==', compositor)
+    .where('compositors', 'array-contains', compositor)
     .where('status', '==', MUSIC_PUBLIC)
     .get().then(result => {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
@@ -247,7 +251,7 @@ export function archiveByCompositor(user, completed) {
   return () => {
     collection
     .where('status', '!=', MUSIC_SOLD)
-    .where('compositor', '==', user.name)
+    .where('compositors', 'array-contains', user.name)
     .get().then(result => {
       const batch = firebaseInstance.firestore().batch();
 

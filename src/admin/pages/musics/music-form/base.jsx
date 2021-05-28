@@ -9,15 +9,15 @@ import Select from '../../../../common/fields/select/Select';
 import Row from '../../../../common/row/Row';
 import FormBase from '../../../../common/form/FormBase';
 import Input from '../../../../common/fields/input/Input';
-import TextArea from '../../../../common/fields/textarea/TextArea';
 import { MUSIC_PENDING, MUSIC_PUBLIC } from '../../../../reducers/musics/MusicStatus';
 import TextEditor from './../../../../common/fields/text-editor/index';
 import requiredTextEditor from './../../../../common/validators/requiredTextEditor';
+import MultiSelect from './../../../../common/fields/multi-select/index';
 
 const DEFAULT_STATE = {
   url: '',
   name: '',
-  compositor: null,
+  compositors: null,
   genre: null,
   style: null,
   status: MUSIC_PUBLIC,
@@ -31,7 +31,7 @@ export default class MusicFormBase extends FormBase {
     super(props);
     const { user } = this.props;
     if (user && user.role === 'Compositor') {
-      DEFAULT_STATE.compositor = user.name;
+      DEFAULT_STATE.compositors = [user.name];
       DEFAULT_STATE.status = MUSIC_PENDING;
     }
     if (!this.id) {
@@ -97,8 +97,10 @@ export default class MusicFormBase extends FormBase {
   fields() {
     const readonly = this.readonly;
     const { user } = this.props;
+    const isCompositor = user.role === 'Compositor';
     const genres = this.props.genres.map(g => g.name);
-    const compositors = this.props.users.filter(u => u.role === 'Compositor').map(u => u.name);
+    const compositors = this.props.users.filter(u => u.role === 'Compositor')
+      .map(u => ({ value: u.name, text: u.name, disabled: isCompositor && user.name === u.name }));
     const styles =  this.props.styles.map(g => g.name);
     const playlists = this.props.playlists.map(g => g.name);
 
@@ -114,12 +116,11 @@ export default class MusicFormBase extends FormBase {
           <Field name="name" type="text" label="Nome" placeholder="Informe o nome"
             flex="25" component={ Input } validate={ required } readOnly={ readonly }
           />
-          <Field name="compositor" label="Compositor"
-            flex="25" component={ Select } options={ compositors } 
-            readOnly={ user.role === 'Compositor' || readonly } validate={ required }
+          <Field name="compositors" label="Compositores"
+            flex="25" component={ MultiSelect } options={ compositors } insert object validate={ required }
           />
           <Field name="price" type="number" label="Preço" placeholder="Informe o preço"
-            flex="25" component={ Input } validate={ required } readOnly={ readonly }
+            flex="25" component={ Input } readOnly={ readonly }
           />
         </Row>
         <Row justify="flex-start">

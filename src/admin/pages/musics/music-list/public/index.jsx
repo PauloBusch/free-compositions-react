@@ -44,7 +44,7 @@ class MusicListPublic extends MusicListBase {
 
     if (user.role === 'Admin'){
       this.tableColumns.find(c => c.label === 'Nome').flex = 15;
-      this.tableColumns.find(c => c.label === 'Compositor').flex = 15;
+      this.tableColumns.find(c => c.label === 'Compositores').flex = 15;
       this.tableColumns.find(c => c.label === 'Gênero').flex = 15;
 
       this.tableActions.push({ icon: 'cart-arrow-down', title: 'Vender', color: 'var(--primary)', click: this.sold.bind(this) });

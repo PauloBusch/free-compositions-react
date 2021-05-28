@@ -57,12 +57,12 @@ export default class MusicListBase extends ListBase {
     ];
     this.tableColumns = [
       { prop: 'name', label: 'Nome', flex: 20 },
-      { prop: 'compositor', label: 'Compositor', flex: 20 },
+      { prop: 'compositors', label: 'Compositores', flex: 20, format: list => list ? list.join(', ') : '' },
       { prop: 'genre', label: 'Gênero', flex: 20 },
       { prop: 'letter', label: 'Resumo', flex: 40, template: this.resumeLetter }
     ];
     if (user.role === 'Compositor'){ 
-      this.tableColumns = this.tableColumns.filter(c => c.label !== 'Compositor');
+      this.tableColumns = this.tableColumns.filter(c => c.label !== 'Compositores');
       const resumeColumn = this.tableColumns.find(c => c.label === 'Resumo');
       resumeColumn.flex = 60;
     }

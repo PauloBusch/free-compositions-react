@@ -1,0 +1,75 @@
+.multiselect {
+  box-sizing: border-box;
+  position: relative;
+  min-height: 44px;
+}
+
+.multiselect .display {
+  width: calc(100% - 8px * 2);
+  position: absolute;
+  left: 8px;
+}
+
+.multiselect .display i {
+  position: absolute;
+  color: #5e5e5e;
+  right: 0;
+}
+
+.multiselect .display .placeholder {
+  left: 0;
+  width: calc(100% - 20px);
+  position: absolute;
+  overflow: hidden;
+  user-select: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.multiselect .options {
+  position: absolute;
+  background-color: white;
+  top: -2px;
+  width: calc(100% + 1px);
+  left: -2px;
+  z-index: 15;
+  border: 1.5px solid #5e5e5e;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.multiselect .option {
+  cursor: default;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+.multiselect .option.disabled {
+  color: rgb(109, 109, 109);
+}
+
+.multiselect .option input {
+  margin: 10px;
+}
+
+.multiselect .option label {
+  width: 100%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.multiselect .option label.action {
+  cursor: pointer;
+}
+
+.multiselect .option i {
+  width: 15px;
+  padding: 5px 10px;
+}
+
+.multiselect .option:hover {
+  color: white;
+  background-color: #1e90ff;
+}

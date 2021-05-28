@@ -37,7 +37,7 @@ export default class Image extends FieldBase {
       completed(reader.result);
     };
     reader.onerror = function (error) {
-      console.log('Error: ', error);
+      throw error;
     };
  }
 

@@ -38,6 +38,7 @@ class MusicsSection extends Component {
 
   render() {
     const musics = this.props.musics.filter(m => m.status === MUSIC_PUBLIC);
+    if (!this.state.loading && musics.length === 0) return false;
 
     return (
       <Section id="musics">

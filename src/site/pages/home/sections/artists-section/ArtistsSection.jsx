@@ -37,6 +37,8 @@ class ArtistsSection extends Component {
   }
 
   render() {
+    if (!this.state.loading && this.props.artists.length === 0) return false;
+
     return (
       <Section id="artists">
         <h1>Artistas</h1>

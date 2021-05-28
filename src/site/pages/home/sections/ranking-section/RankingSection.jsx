@@ -32,6 +32,8 @@ class RankingSection extends Component {
   }
 
   render() {
+    if (!this.state.loading && this.state.musics.length === 0) return false;
+
     return (
       <Section id="ranking">
         <div className="head">
