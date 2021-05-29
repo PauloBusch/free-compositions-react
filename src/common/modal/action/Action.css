@@ -43,6 +43,23 @@ button.modal-action:hover {
   opacity: 1;
 }
 
+.action-link {
+  transition: .2s;
+  display: block;
+  cursor: pointer;
+  color: #007bff;
+}
+
+.action-link:hover {
+  opacity: .8;
+}
+
+.pull-left {
+  display: block;
+  margin-left: 15px;
+  margin-right: auto;
+}
+
 @media only screen and (max-width: 600px) {
   button.modal-action {
     font-size: 15px;

@@ -14,9 +14,11 @@ import email from './../../../common/validators/email';
 import SubmitButton from '../../../common/buttons/submit/SubmitButton';
 import Input from './../../../common/fields/input/Input';
 import Toastr from '../../../common/messages/toastr';
-import TermsOfUse from '../terms-of-use';
 import Modal from '../../../common/modal/Modal';
 import Password from './../../../common/fields/password/index';
+import ArtistContract from './../artist-contract/index';
+import { LINK } from '../../../common/modal/modal-action-type';
+import { LEFT } from './../../../common/modal/modal-action-pull';
 
 const DEFAULT_VALUES = {
   name: '',
@@ -30,7 +32,7 @@ class CreateAccountForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { loading: false, showTerms: false };
+    this.state = { loading: false, showContract: false };
     this.type = this.props.router.params.type;
     if (['Usuário', 'Compositor'].indexOf(this.type) === -1)
       hashHistory.push('/type-account');
@@ -48,7 +50,7 @@ class CreateAccountForm extends Component {
 
   submit(values) {
     if (this.type === 'Compositor') 
-      return this.setState({ ...this.state, values: values, showTerms: true });
+      return this.setState({ ...this.state, values: values, showContract: true });
     this.save(values);
   }
 
@@ -93,12 +95,13 @@ class CreateAccountForm extends Component {
   }
 
   closeModal() {
-    this.setState({ ...this.state, showTerms: false });
+    this.setState({ ...this.state, showContract: false });
   }
 
   render() {
     const { handleSubmit } = this.props;
     const modalActions = [
+      { text: 'Baixar Contrato', href: '/documents/CONTRATO ARTISTA X -.pdf', type: LINK, pull: LEFT },
       { text: 'CANCELAR', pallet: { fill: '#c8c8c8', text: 'black' }, click: this.reject },
       { text: 'ACEITAR', pallet: { fill: '#0276cd', text: 'white' }, click: this.accept }
     ];
@@ -125,9 +128,9 @@ class CreateAccountForm extends Component {
           <SubmitButton loading={ this.state.loading } fill padding="10px" text="Criar nova conta"/>
         </Form>
         <Modal title="Termos e Condições de Uso" 
-          actions={ modalActions } show={ this.state.showTerms } 
+          actions={ modalActions } show={ this.state.showContract } 
           onClose={ this.reject }>
-          <TermsOfUse />
+          <ArtistContract />
         </Modal>
         <Toastr/>
       </div>

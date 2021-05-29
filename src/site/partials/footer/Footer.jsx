@@ -28,7 +28,7 @@ export default props => (
         <h2>Links úteis</h2>
         <ul>
           <li><a href="#">Aviso legal</a></li>
-          <li><a href="#">Termos e condições de uso</a></li>
+          <li><a href="/documents/TERMO DE USO COMPOSIÇÕES LIVRE.pdf">Termos e condições de uso</a></li>
           <li><a href="#">Política de privacidade</a></li>
         </ul>
       </div>

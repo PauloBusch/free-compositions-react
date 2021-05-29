@@ -1,7 +1,8 @@
 import './Modal.css';
 
 import React from 'react';
-import Action from './action/Action';
+import Action from './action';
+import { BUTTON } from './modal-action-type';
 
 function stopScroll(stop) {
   const body = document.getElementsByTagName('body')[0];
@@ -18,31 +19,25 @@ function getStyle(props) {
   return style;
 }
 
-export default props => {
-    const { title, show, actions, onClose } = props;
-    const buttons = actions || [{ text: 'Fechar', click: onClose }];
-    stopScroll(show);
-    return (
-      <div className={ `block ${ show ? '' : 'hide' }` }>
-        <div className="modal" style={ getStyle(props) }>
-          <div className="header">
-            <h2>{ title }</h2>
-            <i title="Fechar" className="fas fa-times" onClick={ () => onClose() }></i>
-          </div>
-          <div className="body">
-            { props.children }
-          </div>
-          <div className="footer">
-            { buttons.map(b => 
-              <Action key={ b.text } 
-                onClick={ b.click } 
-                loading={ b.loading } 
-                pallet={ b.pallet } 
-                text={ b.text }
-              />
-            ) }
-          </div>
+export default function Modal(props) {
+  const { title, show, onClose } = props;
+  const actions = props.actions || [{ text: 'Fechar', click: onClose }];
+  stopScroll(show);
+  
+  return (
+    <div className={ `block ${ show ? '' : 'hide' }` }>
+      <div className="modal" style={ getStyle(props) }>
+        <div className="header">
+          <h2>{ title }</h2>
+          <i title="Fechar" className="fas fa-times" onClick={ () => onClose() }></i>
+        </div>
+        <div className="body">
+          { props.children }
+        </div>
+        <div className="footer">
+          { actions.map(b => <Action { ...b } key={ b.text } type={ b.type || BUTTON } onClick={ b.click } />) }
         </div>
       </div>
-    );
+    </div>
+  );
 }
