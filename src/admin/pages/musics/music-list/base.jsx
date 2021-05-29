@@ -1,6 +1,8 @@
 import React from 'react';
 
 import ListBase from '../../../partials/list-base/ListBase';
+import Resume from './../../../../common/resume/index';
+import { extractTextFromHtml } from './../../../../common/api/html';
 
 export default class MusicListBase extends ListBase {
   constructor(props, status) {
@@ -8,7 +10,6 @@ export default class MusicListBase extends ListBase {
     
     this.className = 'tab-music-list';
     this.status = status;
-    this.resumeLetter = this.resumeLetter.bind(this);
   }
 
   componentWillMount() {
@@ -36,20 +37,6 @@ export default class MusicListBase extends ListBase {
     super.afterRemove(success);
   }
 
-  resumeLetter(props) {
-    const { letter } = props.row;
-    const limit = 180;
-    if (!letter) return false;
-    
-    const regex = /(<([^>]+)>)/ig;
-    const text = letter.replace(regex, '');
-    if (!text) return false;
-
-    if (text.length > limit) 
-      return <span>{text.substr(0, limit - 3)}...</span>;
-    return <span>{text}</span>;
-  }
-
   configure() {
     const { user } = this.props;
     this.tableActions = [
@@ -59,7 +46,7 @@ export default class MusicListBase extends ListBase {
       { prop: 'name', label: 'Nome', flex: 20 },
       { prop: 'compositors', label: 'Compositores', flex: 20, format: list => list ? list.join(', ') : '' },
       { prop: 'genre', label: 'Gênero', flex: 20 },
-      { prop: 'letter', label: 'Resumo', flex: 40, template: this.resumeLetter }
+      { prop: 'letter', label: 'Resumo', flex: 40, template: props => Resume({ text: extractTextFromHtml(props.row.letter) }) }
     ];
     if (user.role === 'Compositor'){ 
       this.tableColumns = this.tableColumns.filter(c => c.label !== 'Compositores');
