@@ -6,15 +6,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Toastr from '../../messages/toastr';
-import { login } from '../../../reducers/auth/AuthActions';
 import Input from '../../fields/input/Input';
 import SubmitButton from '../../buttons/submit/SubmitButton';
 import email from '../../validators/email';
+import Password from './../../fields/password/index';
+import Row from './../../row/Row';
+import { login } from '../../../reducers/auth/AuthActions';
+import { register } from '../../../reducers/history/HistoryActions';
 import { hashHistory } from 'react-router';
 import { Link } from 'react-router';
 import { listenSessionChanged } from './../../../reducers/auth/AuthActions';
-import Password from './../../fields/password/index';
-import Row from './../../row/Row';
+import { HISTORY_TYPE_LOGIN } from './../../../reducers/history/HistoryTypes';
 
 class Auth extends Component {
   constructor(props) {
@@ -41,8 +43,9 @@ class Auth extends Component {
     login(values, this.afterLogin);
   }
 
-  afterLogin() {
+  afterLogin(success, user) {
     this.toggleLoadingLogin(false);
+    if (success) this.props.register({ email: user.email }, user.name, HISTORY_TYPE_LOGIN);
   }
 
   redirectUser() {
@@ -102,5 +105,5 @@ const mapStateToProps = state => ({
   loading: state.auth.loading, 
   user: state.auth.user
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ login, listenSessionChanged }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ login, register, listenSessionChanged }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(authForm);

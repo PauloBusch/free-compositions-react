@@ -38,8 +38,12 @@ export function listenSessionChanged(isAdmin) {
 export function login(values, completed) {
   return () => {
     firebaseInstance.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-    firebaseInstance.auth().signInWithEmailAndPassword(values.email, values.password).then(() => {
-      if (completed) completed(true);
+    firebaseInstance.auth().signInWithEmailAndPassword(values.email, values.password).then(({ user }) => {
+      firebaseInstance.firestore().collection('users').where('accountId', '==', user.uid).get().then(result => {
+        const [doc] = result.docs;
+        const userData = { id: doc.id, ...doc.data() };
+        if (completed) completed(true, userData);
+      });
     })
     .catch(error => {
       toastr.error('Erro', 'Usuário/Senha inválidos');

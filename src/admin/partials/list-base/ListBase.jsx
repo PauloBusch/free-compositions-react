@@ -26,6 +26,8 @@ export default class ListBase extends Component {
     this.movedRow = this.movedRow.bind(this);
     this.afterUpdateOrder = this.afterUpdateOrder.bind(this);
     this.useDrag = !!this.props.updateOrderBulk;
+    this.canAdd = true;
+    this.canOpen = true;
   }
 
   componentWillMount() {
@@ -126,7 +128,7 @@ export default class ListBase extends Component {
       <div className={ `list ${this.className ? this.className : ''}` }>
         { this.title ? this.card() : this.table() }
         { this.modal() }
-        <FixedButton title="Cadastrar" onClick={ this.goNew } icon="plus" color="var(--primary)"/>
+        { this.canAdd && <FixedButton title="Cadastrar" onClick={ this.goNew } icon="plus" color="var(--primary)"/> }
       </div>
     );    
   }
@@ -156,7 +158,7 @@ export default class ListBase extends Component {
     };
 
     return (
-      <Table rowClick={ row => this.goEdit(row.id) } loading={ this.state.loading }
+      <Table rowClick={ this.canOpen ? row => this.goEdit(row.id) : false } loading={ this.state.loading }
         drag={ this.useDrag } movedRow={ this.movedRow } pallet={ tablePallet } rows={ list }
         columns={ this.tableColumns } actions={ this.tableActions } 
       />

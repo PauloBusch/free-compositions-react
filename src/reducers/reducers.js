@@ -13,6 +13,7 @@ import GenreReducer from './genres/GenresReducer';
 import StyleReducer from './styles/StylesReducer';
 import SlidesReducer from './slides/SlidesReducer';
 import authReducer from './auth/AuthReducer';
+import HistoryReducer from './history/HistoryReducer';
 
 const rootReducer = combineReducers({
   toastr: toastrReducer,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   users: UserReducer,
   genres: GenreReducer,
   styles: StyleReducer,
+  histories: HistoryReducer,
   form: formReducer
 });
 

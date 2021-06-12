@@ -40,6 +40,7 @@ export default props => {
         <If test={ ['Admin'].indexOf(user.role) !== -1 }>
           <div>
             <MenuItem href="admin/users" name="Usuários" icon="user"/>
+            <MenuItem href="admin/histories" name="Histórico" icon="film"/>
             <MenuItem href="admin/genres" name="Gêneros" icon="microphone"/>
             <MenuItem href="admin/styles" name="Estilos" icon="guitar"/>
             <MenuItem href="admin/playlists" name="Playlists" icon="play-circle"/>

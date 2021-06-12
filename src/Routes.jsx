@@ -34,6 +34,7 @@ import ArtistDetail from './site/pages/artist';
 import GenreDetail from './site/pages/genre';
 import PlaylistDetail from './site/pages/playlist';
 import MusicListTabs from './admin/pages/musics/music-list';
+import HistoryListTabs from './admin/pages/history';
 import ChangePasswordForm from './common/auth/change-password/index';
 import MusicPreview from './site/pages/music/index';
 
@@ -73,6 +74,8 @@ export default () => (
         <Route path="users/edit/:id" component={ UserForm }/>
         <Route path="users/:tab" component={ UserListTabs }/>
         <Route path="users" component={ UserListTabs }/>
+        <Route path="histories/:tab" component={ HistoryListTabs }/>
+        <Route path="histories" component={ HistoryListTabs }/>
         <Route path="genres" component={ GenreList }/>
         <Route path="genres/new" component={ GenreForm }/>
         <Route path="genres/edit/:id" component={ GenreForm }/>
