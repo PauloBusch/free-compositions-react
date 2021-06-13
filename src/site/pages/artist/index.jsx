@@ -7,7 +7,6 @@ import Col from './../../../common/col/index';
 import { formatDate } from './../../../common/formatters/date';
 import { bindActionCreators } from 'redux';
 import { getById } from './../../reducers/artists/ArtistsActions';
-import { getAllByCompositor } from './../../../reducers/musics/MusicsActions';
 import Loading from './../../../common/loading/Loading';
 import GaleryMusic from './../../common/galery/galery-music/GaleryMusic';
 
@@ -16,11 +15,9 @@ class ArtistDetail extends Component {
     super(props);
 
     this.id = this.getId();
-    this.state = { loading: true, artist: null, musics: null };
+    this.state = { loading: true, artist: null };
     this.afterLoad = this.afterLoad.bind(this);
-    this.afterLoadGalery = this.afterLoadGalery.bind(this);
     this.getData = this.getData.bind(this);
-    this.getGalery = this.getGalery.bind(this);
   }
 
   componentWillMount() {
@@ -34,23 +31,9 @@ class ArtistDetail extends Component {
   afterLoad(success, data) {
     if (success) {    
       this.setState({ 
-        ...this.state, 
-        artist: data
-      });
-      this.getGalery(data);
-    }
-  }
-
-  getGalery(artist) {
-    this.props.getAllByCompositor(artist.name, this.afterLoadGalery);
-  }
-
-  afterLoadGalery(success, data) {
-    if (success) {    
-      this.setState({ 
         ...this.state,
-        musics: data,
-        loading: false
+        loading: false,
+        artist: data
       });
     }
   }
@@ -69,7 +52,7 @@ class ArtistDetail extends Component {
   }
 
   detail() {
-    if (this.state.loading || !this.state.artist || !this.state.musics) 
+    if (this.state.loading) 
       return <Loading style={ { marginTop: '15vh' } }/>;
 
     const { artist } = this.state;
@@ -89,17 +72,15 @@ class ArtistDetail extends Component {
               <div className="biography"><p>{ artist.biography || '' }</p></div>
             </Col>
           </Row>
-          { this.state.musics.length > 0 && 
-            <div>
-              <h2>Músicas do Artista</h2>
-              <GaleryMusic cards={ this.state.musics }/>;
-            </div>
-          }
+          <div>
+            <h2>Músicas do Artista</h2>
+            <GaleryMusic compositorName={ artist.name } emptyMessage="Nenhuma música cadastrada"/>;
+          </div>
         </div>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getById, getAllByCompositor }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getById }, dispatch);
 export default connect(null, mapDispatchToProps)(ArtistDetail);

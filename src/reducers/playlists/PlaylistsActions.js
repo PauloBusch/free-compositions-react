@@ -37,7 +37,7 @@ export function getAll(completed) {
             listWithImage[index].image = urlResults[index];
           }
           dispatch({ type: PLAYLIST_FETCHED, payload: list });
-          if (completed) completed(true);
+          if (completed) completed(true, list);
         });
     })
     .catch((error) => {

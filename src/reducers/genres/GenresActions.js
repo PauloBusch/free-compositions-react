@@ -30,7 +30,7 @@ export function getAll(completed) {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
         .sort((a, b) => b.createdAt - a.createdAt);
       dispatch({ type: GENRE_FETCHED, payload: list });
-      if (completed) completed(true);
+      if (completed) completed(true, list);
     })
     .catch((error) => {
       toastr.error('Erro', `Falha ao carregar ${type}s!`);

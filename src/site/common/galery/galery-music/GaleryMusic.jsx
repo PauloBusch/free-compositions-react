@@ -1,17 +1,31 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Music from './music/Music';
 import ButtonPrev from '../../player/actions/button-prev/ButtonPrev';
 import ButtonNext from '../../player/actions/button-next/ButtonNext';
 import GaleryBase from './../GaleryBase';
 import Modal from '../../../../common/modal/Modal';
+import { getAllByRanking, getAllByGenre, getAllByPlaylist, getAllByCompositor } from '../../../../reducers/musics/MusicsActions';
 
-export default class GaleryMusic extends GaleryBase {  
+class GaleryMusic extends GaleryBase {  
   constructor(props) {
     super(props);
-    this.state = { showLetter: false, letter: null };    
+    this.state = { ...this.state, showLetter: false, letter: null };    
     this.closeModal = this.closeModal.bind(this);
     this.readLetter = this.readLetter.bind(this);
+  }
+  
+  componentWillMount() {
+    if (this.props.ranking)
+      return this.props.getAllByRanking(this.afterLoad);
+    if (this.props.genreName)
+      return this.props.getAllByGenre(this.props.genreName, this.afterLoad);
+    if (this.props.playlistName)
+      return this.props.getAllByPlaylist(this.props.playlistName, this.afterLoad);
+    if (this.props.compositorName)
+      return this.props.getAllByCompositor(this.props.compositorName, this.afterLoad);
   }
 
   readLetter(letter) {
@@ -37,12 +51,12 @@ export default class GaleryMusic extends GaleryBase {
       <div className="galery galery-musics">
         <div className="content">
           <div className="musics cards" style={ this.listStyles() }>
-            { this.props.cards.map((m, i) => <Music key={ m.id } readLetter={ this.readLetter } data={ m }/>) }
+            { this.state.presentation.map(m => <Music key={ m.id } readLetter={ this.readLetter } data={ m } enableTransition={ !this.state.runingTransition }/>) }
           </div>
         </div>
         <div className="actions">
-            <ButtonPrev disabled={ this.state.prevDisabled } onClick={ this.prevCard } />
-            <ButtonNext disabled={ this.state.nextDisabled } onClick={ this.nextCard } />
+          <ButtonPrev disabled={ this.state.disbledButtons } onClick={ this.prevCard } />
+          <ButtonNext disabled={ this.state.disbledButtons } onClick={ this.nextCard } />
         </div>
         <Modal title="Letra da Música" show={ this.state.showLetter } 
           onClose={ this.closeModal }>
@@ -54,3 +68,6 @@ export default class GaleryMusic extends GaleryBase {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators({ getAllByRanking, getAllByGenre, getAllByPlaylist, getAllByCompositor }, dispatch);
+export default connect(null, mapDispatchToProps)(GaleryMusic);

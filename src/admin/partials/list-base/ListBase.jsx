@@ -178,6 +178,7 @@ export default class ListBase extends Component {
   }
 
   footer() {
+    if (this.state.loading) return false;
     const list = this.getList();
     if (!list || list.length === 0) return false;
     return (

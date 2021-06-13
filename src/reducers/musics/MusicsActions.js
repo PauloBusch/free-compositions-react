@@ -31,7 +31,7 @@ export function getAll(completed) {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
         .sort((a, b) => b.order - a.order);      
       dispatch({ type: MUSIC_FETCHED, payload: list });
-      if (completed) completed(true);
+      if (completed) completed(true, list);
     })
     .catch((error) => {
       toastr.error('Erro', `Falha ao carregar ${type}s!`);
@@ -76,7 +76,7 @@ export function getAllByRanking(completed) {
     .get().then(result => {
       const list = result.docs.map(d => ({ id: d.id, ...d.data() }))
         .sort((a, b) => b.order - a.order);      
-      if (completed) completed(true, list);
+      if (completed) completed(true, list.slice(0, 12));
     })
     .catch((error) => {
       toastr.error('Erro', `Falha ao carregar ranking!`);

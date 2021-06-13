@@ -13,7 +13,10 @@ export default props => {
 
   return (
     <div onClick={ () => goToPlaylist(data.id) } className="card playlist" style={ 
-      { backgroundImage: `url('${data.image}')` }
+      { 
+        transition: props.enableTransition ? '.2s' : 'none',
+        backgroundImage: `url('${data.image}')` 
+      }
     }>
       <div className="detail">
         <h1>{ data.name }</h1>

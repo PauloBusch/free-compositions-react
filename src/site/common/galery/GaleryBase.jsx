@@ -2,16 +2,17 @@ import './GaleryBase.css';
 
 import React, { Component } from 'react';
 import Loading from './../../../common/loading/Loading';
+import Message from '../../../common/table/message/Message';
 
 const INITIAL_STATE = {
   activePage: 0,
   cardsTake: 4,
-  prevDisabled: true,
-  nextDisabled: false
-}; 
+  loading: true,
+  runingTransition: false,
+  disbledButtons: false
+};
 
 export default class GaleryBase extends Component {
-  
   constructor(props) {
     super(props);
 
@@ -19,42 +20,49 @@ export default class GaleryBase extends Component {
     this.state = INITIAL_STATE;
     this.prevCard = this.prevCard.bind(this);
     this.nextCard = this.nextCard.bind(this);
+    this.afterLoad = this.afterLoad.bind(this);
     window.addEventListener('resize', this.updateTake.bind(this));
   }
 
   galery() { }
+  
+  componentWillMount() {
+    this.props.getAll(this.afterLoad);
+  }
+
+  afterLoad(success, list) {
+    if (success) {
+      this.setState({
+        ...this.state,
+        cards: list,
+        activePage: 0,
+        cardsTake: this.getTake(),
+        presentation: this.getPresentation(list, this.state.activePage)
+      }, () => {
+        this.setState({
+          ...this.state,
+          disbledButtons: this.disbledButtons(),
+          loading: false
+        });  
+      });
+    }
+  }
 
   render() {
-    if (this.props.loading) return <Loading style={ { margin: '10vh 0' } }/>;
-    this.init();
+    if (this.state.loading) return <Loading style={ { margin: '10vh 0' } }/>;
+    if (!this.state.cards || this.state.cards.length === 0)
+      return !this.props.hideWithNone && <Message message={ this.props.emptyMessage || 'Nenhum registro na galeria' }/>;
     return this.galery();
   }
 
-  init() {
-    if (this.initialized) return;
-    const page = 0;
-    const { isFirst, isLast } = this.stateButtons(page); 
-    this.state = { 
-      ...this.state, 
-      cardsTake: this.getTake(),
-      activePage: page,
-      prevDisabled: isFirst,
-      nextDisabled: isLast
-    };
-    this.initialized = true;
-  }
-
   updateTake() {
-    const page = 0;
     const take = this.getTake();
     if (this.state.cardsTake === take) return;
-    const { isFirst, isLast } = this.stateButtons(page); 
     this.setState({
       ...this.state,
-      activePage: page,
+      activePage: 0,
       cardsTake: take,
-      prevDisabled: isFirst,
-      nextDisabled: isLast
+      disbledButtons: this.disbledButtons()
     });
   }
 
@@ -66,41 +74,120 @@ export default class GaleryBase extends Component {
   }
 
   prevCard() {
-    const { isFirst } = this.stateButtons(this.state.activePage);
-    if (isFirst) return;
-
     this.goPage(this.state.activePage - 1);
   }
 
   nextCard() {
-    const { isLast } = this.stateButtons(this.state.activePage);
-    if (isLast) return;
-
     this.goPage(this.state.activePage + 1);
   }
 
   goPage(page) {
-    const { isFirst, isLast } = this.stateButtons(page);    
+    const disbledButtons = this.disbledButtons();
+    if (disbledButtons) return;
+    const cards = this.getPresentation(this.state.cards, page);
+    const direction = page > this.state.activePage ? 'right' : 'left';
+    const presentation = direction === 'right'
+      ? [...this.state.presentation, ...cards]
+      : [...cards, ...this.state.presentation];
     this.setState({ 
       ...this.state, 
       activePage: page,
-      prevDisabled: isFirst,
-      nextDisabled: isLast
+      presentation: presentation,
+      disbledButtons: disbledButtons
+    }, () => {
+      const transition = this.getTransition();
+      direction === 'right' 
+        ? this.runTransitionToRight(transition)
+        : this.runTransitionToLeft(transition);
     });
   }
 
-  stateButtons(page) {
-    const isFirst = page === 0;
-    const isLast = page === (Math.ceil(this.props.cards.length / this.state.cardsTake) - 1);
-    return { isFirst, isLast };
+  runTransitionToRight(transition) {
+    if (this.state.runingTransition) return;
+    setTimeout(() => {
+      this.setState({ ...this.state,
+        runingTransition: true,
+        styles: {
+          transition: `${transition}s`,
+          marginLeft: '-100%'
+        }
+      });
+    }, 0);
+    setTimeout(() => this.afterTransition(), transition * 1000);
+  }
+
+  runTransitionToLeft(transition) {
+    if (this.state.runingTransition) return;
+    this.setState({ ...this.state,
+      styles: {
+        transition: 'none',
+        marginLeft: '-100%'
+      }
+    });
+    setTimeout(() => {
+      this.setState({ ...this.state,
+        runingTransition: true,
+        styles: {
+          transition: `${transition}s`,
+          marginLeft: '0%'
+        }
+      });
+    }, 0);
+    setTimeout(() => this.afterTransition(), transition * 1000);
+  }
+
+  afterTransition() {
+    const { cards, activePage } = this.state;
+    this.setState({ 
+      ...this.state, 
+      presentation: this.getPresentation(cards, activePage),
+      styles: { }
+    });    
+    setTimeout(() => {
+      this.setState({ 
+        ...this.state, 
+        runingTransition: false
+      }); 
+    }, 50);
+  }
+
+  getPresentation(list, page) {
+    const take = this.getTake();
+    const index = Math.abs(page) * take;
+    const end = index + take;
+    const sequence = this.predictSequence(list, end);
+    if (page < 0) {
+      const start = sequence.length - index;
+      return sequence.slice(start, start + take);
+    }
+    return sequence.slice(index, end);
+  }
+
+  predictSequence(list, index) {
+    const result = [...list];
+    const take = this.getTake();
+    if (result.length <= take) return result;
+    while(result.length < index) {
+      for (const item of list) {
+        result.push({ ...item, id: Math.random() });
+      }
+    }
+    return result;
+  }
+
+  disbledButtons() {
+    const { cards, cardsTake, runingTransition } = this.state;
+    if (runingTransition) return true;
+    return cards.length <= cardsTake;
   }
 
   listStyles() {
     const k = 1 / this.state.cardsTake;
     return {
-      transition: `${this.getTransition()}s`,
-      width: `${ this.props.cards.length * k * 100 }%`,
-      marginLeft: `${ this.state.activePage * -100 }%`
+      marginLeft: '0%',
+      transition: 'none',
+      width: `${this.state.presentation.length * k * 100}%`,
+      ...this.state.styles
     };
   }
 

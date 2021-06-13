@@ -13,7 +13,10 @@ export default props => {
 
   return (
     <div onClick={ () => goToGenre(data.id) } className="card genre" style={ 
-      { backgroundColor: data.backgroundColor }
+      { 
+        transition: props.enableTransition ? '.2s' : 'none',
+        backgroundColor: data.backgroundColor
+      }
     }>
       <div className="detail">
         <h1>{ data.name }</h1>
