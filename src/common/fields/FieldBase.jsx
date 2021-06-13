@@ -4,6 +4,12 @@ import React, { Component } from 'react';
 import { copyToClipboard } from './../api/clipboard';
 
 export default class FieldBase extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleOnChange = this.handleOnChange.bind(this);
+  }
+
   getStyle() {
     const { flex, px } = this.props;
     if (px) return { witdth: `${px}px` };
@@ -68,4 +74,10 @@ export default class FieldBase extends Component {
   }
   
   field() { }
+
+  handleOnChange(ev) {
+    const { input, onchange } = this.props;
+    input.onChange(ev);
+    if (onchange) onchange(ev);
+  }
 }

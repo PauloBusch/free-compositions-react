@@ -1,0 +1,22 @@
+.tab-filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tab-filter i.action {
+  opacity: .8;
+  transition: .2s;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 5px;
+}
+
+.tab-filter i.action:hover {
+  opacity: 1;
+}
+
+.tab-filter-fields {
+  width: 100%;
+  margin-right: 15px;
+}

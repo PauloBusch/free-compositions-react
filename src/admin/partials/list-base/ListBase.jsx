@@ -10,6 +10,7 @@ import Table from './../../../common/table/Table';
 import Modal from '../../../common/modal/Modal';
 import FixedButton from '../../../common/buttons/fixed/FixedButton';
 import { getRouteWithoutParams } from './../../../common/router/index';
+import CardFooter from './../card/card-footer/index';
 
 const INITIAL_STATE = { loading: true, loadingRemove: false, selected: null, showConfirmRemove: false };
 
@@ -126,7 +127,7 @@ export default class ListBase extends Component {
     this.configure();
     return (
       <div className={ `list ${this.className ? this.className : ''}` }>
-        { this.title ? this.card() : this.table() }
+        { this.card() }
         { this.modal() }
         { this.canAdd && <FixedButton title="Cadastrar" onClick={ this.goNew } icon="plus" color="var(--primary)"/> }
       </div>
@@ -149,6 +150,43 @@ export default class ListBase extends Component {
     );
   }
 
+  card() {
+    return (
+      <Card>
+        { this.header() }
+        { this.body() }
+        { this.footer() }
+      </Card>
+    );
+  }
+
+  header() {
+    if (!this.title) return false;
+    return (
+      <CardHeader>
+        <h2>{ this.title }</h2>
+      </CardHeader>
+    );
+  }
+
+  body() {
+    return (
+      <CardContent padding="0">
+        { this.table() }
+      </CardContent>
+    );
+  }
+
+  footer() {
+    const list = this.getList();
+    if (!list || list.length === 0) return false;
+    return (
+      <CardFooter>
+        Total: { list.length }
+      </CardFooter>
+    );
+  }
+
   table() {
     const list = this.getList();
     
@@ -162,19 +200,6 @@ export default class ListBase extends Component {
         drag={ this.useDrag } movedRow={ this.movedRow } pallet={ tablePallet } rows={ list }
         columns={ this.tableColumns } actions={ this.tableActions } 
       />
-    );
-  }
-
-  card() {
-    return (
-      <Card>
-        <CardHeader>
-          <h2>{ this.title }</h2>
-        </CardHeader>
-        <CardContent padding="0">
-          { this.table() }
-        </CardContent>
-      </Card>
     );
   }
 }

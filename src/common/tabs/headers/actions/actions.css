@@ -1,0 +1,7 @@
+.tab-actions {
+  display: flex;
+  align-items: center;
+  margin-right: 0;
+  margin-left: auto;
+  padding: 0 10px;
+}

@@ -13,7 +13,6 @@ export default class TabsController extends Component {
   changeTab(tab) {
     if (this.state.tabActive === tab) return;
     const { router } = this.props;
-    const { pathname } = router.location;
     this.setState({
       ...this.state,
       tabActive: tab
