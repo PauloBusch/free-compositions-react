@@ -1,6 +1,5 @@
 import React from 'react';
 import Modal from '../../../../common/modal/Modal';
-import { MUSIC_ARCHIVED } from '../../../../reducers/musics/MusicStatus';
 
 import ListBase from '../../../partials/list-base/ListBase';
 
@@ -11,11 +10,14 @@ export default class UserListBase extends ListBase {
     this.role = role;
     this.className = 'page-user-list';
     this.configure();
+    this.continue = this.continue.bind(this);
+    this.closeContinueModal = this.closeContinueModal.bind(this);
+    this.state = { ...this.state, showContinueRemove: false };
   }
 
   configure() {
     this.tableActions = [
-      { icon: 'trash-alt', title: 'Remover', color: 'red', click: this.remove.bind(this) }
+      { icon: 'trash-alt', title: 'Remover', color: 'red', click: this.continue.bind(this) }
     ];
     this.tableColumns = [
       { prop: 'name', label: 'Nome', flex: 50 },
@@ -44,21 +46,48 @@ export default class UserListBase extends ListBase {
   }
 
   modal() {
-    const modalActions = [
+    const modalContinueActions = [
+      { text: 'CANCELAR', pallet: { fill: '#c8c8c8', text: 'black' }, click: this.closeContinueModal.bind(this) },
+      { text: 'CONTINUAR', pallet: { fill: 'red', text: 'white' }, click: this.remove.bind(this) }
+    ];
+    const modalRemoveActions = [
       { text: 'CANCELAR', pallet: { fill: '#c8c8c8', text: 'black' }, click: this.closeModal.bind(this) },
       { text: 'REMOVER', pallet: { fill: 'red', text: 'white' }, loading: this.state.loadingRemove, click: this.confirmRemove.bind(this) }
     ];
 
     return ( 
-      <Modal title="Confirmação" 
-        actions={ modalActions } show={ this.state.showConfirmRemove } 
-        onClose={ this.closeModal }>
-        <div>
-          Deseja realmente remover o usuário?<br />
-          As músicas publicadas serão arquivadas! 
-        </div>
-      </Modal>
+      <div>
+        <Modal title="Confirmação"    
+          actions={ modalContinueActions } show={ this.state.showContinueRemove } 
+          onClose={ this.closeContinueModal }>
+          Dopois que o usuário for excluído não será possível utilizar o mesmo email!<br />
+          Deseja continuar com a remoção?
+        </Modal>
+        <Modal title="Confirmação"    
+          actions={ modalRemoveActions } show={ this.state.showConfirmRemove } 
+          onClose={ this.closeModal }>
+          Deseja realmente remover o registro?
+        </Modal>
+      </div>
     );
+  }
+
+  continue(user) {
+    this.setState({ ...this.state, 
+      selected: user,
+      showContinueRemove: true
+    });
+  }
+
+  remove() {
+    this.setState({ ...this.state, 
+      showContinueRemove: false,
+      showConfirmRemove: true
+    });
+  }
+
+  closeContinueModal() {
+    this.setState({ ...this.state, showContinueRemove: false });
   }
   
   getList() {
