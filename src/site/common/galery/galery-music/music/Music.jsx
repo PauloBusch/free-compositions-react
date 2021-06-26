@@ -23,7 +23,7 @@ export default props => {
       <div className="actions">
         <i onClick={ () => props.readLetter(data.letter) } title="Ver Letra" className="fab fa-readme"></i>
         <a href={ generateSendMessageLink(PURCHASE_PHONE, buyMessage) } target="_blank">
-          <i title={ `Comparar ${getPriceFormatted(data.price)}` } className="fas fa-cart-arrow-down"></i>
+          <i title={ `Comprar ${getPriceFormatted(data.price)}` } className="fas fa-cart-arrow-down"></i>
         </a>
       </div>
     </div>
