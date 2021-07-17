@@ -1,7 +1,6 @@
 .multiselect {
   box-sizing: border-box;
   position: relative;
-  min-height: 44px;
 }
 
 .multiselect .display {
@@ -29,7 +28,7 @@
 .multiselect .options {
   position: absolute;
   background-color: white;
-  top: -2px;
+  top: 100%;
   width: calc(100% + 1px);
   left: -2px;
   z-index: 15;

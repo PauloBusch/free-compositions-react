@@ -102,7 +102,7 @@ export default class MultiSelect extends FieldBase {
           onChange={ this.onInputNew }
           placeholder={ this.props.placeholder || 'Informe a descrição' }>
         </input>
-        { this.props.input.value 
+        { this.state.option
           ? <i title="Salvar" className="fas fa-check" onClick={ this.saveInsert }></i>
           : <i title="Voltar" className="fas fa-times" onClick={ this.closeInsert }></i>
         }
