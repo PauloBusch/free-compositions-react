@@ -56,13 +56,6 @@ class MusicPreview extends Component {
   render() {
     return (<div id="music">{ this.detail() }</div>);
   }
-  
-  getPriceFormatted(price) {
-    if (!price) return 'Grátis';
-    const value = parseFloat(price);
-    if (isNaN(value) || !value) return 'Grátis';
-    return `R$ ${value.toLocaleString()}`;
-  }
 
   treatHtml(text) {
     if (!text) return '';
@@ -92,7 +85,7 @@ class MusicPreview extends Component {
             <Col flex="25" className="music-info" style={ { paddingLeft: '25px' } }>
               <div><strong>Nome: </strong>{ music.name }</div>
               <div><strong>Compositores: </strong>{ music.compositors.join(', ') }</div>
-              <div><strong>Preço: </strong>{ this.getPriceFormatted(music.price) }</div>
+              <div><strong>Preço: </strong>R$ {(music.price || 0).toLocaleString()}</div>
               <div><strong>Gênero: </strong>{ music.genre }</div>
               <div><strong>Estilo: </strong>{ music.style }</div>
               <div><strong>Playlist: </strong>{ music.playlist || '[Nenhuma]' }</div>

@@ -7,13 +7,6 @@ import { getYoutubeLink } from '../../../../../common/api/youtube';
 import { PURCHASE_PHONE } from '../../../../../consts';
 import { generateSendMessageLink } from './../../../../../common/api/whatsapp';
 
-function getPriceContent(price) {
-  if (!price) return <h2>GRÁTIS</h2>;
-  const value = parseFloat(price);
-  if (isNaN(value) || !value) return <h2>GRÁTIS</h2>;
-  return <h2>R$ { value.toLocaleString() }</h2>;
-}
-
 export default props => { 
   const { data } = props;
   const buyMessage = `Olá! Quero comprar a música "${data.name}". Poderia me ajudar?`;
@@ -23,7 +16,7 @@ export default props => {
       <iframe className="img" src={ getYoutubeLink(data.url) }/>
       <h2>{ data.compositors.join(', ') }</h2>
       <h3>{ data.name }</h3>
-      { getPriceContent(data.price) }
+      <h2>R$ { parseFloat(data.price || 0).toLocaleString() }</h2>
       <div className="actions">
         <i onClick={ () => props.readLetter(data.letter) } title="Ver Letra" className="fab fa-readme"></i>
         <a href={ generateSendMessageLink(PURCHASE_PHONE, buyMessage) } target="_blank">
