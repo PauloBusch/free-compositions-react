@@ -27,6 +27,11 @@ export default class MultiSelect extends FieldBase {
       ? values.map(o => ({ value: o.value, text: o.text, checked: this.isChecked(o), disabled: o.disabled || false }))
       : values.map(o => ({ value: o, text: o, checked: this.isChecked(o) }));
     
+    const append = (this.props.input.value || [])
+      .filter(a => !options.some(o => o.value === a))
+      .map(o => ({ value: o, text: o, checked: true }));
+    options.push(...append);
+
     if (insert) {
       options.push({
         icon: 'fas fa-plus',
@@ -39,13 +44,20 @@ export default class MultiSelect extends FieldBase {
   }
 
   isChecked(option) {
-    const { value } = this.props.input;
-    const values = value || [];
+    const values = this.props.input.value || [];
     return values.indexOf(option.value) !== -1;
   }
 
   saveInsert() {
     const { option } = this.state;
+
+    if (this.state.options.some(o => o.value === option)) {
+      this.setState({ 
+        ...this.state,
+        inserting: false
+      });
+      return;
+    }
 
     this.setState({ 
       ...this.state,
@@ -55,6 +67,9 @@ export default class MultiSelect extends FieldBase {
         { value: option, text: option, checked: true },
         ...this.state.options.filter(o => o.click)
       ] 
+    }, () => {
+      const selected = this.state.options.filter(o => o.checked);
+      this.props.input.onChange(selected.length ? selected.map(o => o.value) : null);
     });
   }
 
